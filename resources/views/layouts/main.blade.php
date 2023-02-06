@@ -43,13 +43,16 @@
                                     placeholder="Password">
                             </div>
                             <div class="row g-3">
-                                <button type="submit" class="btn btn-success" style="width: 100%">Masuk</button>
+                                <button type="submit" class="btn btn-success mb-2" style="width: 100%">Masuk</button>
+                            </div>
+
+                            <div class="row g-3">
+                                <button type="submit" class="d-flex justify-content-center btn btn-light border border-success" style="width: 100%" onclick="window.location.href='{{ '/auth/redirect' }}'">
+                                    <img style="display: block; height: 20px; padding-top: 4px;" class="me-2" src="{{ asset('assets/img/google.png') }}" alt="google">
+                                    Masuk dengan Google
+                                </button>
                             </div>
                         </form>
-
-                        <div class="row g-3">
-                            <button type="submit" class="btn btn-light" style="width: 100%" onclick="window.location.href='{{ '/auth/redirect' }}'">Masuk dengan Google</button>
-                        </div>
 
                         <div class="row">
                             <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?

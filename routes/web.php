@@ -39,7 +39,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 // Google Login
 Route::get('/auth/redirect', [GoogleController::class, 'redirectToGoogle']);
-Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('/auth/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // Middleware cek role
 Route::group(['middleware' => 'auth'], function() {

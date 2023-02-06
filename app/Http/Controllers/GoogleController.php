@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 
@@ -19,7 +20,7 @@ class GoogleController extends Controller
     {
         try {
             $user_google    = Socialite::driver('google')->user();
-            dd($user_google);
+            // dd($user_google);
             $user           = User::where('email', $user_google->getEmail())->first();
 
             //jika user ada maka langsung di redirect ke halaman home
@@ -33,11 +34,13 @@ class GoogleController extends Controller
                 $create = User::Create([
                     'email'             => $user_google->getEmail(),
                     'nama'              => $user_google->getName(),
+                    'image'             => $user_google->getAvatar(),
                     'password'          => 0,
                     'email_verified_at' => now()
                 ]);
 
                 Auth::login($create);
+
                 return redirect()->intended('/');
             }
 
