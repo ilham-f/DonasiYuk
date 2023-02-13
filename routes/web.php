@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -23,17 +24,17 @@ use App\Http\Controllers\GoogleController;
 |
 */
 
-// Customer tanpa login
+// Pengunjung tanpa login
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/produk', [ObatController::class, 'index']);
-Route::get('produk/{obat:slug}', [ObatController::class, 'show']);
+Route::get('/program', [ProgramController::class, 'index']);
+Route::get('produk/{obat:slug}', [ProgramController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('categories/{category:slug}', [CategoryController::class, 'show']);
 
 // User Regis
 Route::post('/regis', [RegisterController::class, 'store']);
 
-// Customer Login-Logout
+// Pengunjung Login-Logout
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -55,8 +56,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/tambahkeluhan', [AdminController::class, 'tambahkeluhan']);
     });
 
-    // Halaman yang bisa diakses oleh Customer
-    Route::group(['middleware' => 'cekrole:customer'], function() {
+    // Halaman yang bisa diakses oleh Pengunjung
+    Route::group(['middleware' => 'cekrole:pengunjung'], function() {
         Route::get('/afterpmblian', [TransaksiController::class, 'after'])->name('after');
         Route::get('/kirimresep', [UserController::class, 'resep']);
         Route::get('/profile', [UserController::class, 'profile']);
@@ -73,9 +74,9 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 // Create, Update, Delete tabel obat
-Route::post('/tambahobat', [ObatController::class, 'store'])->name('tambahobat');
-Route::put('/tabelobat/{id}', [ObatController::class, 'update']);
-Route::delete('/tabelobat/{id}', [ObatController::class, 'destroy']);
+Route::post('/tambahobat', [ProgramController::class, 'store'])->name('tambahobat');
+Route::put('/tabelobat/{id}', [ProgramController::class, 'update']);
+Route::delete('/tabelobat/{id}', [ProgramController::class, 'destroy']);
 
 // Create, Update, Delete tabel keluhan
 Route::post('/tambahkeluhan', [KeluhanController::class, 'store'])->name('tambahkeluhan');

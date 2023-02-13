@@ -104,7 +104,6 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         $category->nama = $request->input('nama');
-        $category->slug = $request->input('slug');
         $category->update();
 
         return redirect('/tabelkategori')->with('status', 'Kategori berhasil diubah');

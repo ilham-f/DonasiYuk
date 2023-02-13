@@ -15,7 +15,9 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.program', [
+            "programs" => Program::latest()->filter(request(['search']))->paginate(12)->withQueryString()
+        ]);
     }
 
     /**

@@ -40,7 +40,6 @@ class GoogleController extends Controller
                 ]);
 
                 Auth::login($create);
-
                 return redirect()->intended('/');
             }
 

@@ -144,6 +144,17 @@ h4, .h4 {
   }
 }
 
+.filterDiv {
+  float: left;
+  text-align: center;
+  display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
 h5, .h5 {
   font-size: 1.25rem;
 }

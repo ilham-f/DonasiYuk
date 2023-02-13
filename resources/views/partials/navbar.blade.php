@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: rgba(0, 255, 26, 0.1)">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top w-100 shadow-sm" style="background-color: rgb(218, 255, 222); position:fixed">
     <div class="container">
-        <div class="image">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="logoApotech" style="display: block; height: 50px;">
+        <div class="image ms-2">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="DonasiYuk!" style="display: block; height: 50px;">
         </div>
         <a class="fst-italic" style="color: #235323; font-weight: 500" href="/">DonasiYuk!</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse me-4" id="navbarSupportedContent">
             @if (Auth::user())
                 <form class="d-flex" role="search" action='/produk'>
                     <input class="form-control " type="search" name="search" placeholder="Cari Program" aria-label="Search" value="{{ request('search') }}" style="border-radius: 5px 0 0 5px;">
@@ -17,7 +17,7 @@
                     <div class="text-center ms-2">
                         <a class="btn btn-outline-success mt-auto" href="/keranjang">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
+                            Riwayat
                             <span class="badge bg-success text-white ms-1 rounded-pill"></span>
                         </a>
                     </div>
@@ -33,7 +33,7 @@
                 </form>
                 <div class="btn-group ms-2">
                     <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                      {{ Auth::user()->email }}
+                      {{ Auth::user()->nama }}
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">

@@ -46,17 +46,19 @@
                                 <button type="submit" class="btn btn-success mb-2" style="width: 100%">Masuk</button>
                             </div>
 
-                            <div class="row g-3">
-                                <button type="submit" class="d-flex justify-content-center btn btn-light border border-success" style="width: 100%" onclick="window.location.href='{{ '/auth/redirect' }}'">
-                                    <img style="display: block; height: 20px; padding-top: 4px;" class="me-2" src="{{ asset('assets/img/google.png') }}" alt="google">
-                                    Masuk dengan Google
-                                </button>
-                            </div>
                         </form>
-
+                        <div class="d-flex justify-content-center px-2">
+                            <button class="d-flex justify-content-center btn btn-light border border-success"
+                                style="width: 100%;" onclick="window.location.href='{{ '/auth/redirect' }}'">
+                                <img style="display: block; height: 20px; padding-top: 4px;" class="me-2"
+                                    src="{{ asset('assets/img/google.png') }}" alt="google">
+                                Masuk dengan Google
+                            </button>
+                        </div>
                         <div class="row">
                             <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?
-                                <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-success" style="font-size: 13px; font-weight: 600;">Daftar >></a>
+                                <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-success"
+                                    style="font-size: 13px; font-weight: 600;">Daftar >></a>
                             </p>
                         </div>
                     </div>
@@ -79,29 +81,39 @@
                         <form class="px-3 pt-2" action="/regis" method="post">
                             @csrf
                             <div class="row g-3">
-                                <input type="text" name="nama" class="form-control mb-2" id="nama" placeholder="Nama Lengkap">
+                                <input type="text" name="nama" class="form-control mb-2" id="nama"
+                                    placeholder="Nama Lengkap">
                             </div>
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" id="email" placeholder="Email">
+                                <input type="text" name="email" class="form-control mb-2" id="email"
+                                    placeholder="Email">
                             </div>
                             <div class="row g-3">
-                                <input type="text" name="alamat" class="form-control mb-2" id="alamat" placeholder="Alamat Domisili">
+                                <input type="password" name="password" class="form-control mb-2" id="password1"
+                                    placeholder="Password">
                             </div>
                             <div class="row g-3">
-                                <input type="password" name="password" class="form-control mb-2" id="password1" placeholder="Password">
+                                <input type="password" name="password_confirmation" class="form-control mb-2"
+                                    id="password2" placeholder="Konfirmasi Password">
                             </div>
-                            <div class="row g-3">
-                                <input type="password" name="password_confirmation" class="form-control mb-2" id="password2" placeholder="Konfirmasi Password">
-                            </div>
-                            <div class="row g-3">
+                            <div class="row g-3 mb-2">
                                 <button type="submit" class="btn btn-success" style="width: 100%;">Daftar</button>
                             </div>
-                            <div class="row">
-                                <p class="mt-4" style="font-size: 13px; text-align: center;">Sudah punya akun?
-                                    <a data-bs-toggle="modal" data-bs-target="#login" class="text-success" style="font-size: 13px; font-weight: 600;">Masuk >></a>
-                                </p>
-                            </div>
                         </form>
+                        <div class="d-flex justify-content-center px-2">
+                            <button class="d-flex justify-content-center btn btn-light border border-success"
+                                style="width: 100%;" onclick="window.location.href='{{ '/auth/redirect' }}'">
+                                <img style="display: block; height: 20px; padding-top: 4px;" class="me-2"
+                                    src="{{ asset('assets/img/google.png') }}" alt="google">
+                                Masuk dengan Google
+                            </button>
+                        </div>
+                        <div class="row">
+                            <p class="mt-4" style="font-size: 13px; text-align: center;">Sudah punya akun?
+                                <a data-bs-toggle="modal" data-bs-target="#login" class="text-success"
+                                    style="font-size: 13px; font-weight: 600;">Masuk >></a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,4 +137,5 @@
         }
     </script>
 </body>
+
 </html>
