@@ -1,89 +1,282 @@
 @extends('layouts.main')
 
 @section('container')
-    <!-- Header-->
-    <header class="container px-4" style="height: 450px;">
-        <div id="carouselExampleIndicators" class="carousel slide mt-5 pt-5" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner rounded-3">
-                <div class="carousel-item active">
-                    <img style="height: 450px; width: 100%;" src="{{ asset('assets/img/Andi.png') }}"
-                        alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="..." alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="..." alt="Third slide">
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only"></span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only"></span>
-            </a>
-        </div>
-    </header>
+    <!-- Carousel-->
+    <div id="slider" class="container mb-5 mt-5 pt-5 px-4">
+        <ul id="autoplay">
+            @foreach ($programs as $program)
+                <li style="overflow: hidden">
+                    <img class="rounded" style="height: 450px; width:100%;" src="{{ asset('assets/img/'.$program->image) }}" alt="{{ $program->image }}">
+                </li>
+            @endforeach
+        </ul>
+        <hr>
+    </div>
 
     <!-- Section-->
-    <section class="container mt-5 pt-4 px-4">
-        <div class="card rounded-3 p-3 shadow border-0 mb-4">
-            <div class="d-flex justify-content-between">
-                <div class="category d-flex" id="myBtnContainer">
-                    <span class="mt-1 me-2">Kategori : </span>
-                    @foreach ($categories as $cat)
-                        <button class="btn btn-outline-success me-2" onclick="filterSelection('{{ $cat->id }}')"><small>{{ $cat->nama }}</small></button>
-                    @endforeach
+    <section class="container pt-4 mt-4 px-4">
+        <div class="card rounded-3 p-4 border-0 mb-4" style="box-shadow: 1px 2px 20px 2px rgba(162, 162, 162, 0.577);">
+            <div class="card rounded-3 border border-success">
+                <div class="card-header p-3">
+                    <h5 class="mb-0">Penggalangan Dana Mendesak</h5 class="mb-0">
                 </div>
-                <a href="/program" class="d-flex justify-content-center align-items-center border-0"
-                    style="text-decoration: none;">Lihat Semua >></a>
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <button class="btn btn-outline-success me-2 btn-catMendesak">
+                                <small value="4">Semua</small>
+                            </button>
+                            @foreach ($categories as $cat)
+                                <button class="btn btn-outline-success me-2 btn-catMendesak">
+                                    <small value="{{ $cat->id }}">{{ $cat->nama }}</small>
+                                </button>
+                            @endforeach
+                        </div>
+                        <a href="/program" class="d-flex justify-content-center align-items-center border-0"
+                            style="text-decoration: none;"><small>Lihat Semua >></small></a>
+                    </div>
+
+                    <div id="catMendesak">
+                        <ul id="mendesak">
+                            @foreach ($programs as $program)
+                                <li>
+                                    <div class="mendesak{{ $program->category_id }} col-lg mb-2 mt-4">
+                                        <div class="card h-100 shadow-sm">
+                                            <!-- Product image-->
+                                            <img class="card-img-top" style="display: block; height: 150px"
+                                                src="{{ asset('assets/img/' . $program->image) }}"
+                                                alt="{{ $program->image }}" />
+                                            <!-- Product details-->
+                                            <div class="card-body p-4 pt-3 pb-0">
+                                                <div class="judul"
+                                                    style="width: 100%;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                                    <!-- Product name-->
+                                                    <small class="fw-bolder">{{ $program->judul }}</small>
+                                                    <!-- Product price-->
+                                                </div>
+                                            </div>
+                                            <!-- Product Footer-->
+                                            <div class="p-4 pt-2">
+                                                {{-- Batas Tanggal --}}
+                                                @php
+                                                    $diff = strtotime($program->batastanggal) - strtotime($program->created_at);
+
+                                                    $time = $diff / 86400;
+                                                    // days
+                                                    $days = floor($time);
+                                                    // hours
+                                                    $hours = floor($time);
+                                                    // minutes
+                                                    $minutes = floor($time);
+                                                    // seconds
+                                                    $seconds = floor($time);
+                                                @endphp
+                                                <small>
+                                                    @if ($days == 0 && $hours == 0 && $minutes != 0)
+                                                        {{ $minutes }} menit lagi
+                                                    @elseif ($days == 0 && $hours != 0)
+                                                        {{ $hours }} jam lagi
+                                                    @elseif ($days != 0)
+                                                        {{ $days }} hari lagi
+                                                    @endif
+                                                </small>
+                                                {{-- Terkumpul --}}
+                                                <p class="mb-0 text-success">Rp{{ $program->danaterkumpul }}</p>
+                                                {{-- Target --}}
+                                                <small>Terkumpul dari Rp{{ $program->target }}</small>
+                                                <div class="border border-success mt-2 rounded-pill"
+                                                    style="overflow: hidden">
+                                                    <div id="mendesak{{ $program->id }}" class="rounded-pill"
+                                                        style="height:10px; width:0%; background-color:#1db76f"></div>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <a class="d-flex justify-content-center btn btn-outline-success mt-3 w-100"
+                                                        style="height: 35px" href="">
+                                                        <small>Detail</small>
+                                                    </a>
+                                                </div>
+                                                {{-- @if (Auth::user()) --}}
+                                                <button style="height: 35px" type="submit"
+                                                    class="d-flex justify-content-center btn btn-outline-success mt-2 w-100">
+                                                    <small>Donasi Sekarang</small>
+                                                </button>
+                                                {{-- @endif --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                @foreach ($programs->slice(0, 4) as $program)
-                    <div class="filterDiv {{ $program->category_id }} col-lg mb-2 mt-4">
-                        <div class="card h-100 shadow-sm">
-                            <!-- Product image-->
-                            <img class="card-img-top" style="display: block; height: 150px" src="{{ asset('assets/img/'.$program->image) }}" alt="{{ $program->image }}" />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h6 class="fw-bolder">{{ $program->judul }}</h6>
-                                    <!-- Product price-->
-                                    <p style="margin-bottom: 0">Target : Rp. {{ $program->target }}</p>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            {{-- <div class="d-flex justify-content-center card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center me-2"><a class="btn btn-outline-success mt-auto" href="/produk/{{ $program->slug }}">Detail</a></div>
-                                @if (Auth::user())
-                                <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" value="{{ $program->id }}" name="id">
-                                    <input type="hidden" value="{{ $program->nama }}" name="name">
-                                    <input type="hidden" value="{{ $program->target }}" name="target">
-                                    <input type="hidden" value="{{ $program->image }}"  name="image">
-                                    <input type="hidden" value="1" name="quantity">
-                                    <button type="submit" class="btn btn-outline-success">
-                                        <i class="bi bi-cart-plus"></i>
-                                    </button>
-                                </form>
-                                @endif
-                            </div> --}}
+            <div class="card rounded-3 border border-success mt-4">
+                <div class="card-header p-3">
+                    <h5 class="mb-0">Belum Terbantu Dengan Baik</h5 class="mb-0">
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            {{-- <span class="mt-1 me-2">Kategori : </span> --}}
+                            <button class="btn btn-outline-success me-2 btn-cat">
+                                <small value="4">Semua</small>
+                            </button>
+                            @foreach ($categories as $cat)
+                                <button class="btn btn-outline-success me-2 btn-cat">
+                                    <small value="{{ $cat->id }}">{{ $cat->nama }}</small>
+                                </button>
+                            @endforeach
                         </div>
+                        <a href="/program" class="d-flex justify-content-center align-items-center border-0"
+                            style="text-decoration: none;"><small>Lihat Semua >></small></a>
                     </div>
-                @endforeach
+
+                    <div id="cat">
+                        <ul id="lightSlider">
+                            @foreach ($programs as $program)
+                                <li>
+                                    <div class="{{ $program->category_id }} program col-lg mb-2 mt-4">
+                                        <div class="card h-100 shadow-sm">
+                                            <!-- Product image-->
+                                            <img class="card-img-top" style="display: block; height: 150px"
+                                                src="{{ asset('assets/img/' . $program->image) }}"
+                                                alt="{{ $program->image }}" />
+                                            <!-- Product details-->
+                                            <div class="card-body p-4 pt-3 pb-0">
+                                                <div class="judul"
+                                                    style="width: 100%;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                                    <!-- Product name-->
+                                                    <small class="fw-bolder">{{ $program->judul }}</small>
+                                                    <!-- Product price-->
+                                                </div>
+                                            </div>
+                                            <!-- Product Footer-->
+                                            <div class="p-4 pt-2">
+                                                {{-- Batas Tanggal --}}
+                                                @php
+                                                    $diff = strtotime($program->batastanggal) - strtotime($program->created_at);
+
+                                                    $time = $diff / 86400;
+                                                    // days
+                                                    $days = floor($time);
+                                                    // hours
+                                                    $hours = floor($time);
+                                                    // minutes
+                                                    $minutes = floor($time);
+                                                    // seconds
+                                                    $seconds = floor($time);
+                                                @endphp
+                                                <small>
+                                                    @if ($days == 0 && $hours == 0 && $minutes != 0)
+                                                        {{ $minutes }} menit lagi
+                                                    @elseif ($days == 0 && $hours != 0)
+                                                        {{ $hours }} jam lagi
+                                                    @elseif ($days != 0)
+                                                        {{ $days }} hari lagi
+                                                    @endif
+                                                </small>
+                                                {{-- Terkumpul --}}
+                                                <p class="mb-0 text-success">Rp{{ $program->danaterkumpul }}</p>
+                                                {{-- Target --}}
+                                                <small>Terkumpul dari Rp{{ $program->target }}</small>
+                                                <div class="border border-success mt-2 rounded-pill"
+                                                    style="overflow: hidden">
+                                                    <div id="{{ $program->id }}" class="rounded-pill"
+                                                        style="height:10px; width:0%; background-color:#1db76f"></div>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <a class="d-flex justify-content-center btn btn-outline-success mt-3 w-100"
+                                                        style="height: 35px" href="">
+                                                        <small>Detail</small>
+                                                    </a>
+                                                </div>
+                                                {{-- @if (Auth::user()) --}}
+                                                <button style="height: 35px" type="submit"
+                                                    class="d-flex justify-content-center btn btn-outline-success mt-2 w-100">
+                                                    <small>Donasi Sekarang</small>
+                                                </button>
+                                                {{-- @endif --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <script type="text/javascript">
+        // Penggalangan mendesak
+        $(document).ready(function() {
+            $("#mendesak").lightSlider({
+                item: 4,
+                pager: false,
+                slideMove: 2,
+                responsive: [{
+                        breakpoint: 1200,
+                        settings: {
+                            item: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            item: 2,
+                        }
+                    },
+                    {
+                        breakpoint: 750,
+                        settings: {
+                            item: 1,
+                        }
+                    }
+                ]
+            });
+        });
+
+
+        $(document).ready(function() {
+            $("#lightSlider").lightSlider({
+                item: 4,
+                pager: false,
+                slideMove: 2,
+                responsive: [{
+                        breakpoint: 1200,
+                        settings: {
+                            item: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            item: 2,
+                        }
+                    },
+                    {
+                        breakpoint: 750,
+                        settings: {
+                            item: 1,
+                        }
+                    }
+                ]
+            });
+        });
+
+        $(document).ready(function() {
+            var autoplaySlider = $('#autoplay').lightSlider({
+                item: 1,
+                auto: true,
+                loop: true,
+                pauseOnHover: true,
+            });
+        });
+    </script>
 
     <script>
         let msg = '{{ Session::get('alert') }}';
@@ -96,52 +289,87 @@
     </script>
 
     <script>
-        filterSelection("all")
-        function filterSelection(c) {
-            var x, i;
-            x = document.getElementsByClassName("filterDiv");
-            if (c == "all") c = "";
-            // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-            for (i = 0; i < x.length; i++) {
-                w3RemoveClass(x[i], "show");
-                if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        }
+        });
 
-        // Show filtered elements
-        function w3AddClass(element, name) {
-            var i, arr1, arr2;
-            arr1 = element.className.split(" ");
-            arr2 = name.split(" ");
-            for (i = 0; i < arr2.length; i++) {
-                if (arr1.indexOf(arr2[i]) == -1) {
-                element.className += " " + arr2[i];
+        // Penggalangan Mendesak
+        $(document).ready(function() {
+            $(".btn-catMendesak").on("click", function() {
+                var value = $(this).find('small').attr('value');
+                // alert(value);
+                if (value == 4) {
+                    for (let i = 1; i <= 3; i++) {
+                        $('.mendesak' + i).show();
+                    }
+                } else {
+                    for (let i = 1; i <= 3; i++) {
+                        if (i != value) {
+                            $('.mendesak' + i).hide();
+                        } else if (i == value) {
+                            $('.mendesak' + i).show();
+                        }
+                    }
                 }
-            }
-        }
+            });
 
-        // Hide elements that are not selected
-        function w3RemoveClass(element, name) {
-            var i, arr1, arr2;
-            arr1 = element.className.split(" ");
-            arr2 = name.split(" ");
-            for (i = 0; i < arr2.length; i++) {
-                while (arr1.indexOf(arr2[i]) > -1) {
-                arr1.splice(arr1.indexOf(arr2[i]), 1);
+            $.get("/getprogram", function(data) {
+                $.each(data, function(index, value) {
+                    var dana = value.danaterkumpul;
+                    var target = value.target;
+                    var persen = (dana / target) * 100;
+
+                    if (persen >= 100) {
+                        $('#mendesak' + value.id).css('width', persen + '%');
+                        $('#mendesak' + value.id).css('background-color', '#198754');
+                        // $('#'+value.id).removeClass('bg-success').addClass('bg-info');
+                    } else {
+                        $('#mendesak' + value.id).css('width', persen + '%');
+                    }
+                });
+            });
+
+        });
+
+        // Belum Terbantu Dengan Baik
+        $(document).ready(function() {
+            $(".btn-cat").on("click", function() {
+                var value = $(this).find('small').attr('value');
+                // alert(value);
+                if (value == 4) {
+                    for (let i = 1; i <= 3; i++) {
+                        $('.' + i).show();
+                    }
+                } else {
+                    for (let i = 1; i <= 3; i++) {
+                        if (i != value) {
+                            $('.' + i).hide();
+                        } else if (i == value) {
+                            $('.' + i).show();
+                        }
+                    }
                 }
-            }
-            element.className = arr1.join(" ");
-        }
 
-        // // Add active class to the current control button (highlight it)
-        // var btnContainer = document.getElementById("myBtnContainer");
-        // var btns = btnContainer.getElementsByClassName("btn");
-        // for (var i = 0; i < btns.length; i++) {
-        //     btns[i].addEventListener("click", function() {
-        //         var current = document.getElementsByClassName("active");
-        //         current[0].className = current[0].className.replace(" active", "");
-        //         this.className += " active";
-        //     });
-        // }
+            });
+
+            $.get("/getprogram", function(data) {
+                $.each(data, function(index, value) {
+                    var dana = value.danaterkumpul;
+                    var target = value.target;
+                    var persen = (dana / target) * 100;
+
+                    if (persen >= 100) {
+                        $('#' + value.id).css('width', persen + '%');
+                        $('#' + value.id).css('background-color', '#198754');
+                        // $('#'+value.id).removeClass('bg-success').addClass('bg-info');
+                    } else {
+                        $('#' + value.id).css('width', persen + '%');
+                    }
+                });
+            });
+
+        });
     </script>
 @endsection

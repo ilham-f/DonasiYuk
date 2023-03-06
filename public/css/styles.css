@@ -111,6 +111,19 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
+
+#slider {
+    height: 500px;
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+  #slider {
+    height: 300px;
+    margin-bottom: 10px;
+  }
+}
+
 @media (min-width: 1200px) {
   h1, .h1 {
     font-size: 2.5rem;
@@ -142,17 +155,6 @@ h4, .h4 {
   h4, .h4 {
     font-size: 1.5rem;
   }
-}
-
-.filterDiv {
-  float: left;
-  text-align: center;
-  display: none; /* Hidden by default */
-}
-
-/* The "show" class is added to the filtered elements */
-.show {
-  display: block;
 }
 
 h5, .h5 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Program;
 
 
 class CategoryController extends Controller
@@ -18,9 +19,7 @@ class CategoryController extends Controller
     {
         if (Auth::user()) {
             $userid = Auth::user()->id;
-            $cartItems = \Cart::session($userid)->getContent();
             return view('user.categories',[
-                'cart' => $cartItems,
                 'categories' => Category::all()
             ]);
         }
@@ -68,9 +67,7 @@ class CategoryController extends Controller
     {
         if (Auth::user()) {
             $userid = Auth::user()->id;
-            $cartItems = \Cart::session($userid)->getContent();
             return view('user.produk',[
-                'cart' => $cartItems,
                 'title' => "Obat Kategori : $category->nama",
                 'obats' => $category->obats()->paginate(8)
             ]);
@@ -122,4 +119,33 @@ class CategoryController extends Controller
 
         return redirect('/tabelkategori')->with('isDelete', 'Kategori berhasil dihapus');
     }
+
+    // public function filter(Request $request)
+    // {
+    //     $programs = Program::where('category_id', $request->id)->get();
+    //     // dd($program);
+    //     foreach ($programs as $program) {
+    //         $result =      '<div class="col-lg mb-2 mt-4">
+    //                             <div class="card h-100 shadow-sm">
+
+    //                                 <!-- Product image-->
+    //                                 <img class="card-img-top" style="display: block; height: 150px"
+    //                                 src="{{ asset('.$program->image.') }}" alt="{{'.$program->image.'}}" />
+
+    //                                     <!-- Product details-->
+    //                                     <div class="card-body p-4">
+    //                                         <div class="text-center">
+    //                                             <!-- Product name-->
+    //                                             <h6 class="fw-bolder">{{'.$program->judul.'}}</h6>
+    //                                             <!-- Product price-->
+    //                                             <p style="margin-bottom: 0">Target : Rp. {{'.$program->target.'}}</p>
+    //                                         </div>
+    //                                     </div>
+    //                                     <!-- Product actions-->
+    //                             </div>
+    //                         </div>';
+    //     }
+
+    //     return $result;
+    // }
 }

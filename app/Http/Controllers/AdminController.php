@@ -15,12 +15,11 @@ class AdminController extends Controller
         ]);
     }
 
-    public function tabelobat(){
+    public function tabelprogram(){
         return view('admin.obat', [
-            'obats' => Obat::all(),
+            'programs' => Program::all(),
             'categories' => Category::all(),
-            'title' => 'Tabel Obat',
-            'keluhan' => Keluhan::all()
+            'title' => 'Program'
         ]);
     }
 
@@ -33,28 +32,9 @@ class AdminController extends Controller
     public function tabelkategori(){
         return view('admin.kategori',[
             'categories' => Category::all(),
-            'title' => 'Tabel Kategori'
+            'title' => 'Kategori'
         ]);
     }
-
-    // public function tambahkategori(){
-    //     return view('admin.tambahkategori',[
-    //         'title' => 'Tambah Kategori'
-    //     ]);
-    // }
-
-    public function tabelkeluhan(){
-        return view('admin.keluhan',[
-            'keluhans' => Keluhan::all(),
-            'title' => 'Tabel Keluhan'
-        ]);
-    }
-
-    // public function tambahkeluhan(){
-    //     return view('admin.tambahkeluhan',[
-    //         'title' => 'Tambah Keluhan'
-    //     ]);
-    // }
 
 }
 

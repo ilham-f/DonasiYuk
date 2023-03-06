@@ -48,12 +48,8 @@ Route::group(['middleware' => 'auth'], function() {
     // Halaman yang bisa diakses oleh Admin
     Route::group(['middleware' => 'cekrole:admin'], function() {
         Route::get('/admin', [AdminController::class, 'index']);
-        Route::get('/tabelobat', [AdminController::class, 'tabelobat']);
-        Route::get('/tambahobat', [AdminController::class, 'tambahobat']);
+        Route::get('/tabelprogram', [AdminController::class, 'tabelprogram']);
         Route::get('/tabelkategori', [AdminController::class, 'tabelkategori']);
-        Route::get('/tambahkategori', [AdminController::class, 'tambahkategori']);
-        Route::get('/tabelkeluhan', [AdminController::class, 'tabelkeluhan']);
-        Route::get('/tambahkeluhan', [AdminController::class, 'tambahkeluhan']);
     });
 
     // Halaman yang bisa diakses oleh Pengunjung
@@ -63,13 +59,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/profile', [UserController::class, 'profile']);
         Route::get('/ubahpwd', [UserController::class, 'ubahpw']);
         Route::get('/rwytpmblian', [TransaksiController::class, 'index']);
-        Route::get('/keranjang', [CartController::class, 'index'])->name('cart.list');
-        Route::post('/detailproduk', [CartController::class, 'addToCart'])->name('cart.store');
-        Route::post('cart-remove', [CartController::class, 'removeCart'])->name('cart.remove');
-        Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
         Route::post('/keranjang', [TransaksiController::class, 'buat'])->name('transaksi.store');
         Route::get('pembelian/{transaksi:id}', [TransaksiController::class, 'show']);
-        Route::post('cart-clear', [CartController::class, 'clearCart'])->name('cart.clear');
     });
 });
 
@@ -77,11 +68,6 @@ Route::group(['middleware' => 'auth'], function() {
 Route::post('/tambahobat', [ProgramController::class, 'store'])->name('tambahobat');
 Route::put('/tabelobat/{id}', [ProgramController::class, 'update']);
 Route::delete('/tabelobat/{id}', [ProgramController::class, 'destroy']);
-
-// Create, Update, Delete tabel keluhan
-Route::post('/tambahkeluhan', [KeluhanController::class, 'store'])->name('tambahkeluhan');
-Route::put('/tabelkeluhan/{id}', [KeluhanController::class, 'update']);
-Route::delete('/tabelkeluhan/{id}', [KeluhanController::class, 'destroy']);
 
 // Create, Update, Delete tabel kategori
 Route::post('/tambahkategori', [CategoryController::class, 'store'])->name('tambahkategori');
@@ -92,6 +78,7 @@ Route::delete('/tabelkategori/{id}', [CategoryController::class, 'destroy']);
 Route::put('/profil/{id}', [UserController::class, 'update']);
 // Update Password User
 Route::put('/ubahpw', [UserController::class, 'updatepw']);
-// Kirim Resep
-Route::post('/kirimresep', [ResepController::class, 'store']);
+
+// Progress Bar
+Route::get('/getprogram', [ProgramController::class, 'getProgram']);
 

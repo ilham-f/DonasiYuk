@@ -21,6 +21,7 @@ class HomeController extends Controller
             return view('user.home-page',[
                 'categories' => Category::all(),
                 'programs' => Program::all(),
+
             ]);
         }
     }

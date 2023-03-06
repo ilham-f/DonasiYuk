@@ -3,7 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
-        <div class="sidebar-brand-text mx-3">APOTECH</div>
+        <div class="sidebar-brand-text mx-3">DonasiYuk!</div>
     </a>
 
     <!-- Divider -->
@@ -34,8 +34,8 @@
         <div id="collapseone" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Obat</h6>
-                <a class="collapse-item" href="/tabelobat">Tabel Obat</a>
-                <a class="collapse-item" href="/tambahobat">Tambah Obat</a>
+                <a class="collapse-item" href="">Tabel ...</a>
+                <a class="collapse-item" href="">Tambah ...</a>
             </div>
         </div>
 

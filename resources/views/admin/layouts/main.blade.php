@@ -24,7 +24,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
                             <img src="{{ asset('assets/img/logo.png') }}" alt="logo" style="width: 50px; height: 50px;">
-                            <h3 class="pt-2"><a href="/admin" class="text-success ms-2">Apotech</a><h3>
+                            <h3 class="pt-2"><a href="/admin" class="text-success ms-2">DonasiYuk!</a><h3>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle text-success"></i></a>
@@ -42,24 +42,17 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ ($title === 'Tabel Obat') ? 'active' : '' }}">
-                            <a href="/tabelobat" class='sidebar-link'>
+                        <li class="sidebar-item {{ ($title === 'Program') ? 'active' : '' }}">
+                            <a href="/tabelprogram" class='sidebar-link'>
                                 <i class="bi bi-capsule"></i>
-                                <span class="pt-1">Obat</span>
+                                <span class="pt-1">Program</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ ($title === 'Tabel Kategori') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ ($title === 'Kategori') ? 'active' : '' }}">
                             <a href="/tabelkategori" class='sidebar-link'>
                                 <i class="bi bi-tags-fill"></i>
-                                <span class="pt-1">Kategori Obat</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item {{ ($title === 'Tabel Keluhan') ? 'active' : '' }}">
-                            <a href="/tabelkeluhan" class='sidebar-link'>
-                                <i class="bi bi-clipboard2-data-fill"></i>
-                                <span class="pt-1">Keluhan</span>
+                                <span class="pt-1">Kategori</span>
                             </a>
                         </li>
 
@@ -70,16 +63,13 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href="/riwayat">Riwayat Transaksi</a>
+                                    <a href="">...</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="/resep">Resep Masuk</a>
+                                    <a href="">...</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="/pesananresep">Pesanan Resep</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="/buatpesananresep">Buat Pesanan Resep</a>
+                                    <a href="">...</a>
                                 </li>
                             </ul>
                         </li>

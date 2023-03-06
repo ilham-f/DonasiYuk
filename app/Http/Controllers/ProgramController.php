@@ -20,6 +20,12 @@ class ProgramController extends Controller
         ]);
     }
 
+    public function getProgram()
+    {
+        $program = Program::all();
+        return $program;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

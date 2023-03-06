@@ -22,7 +22,7 @@ class ProgramSeeder extends Seeder
             'user_id' => 1,
             'target' => 100000,
             'danaterkumpul' => 150000,
-            'batastanggal' => '2024-01-01',
+            'batastanggal' => '2023-03-05',
             'image' => 'Budi.png'
         ]);
 
@@ -33,7 +33,7 @@ class ProgramSeeder extends Seeder
             'user_id' => 2,
             'target' => 150000,
             'danaterkumpul' => 150000,
-            'batastanggal' => '2024-01-01',
+            'batastanggal' => '2023-03-04',
             'image' => 'Adi.png'
         ]);
 
@@ -44,7 +44,7 @@ class ProgramSeeder extends Seeder
             'user_id' => 3,
             'target' => 200000,
             'danaterkumpul' => 150000,
-            'batastanggal' => '2024-01-01',
+            'batastanggal' => '2023-03-03',
             'image' => 'Andi.png'
         ]);
 
@@ -55,7 +55,18 @@ class ProgramSeeder extends Seeder
             'user_id' => 3,
             'target' => 250000,
             'danaterkumpul' => 150000,
-            'batastanggal' => '2024-01-01',
+            'batastanggal' => '2023-03-02',
+            'image' => 'pengungsi.jpg'
+        ]);
+
+        Program::create([
+            'judul' => 'Mari Bantu Pengungsi yang Terdampak Erupsi Gunung Semeru',
+            'deskripsi' => 'Gunung semeru kembali erupsi setelah sekian lama',
+            'category_id' => 3,
+            'user_id' => 3,
+            'target' => 250000,
+            'danaterkumpul' => 150000,
+            'batastanggal' => '2023-03-01',
             'image' => 'pengungsi.jpg'
         ]);
     }

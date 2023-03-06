@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('target')->nullable();
             $table->integer('danaterkumpul')->nullable();
-            $table->date('batastanggal');
+            $table->dateTime('batastanggal')->diffForHumans();
             $table->string('image')->nullable();
             $table->timestamps();
         });
