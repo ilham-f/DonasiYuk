@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
- </head>
+</head>
 
 <body>
     <div id="app">
@@ -23,11 +23,11 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
-                            <img src="{{ asset('assets/img/logo.png') }}" alt="logo" style="width: 50px; height: 50px;">
-                            <h3 class="pt-2"><a href="/admin" class="text-success ms-2">DonasiYuk!</a><h3>
+                            <img src="{{ asset('assets/img/logofix.png') }}" alt="logo" style="width: 50px; height: 50px;">
+                            <h3 class="pt-2"><a href="/admin" class="text-primary ms-2">DonasiYuk!</a><h3>
                         </div>
                         <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle text-success"></i></a>
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle text-primary"></i></a>
                         </div>
                     </div>
                 </div>
@@ -36,27 +36,27 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item {{ ($title === 'Dashboard') ? 'active' : '' }}">
-                            <a href="/admin" class='sidebar-link'>
+                            <a href="" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span class="pt-1">Dashboard</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item {{ ($title === 'Program') ? 'active' : '' }}">
-                            <a href="/tabelprogram" class='sidebar-link'>
+                            <a href="/tblprogram" class='sidebar-link'>
                                 <i class="bi bi-capsule"></i>
                                 <span class="pt-1">Program</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ ($title === 'Kategori') ? 'active' : '' }}">
-                            <a href="/tabelkategori" class='sidebar-link'>
+                        {{-- <li class="sidebar-item {{ ($title === 'Kategori') ? 'active' : '' }}">
+                            <a href="" class='sidebar-link'>
                                 <i class="bi bi-tags-fill"></i>
                                 <span class="pt-1">Kategori</span>
                             </a>
-                        </li>
+                        </li> --}}
 
-                        <li class="sidebar-item has-sub">
+                        {{-- <li class="sidebar-item has-sub">
                             <a href="" class='sidebar-link'>
                                 <i class="bi bi-graph-up"></i>
                                 <span class="pt-1">Laporan Keuangan</span>
@@ -72,10 +72,10 @@
                                     <a href="">...</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <hr>
                         <li class="sidebar-item">
-                            <a href="#logoutModal" data-bs-target="#logoutModal" data-bs-toggle="modal" class='sidebar-link'>
+                            <a data-bs-target="#logoutModal" data-bs-toggle="modal" class='sidebar-link'>
                                 <i class="bi bi-box-arrow-right text-danger"></i>
                                 <span class="text-danger pt-1">Keluar</span>
                             </a>
@@ -100,16 +100,15 @@
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="">Logout</a>
+                <div class="modal-body">
+                    <h5>Apakah anda yakin untuk keluar?</h5>
+                    <div class="mt-4 d-flex justify-content-end">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button class="ms-2 btn btn-danger">Logout</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,5 +121,4 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>
-
 </html>

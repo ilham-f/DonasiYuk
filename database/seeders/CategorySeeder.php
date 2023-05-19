@@ -15,13 +15,11 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::create([
-            'nama' => 'Pendidikan',
-        ]);
-
-        Category::create([
             'nama' => 'Kesehatan',
         ]);
-
+        Category::create([
+            'nama' => 'Pendidikan',
+        ]);
         Category::create([
             'nama' => 'Bencana Alam',
         ]);

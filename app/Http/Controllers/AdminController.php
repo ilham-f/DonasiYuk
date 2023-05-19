@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Obat;
-use App\Models\Category;
-use App\Models\Keluhan;
+use App\Models\Program;
 
 class AdminController extends Controller
 {
@@ -16,9 +14,9 @@ class AdminController extends Controller
     }
 
     public function tabelprogram(){
-        return view('admin.obat', [
+
+        return view('admin.tbl-program', [
             'programs' => Program::all(),
-            'categories' => Category::all(),
             'title' => 'Program'
         ]);
     }

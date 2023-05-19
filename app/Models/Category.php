@@ -13,6 +13,6 @@ class Category extends Model
 
     public function programs()
     {
-        return $this->hasMany(Programs::class);
+        return $this->hasMany(Program::class);
     }
 }

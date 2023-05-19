@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->integer('jk')->nullable();
             $table->integer('jml_donasi')->nullable();
             $table->string('image')->nullable();
-            $table->string('doa')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

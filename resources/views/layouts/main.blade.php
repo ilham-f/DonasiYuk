@@ -8,30 +8,102 @@
     <meta name="author" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>DonasiYuk</title>
+    {{-- Font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logofix.png') }}" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="css/lightslider.css" />
-    <script src="js/jquery.js"></script>
-    <script src="js/lightslider.js"></script>
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/lightslider.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/swipper.css') }}" />
+
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/lightslider.js') }}"></script>
+
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-3sVsCf9Xw8UBQcSB">
+    </script>
+
+    <style>
+        .text-cursive {
+            font-family: 'Poppins', sans-serif;
+            font-style: italic;
+        }
+    </style>
 
 </head>
 
-<body>
+<body style="background-color: #f5f5f5;">
     <!-- Navigation-->
     @include('partials.navbar')
 
     @yield('container')
+
+    {{-- <!-- Footer-->
+    <footer class="footer py-4 mt-5" style="background-color: #fff;">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="text-dark">Copyright &copy; DonasiYuk! 2023</div>
+            </div>
+        </div>
+    </footer> --}}
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5>Apakah anda yakin untuk keluar?</h5>
+                    <div class="mt-4 d-flex justify-content-end">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button class="ms-2 btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Galang Dana --}}
+    <div class="modal fade" id="galangdana" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark" id="modalCenterTitle">Ingin Mengajukan Program Galang Dana?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-evenly flex-column">
+                        <p class="fw bold text-center">Silahkan Masuk ke Akun anda terlebih dahulu</p>
+                        <div class="text-center ms-2" id="masuk1">
+                            <a class="btn btn-dark mt-auto" data-bs-toggle="modal" data-bs-target="#login">Masuk</a>
+                        </div>
+                        <div class="row">
+                            <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?
+                                <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
+                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar >></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{-- Modal Login --}}
     <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-success" id="modalCenterTitle">Masuk di Apotech</h5>
+                    <h5 class="modal-title text-dark" id="modalCenterTitle">Masuk</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -48,12 +120,12 @@
                                     placeholder="Password">
                             </div>
                             <div class="row g-3">
-                                <button type="submit" class="btn btn-success mb-2" style="width: 100%">Masuk</button>
+                                <button type="submit" class="btn btn-dark mb-2" style="width: 100%">Masuk</button>
                             </div>
 
                         </form>
                         <div class="d-flex justify-content-center px-2">
-                            <button class="d-flex justify-content-center btn btn-light border border-success"
+                            <button class="d-flex justify-content-center btn btn-light border border-dark"
                                 style="width: 100%;" onclick="window.location.href='{{ '/auth/redirect' }}'">
                                 <img style="display: block; height: 20px; padding-top: 4px;" class="me-2"
                                     src="{{ asset('assets/img/google.png') }}" alt="google">
@@ -62,8 +134,8 @@
                         </div>
                         <div class="row">
                             <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?
-                                <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-success"
-                                    style="font-size: 13px; font-weight: 600;">Daftar >></a>
+                                <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
+                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar >></a>
                             </p>
                         </div>
                     </div>
@@ -77,7 +149,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-success" id="modalCenterTitle">Daftar di Apotech</h5>
+                    <h5 class="modal-title text-dark" id="modalCenterTitle">Daftar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -87,7 +159,7 @@
                             @csrf
                             <div class="row g-3">
                                 <input type="text" name="nama" class="form-control mb-2" id="nama"
-                                    placeholder="Nama Lengkap">
+                                    placeholder="Nama Lengkap (sesuai KTP)">
                             </div>
                             <div class="row g-3">
                                 <input type="text" name="email" class="form-control mb-2" id="email"
@@ -102,11 +174,11 @@
                                     id="password2" placeholder="Konfirmasi Password">
                             </div>
                             <div class="row g-3 mb-2">
-                                <button type="submit" class="btn btn-success" style="width: 100%;">Daftar</button>
+                                <button type="submit" class="btn btn-dark" style="width: 100%;">Daftar</button>
                             </div>
                         </form>
                         <div class="d-flex justify-content-center px-2">
-                            <button class="d-flex justify-content-center btn btn-light border border-success"
+                            <button class="d-flex justify-content-center btn btn-light border border-dark"
                                 style="width: 100%;" onclick="window.location.href='{{ '/auth/redirect' }}'">
                                 <img style="display: block; height: 20px; padding-top: 4px;" class="me-2"
                                     src="{{ asset('assets/img/google.png') }}" alt="google">
@@ -115,8 +187,8 @@
                         </div>
                         <div class="row">
                             <p class="mt-4" style="font-size: 13px; text-align: center;">Sudah punya akun?
-                                <a data-bs-toggle="modal" data-bs-target="#login" class="text-success"
-                                    style="font-size: 13px; font-weight: 600;">Masuk >></a>
+                                <a data-bs-toggle="modal" data-bs-target="#login" class="text-dark"
+                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Masuk >></a>
                             </p>
                         </div>
                     </div>
@@ -125,6 +197,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/swipper.js') }}"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -142,5 +215,4 @@
         }
     </script>
 </body>
-
 </html>

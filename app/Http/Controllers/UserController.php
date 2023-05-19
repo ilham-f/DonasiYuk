@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Program;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -11,21 +13,22 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function resep(){
+    public function programku(){
         $userid = Auth::user()->id;
-        $cartItems = \Cart::session($userid)->getContent();
-        return view('user.kirimresep', [
-            'cart' => $cartItems
+        $myprogram = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.user_id','=',$userid)->get();
+        // $image = ProgramImage::where('mainImage','=','1');
+        dd($myprogram);
+        return view('user.myprogram', [
+            'myprogram' => $myprogram,
+            'users' => User::all(),
         ]);
     }
 
     public function profile(){
         $userid = Auth::user()->id;
-        $cartItems = \Cart::session($userid)->getContent();
+        $user = User::find($userid);
         return view('user.profile-page', [
-            'title' => 'Akun Saya',
-            'users' => User::all(),
-            'cart' => $cartItems
+            'user' => $user,
         ]);
     }
 

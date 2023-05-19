@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             ProgramSeeder::class,
+            PencairanDanaSeeder::class,
+            NewsSeeder::class,
+            DoaSeeder::class,
+            KabarTerbaruSeeder::class,
+            ProgramImageSeeder::class,
         ]);
 
         // $keluhans = Keluhan::all();

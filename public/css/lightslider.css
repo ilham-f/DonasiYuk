@@ -96,7 +96,7 @@
     transition: all 0.5s linear 0s;
 }
 .lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
-    background-color: #198754;
+    background-color: #adadad;
 }
 .lSSlideOuter .media {
     opacity: 0.8;
@@ -153,7 +153,6 @@
 .lSAction > a {
     width: 32px;
     display: block;
-    top: 50%;
     height: 32px;
     background-image: url('../assets/img/controls.png');
     cursor: pointer;
@@ -167,13 +166,21 @@
 .lSAction > a:hover {
     opacity: 1;
 }
-.lSAction > .lSPrev {
+.lSAction > .lSPrevDesak {
     background-position: 0 0;
-    left: 10px;
+    left: 0px;
 }
-.lSAction > .lSNext {
-    background-position: -32px 0;
-    right: 10px;
+.lSAction > .lSNextDesak {
+    background-position: 0 0;
+    right: 0px;
+}
+.lSAction > .lSPrevBaru {
+    background-position: 0 0;
+    left: 0px;
+}
+.lSAction > .lSNextBaru {
+    background-position: 0 0;
+    right: 0px;
 }
 .lSAction > a.disabled {
     pointer-events: none;
@@ -390,4 +397,13 @@
   cursor: -o-grabbing;
   cursor: -ms-grabbing;
   cursor: grabbing;
+}
+
+.lSSlideOuter {
+    position: relative;
+    overflow: visible;
+}
+
+.lSSlideWrapper {
+    position: static;
 }

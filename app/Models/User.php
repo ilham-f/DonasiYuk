@@ -43,13 +43,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function trankasis()
-    {
-        return $this->hasMany(Transaksi::class);
-    }
-
     public function programs()
     {
-        return $this->hasMany(Program::class);
+        return $this->belongsToMany(Program::class, 'donasi')->withPivot('jml_donasi', 'doa');
+    }
+
+    public function pencairan_danas()
+    {
+        return $this->hasMany(PencairanDana::class);
+    }
+
+    public function news()
+    {
+        return $this->hasMany(News::class);
     }
 }

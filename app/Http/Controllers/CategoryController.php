@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category;
+use Carbon\Carbon;
+use App\Models\Category;
+use App\Models\ProgramImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Program;
@@ -17,17 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if (Auth::user()) {
-            $userid = Auth::user()->id;
-            return view('user.categories',[
-                'categories' => Category::all()
-            ]);
-        }
-        else{
-            return view('user.categories', [
-                'categories' => Category::all()
-            ]);
-        }
+        //
     }
 
     /**
@@ -65,19 +57,38 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        if (Auth::user()) {
-            $userid = Auth::user()->id;
-            return view('user.produk',[
-                'title' => "Obat Kategori : $category->nama",
-                'obats' => $category->obats()->paginate(8)
-            ]);
-        }
-        else{
-            return view('user.produk', [
-                'title' => "Obat Kategori : $category->nama",
-                'obats' => $category->obats()->paginate(8)
-            ]);
-        }
+        // dd($category->programs());
+        $now = Carbon::now();
+        $programs = $category->programs()->join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->paginate(12);
+        // dd($programs);
+        return view('user.program', [
+            'programs' => $programs,
+            'title' => "$category->nama",
+        ]);
+    }
+
+    public function showmendesak(category $category)
+    {
+        // dd($category->programs());
+        $now = Carbon::now();
+        $programs = $category->programs()->join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('batastanggal', 'asc')->paginate(12);
+        // dd($programs);
+        return view('user.program', [
+            'programs' => $programs,
+            'title' => "$category->nama",
+        ]);
+    }
+
+    public function showterbaru(category $category)
+    {
+        // dd($category->programs());
+        $now = Carbon::now();
+        $programs = $category->programs()->join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('tglmulai', 'desc')->paginate(12);
+        // dd($programs);
+        return view('user.program', [
+            'programs' => $programs,
+            'title' => "$category->nama",
+        ]);
     }
 
     /**

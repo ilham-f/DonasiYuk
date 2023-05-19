@@ -21,8 +21,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('target')->nullable();
             $table->integer('danaterkumpul')->nullable();
-            $table->dateTime('batastanggal')->diffForHumans();
+            $table->dateTime('tglmulai')->nullable();
+            $table->dateTime('batastanggal')->nullable();
             $table->string('image')->nullable();
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

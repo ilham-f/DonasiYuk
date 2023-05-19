@@ -34,7 +34,6 @@ class GoogleController extends Controller
                 $create = User::Create([
                     'email'             => $user_google->getEmail(),
                     'nama'              => $user_google->getName(),
-                    'image'             => $user_google->getAvatar(),
                     'password'          => 0,
                     'email_verified_at' => now()
                 ]);
