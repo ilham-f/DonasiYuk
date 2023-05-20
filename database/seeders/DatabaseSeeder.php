@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,
             PencairanDanaSeeder::class,
             NewsSeeder::class,
-            DoaSeeder::class,
             KabarTerbaruSeeder::class,
             ProgramImageSeeder::class,
         ]);

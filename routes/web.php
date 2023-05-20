@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MidtransController;
 
 /*
@@ -25,8 +26,14 @@ use App\Http\Controllers\MidtransController;
 
 // Customer tanpa login
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/program', [ProgramController::class, 'index']);
+Route::get('/hasilpencarian', [ProgramController::class, 'hasilCari']);
+Route::get('/semuaprogram', [ProgramController::class, 'index']);
+Route::get('/urutmendesak', [ProgramController::class, 'urutMendesak']);
+Route::get('/urutterbaru', [ProgramController::class, 'urutTerbaru']);
 Route::get('programs/{program:id}', [ProgramController::class, 'show']);
+Route::get('/categories/{category}', [CategoryController::class, 'show']);
+Route::get('/categoriesdesak/{category}', [CategoryController::class, 'showmendesak']);
+Route::get('/categoriesbaru/{category}', [CategoryController::class, 'showterbaru']);
 
 // User Regis
 Route::post('/regis', [RegisterController::class, 'store']);
@@ -53,7 +60,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'cekrole:pengunjung'], function() {
         Route::get('/profile', [UserController::class, 'profile']);
         Route::get('/ubahpwd', [UserController::class, 'ubahpw']);
-        Route::get('/form-donasi/{program}/{user}', [DonasiController::class, 'index']);
+        Route::get('/form-donasi/{program}', [DonasiController::class, 'index']);
         Route::post('/newToken', [MidtransController::class, 'newToken']);
         Route::get('/formprogram', [DonasiController::class, 'galangdana']);
     });
@@ -65,8 +72,14 @@ Route::get('/getDesakSehat', [ProgramController::class, 'getDesakSehat']);
 Route::get('/getDesakPendidikan', [ProgramController::class, 'getDesakPendidikan']);
 Route::get('/getDesakBencana', [ProgramController::class, 'getDesakBencana']);
 
+// Filter Program Terbaru
+Route::get('/getBaruSemua', [ProgramController::class, 'getBaruSemua']);
+Route::get('/getBaruSehat', [ProgramController::class, 'getBaruSehat']);
+Route::get('/getBaruPendidikan', [ProgramController::class, 'getBaruPendidikan']);
+Route::get('/getBaruBencana', [ProgramController::class, 'getBaruBencana']);
+
 // Progress Bar
-Route::get('/getProgram', [ProgramController::class, 'getProgram']);
+Route::get('/getprogram', [ProgramController::class, 'getprogram']);
 
 // Update User
 Route::put('/profil/{id}', [UserController::class, 'update']);

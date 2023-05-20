@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProgramImage extends Model
+class KabarTerbaru extends Model
 {
     use HasFactory;
 
@@ -16,8 +16,8 @@ class ProgramImage extends Model
         return $this->belongsTo(Program::class);
     }
 
-    public function kabar_terbarus()
+    public function program_images()
     {
-        return $this->belongsTo(KabarTerbaru::class);
+        return $this->hasMany(ProgramImage::class);
     }
 }

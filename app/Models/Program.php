@@ -28,6 +28,11 @@ class Program extends Model
         return $this->hasMany(News::class);
     }
 
+    public function kabar_terbarus()
+    {
+        return $this->hasMany(KabarTerbaru::class);
+    }
+
     public function categories()
     {
         return $this->belongsTo(Category::class);

@@ -23,9 +23,9 @@ class ProgramController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1');
+        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1');
         return view('user.program', [
-            'programs' => $program->filter(request(['search']))->paginate(12)->withQueryString(),
+            'programs' => $program->paginate(12),
             'title' => "Semua Program",
         ]);
     }
@@ -33,7 +33,7 @@ class ProgramController extends Controller
     public function hasilCari()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1');
+        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1');
         return view('user.hasilpencarian', [
             'programs' => $program->filter(request(['search']))->paginate(12)->withQueryString(),
         ]);
@@ -48,6 +48,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -88,7 +92,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -99,7 +103,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -134,7 +138,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -145,7 +149,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -180,7 +184,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -191,7 +195,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -228,7 +232,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -239,7 +243,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -274,7 +278,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -285,7 +289,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -320,7 +324,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -331,7 +335,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -368,7 +372,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -379,7 +383,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -414,7 +418,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -425,7 +429,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -460,7 +464,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -471,7 +475,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -494,6 +498,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -533,7 +541,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -544,7 +552,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -579,7 +587,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -590,7 +598,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -625,7 +633,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -636,7 +644,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -657,6 +665,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -688,7 +700,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -696,7 +708,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -707,7 +719,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -742,7 +754,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -753,7 +765,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -788,7 +800,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -799,7 +811,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -820,6 +832,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -851,7 +867,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -859,7 +875,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -870,7 +886,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -905,7 +921,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -916,7 +932,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -951,7 +967,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -962,7 +978,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -985,6 +1001,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -1017,7 +1037,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -1025,7 +1045,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1036,7 +1056,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1071,7 +1091,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1082,7 +1102,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1117,7 +1137,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1128,7 +1148,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1157,7 +1177,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -1165,7 +1185,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1176,7 +1196,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1211,7 +1231,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1222,7 +1242,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1257,7 +1277,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1268,7 +1288,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1297,7 +1317,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -1305,7 +1325,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1316,7 +1336,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1351,7 +1371,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1362,7 +1382,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1397,7 +1417,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1408,7 +1428,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1431,6 +1451,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -1462,7 +1486,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -1470,7 +1494,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1481,7 +1505,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1516,7 +1540,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1527,7 +1551,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1562,7 +1586,7 @@ class ProgramController extends Controller
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1573,7 +1597,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1594,6 +1618,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -1625,7 +1653,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -1633,7 +1661,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1644,7 +1672,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1679,7 +1707,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1690,7 +1718,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1725,7 +1753,7 @@ class ProgramController extends Controller
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1736,7 +1764,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1757,6 +1785,10 @@ class ProgramController extends Controller
         $programArr = array();
 
         foreach ($program as $key => $p) {
+            $dana = $p->danaterkumpul;
+            $target = $p->target;
+            $persen = ($dana / $target) * 100;
+
             $diff = strtotime($p->batastanggal) - time();
 
             $day = $diff / 86400;
@@ -1788,7 +1820,7 @@ class ProgramController extends Controller
                             <!-- Program Footer-->
                             <div class="p-4 pt-2">
                                 <small>
-                                    '.$minutes.'
+                                    '.$minutes.' menit lagi
                                 </small>
                                 <p class="mb-0 fw-bolder">Rp'. $p->danaterkumpul.'</p>
                                 <small>Terkumpul dari Rp'. $p->target.'</small>
@@ -1796,7 +1828,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1807,7 +1839,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1842,7 +1874,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1853,7 +1885,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1888,7 +1920,7 @@ class ProgramController extends Controller
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
                                     <div id="'. $p->program_id.'"
-                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                        class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
@@ -1899,7 +1931,7 @@ class ProgramController extends Controller
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'/'.Auth::user()->id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1914,7 +1946,7 @@ class ProgramController extends Controller
     }
 
     // Progress Bar
-    public function getProgram()
+    public function getprogram()
     {
         $program = Program::all();
         return $program;
@@ -1934,7 +1966,7 @@ class ProgramController extends Controller
 
     public function urutMendesak(){
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->paginate(12);
+        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->paginate(12);
         return view('user.program',[
             'categories' => Category::all(),
             'programs' => $program,
@@ -1945,7 +1977,7 @@ class ProgramController extends Controller
 
     public function urutTerbaru(){
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->paginate(12);
+        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->paginate(12);
         return view('user.program',[
             'categories' => Category::all(),
             'programs' => $program,

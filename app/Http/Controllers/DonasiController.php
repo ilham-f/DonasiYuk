@@ -17,35 +17,10 @@ class DonasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Program $program, User $user)
+    public function index(Request $request, Program $program)
     {
-        // dd($id);
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-Kqwi6_p1y0tQcPN7x_xhns8N';
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
-        // dd($program);
-        // dd($user);
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => rand(),
-                'gross_amount' => 10000,
-            ),
-            'customer_details' => array(
-                'first_name' => 'ppp',
-                'email' => 'ppp@mail.com',
-                'phone' => 'ppp',
-            ),
-        );
-
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
         return view('user.form-donasi',[
             'program' => $program,
-            'snaptoken' => $snapToken,
-            'id' => $user->id
         ]);
     }
 

@@ -205,19 +205,19 @@
 
         // BANTUAN
         // ADD CLASS MT-2
-        $window.resize(function resize() {
-            if ($window.width() < 992) {
-                return $bantuan.addClass('mt-2');
-            }
-            $bantuan.removeClass('mt-2');
-        }).trigger('resize');
-        // REMOVE CLASS MS-2
-        $window.resize(function resize() {
-            if ($window.width() < 992) {
-                return $bantuan.removeClass('ms-2');
-            }
-            $bantuan.addClass('ms-2');
-        }).trigger('resize');
+        // $window.resize(function resize() {
+        //     if ($window.width() < 992) {
+        //         return $bantuan.addClass('mt-2');
+        //     }
+        //     $bantuan.removeClass('mt-2');
+        // }).trigger('resize');
+        // // REMOVE CLASS MS-2
+        // $window.resize(function resize() {
+        //     if ($window.width() < 992) {
+        //         return $bantuan.removeClass('ms-2');
+        //     }
+        //     $bantuan.addClass('ms-2');
+        // }).trigger('resize');
 
         // VR
         // HIDE VR
@@ -237,5 +237,8 @@
             $hr.hide();
         }).trigger('resize');
 
+        $masuk.click(function () {
+
+        });
     });
 </script>

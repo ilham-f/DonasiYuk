@@ -6,10 +6,10 @@
         {{-- NEWS --}}
         <div class="card rounded-3 pb-0 border-0 mb-3"
             style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;">
-            {{-- <div class="p-3">
+            <div class="p-3">
                 <h5 style="letter-spacing: 1.5px;" class="mb-0 text-cursive fw-bolder">NEWS</h5>
-            </div> --}}
-            {{-- <div class="card-body p-0">
+            </div>
+            <div class="card-body p-0">
                 <div id="carouselExampleCaptions" class="carousel slide">
                     <div class="carousel-indicators">
                         @foreach ($news as $key => $n)
@@ -56,7 +56,7 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-            </div> --}}
+            </div>
         </div>
 
         {{-- Menu Kategori --}}
@@ -140,7 +140,7 @@
                         </li>
                     </ul>
 
-                    <a href="/program" class="d-flex justify-content-center align-items-center border-0"
+                    <a href="/semuaprogram" class="d-flex justify-content-center align-items-center border-0"
                         style="text-decoration: none;"><small style="white-space: nowrap">Lihat Semua >></small>
                     </a>
                 </div>
@@ -230,15 +230,18 @@
                                                 </a>
                                             </div>
                                             @if (Auth::user())
-                                                <a href="/form-donasi/{{ $program->program_id }}/{{ Auth::id() }}" style="height: 35px" type="submit"
+                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px" type="submit"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </a>
                                             @else
-                                                <a style="height: 35px" data-bs-toggle="modal" data-bs-target="#login"
+                                                <a style="height: 35px" data-bs-toggle="modal" data-bs-target="#login2"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </a>
+                                                @php
+                                                    session(['logindulu' => 'Terima kasih atas niat baik anda untuk berdonasi. Masuk ke akun anda untuk melanjutkan donasi!']);
+                                                @endphp
                                             @endif
                                         </div>
                                     </div>
@@ -306,7 +309,7 @@
                         </li>
                     </ul>
 
-                    <a href="/program" class="d-flex justify-content-center align-items-center border-0"
+                    <a href="/semuaprogram" class="d-flex justify-content-center align-items-center border-0"
                         style="text-decoration: none;"><small style="white-space: nowrap">Lihat Semua >></small></a>
                 </div>
 
@@ -395,7 +398,7 @@
                                                 </a>
                                             </div>
                                             @if (Auth::user())
-                                                <a href="/form-donasi/{{ $program->program_id }}/{{ Auth::id() }}" style="height: 35px" type="submit"
+                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px" type="submit"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </a>
@@ -518,6 +521,7 @@
                         url: "/getBaruSehat",
                         type: "GET",
                         success: function(result) {
+                            // console.log(result);
                             var html = result.join('');
                             baru.html(html);
                         }

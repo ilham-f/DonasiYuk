@@ -48,11 +48,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Program::class, 'donasi')->withPivot('jml_donasi', 'doa');
     }
 
-    public function pencairan_danas()
-    {
-        return $this->hasMany(PencairanDana::class);
-    }
-
     public function news()
     {
         return $this->hasMany(News::class);

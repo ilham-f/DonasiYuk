@@ -143,6 +143,57 @@
             </div>
         </div>
     </div>
+    {{-- Modal Login 2--}}
+    <div class="modal fade" id="login2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark" id="modalCenterTitle">Masuk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (session('logindulu'))
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            {{ session('logindulu') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    <!-- login input-->
+                    <div class="loginInput">
+                        <form class="px-3 pt-2" action="/login" method="post">
+                            @csrf
+                            <div class="row g-3">
+                                <input type="text" name="email" class="form-control mb-2" id="email"
+                                    placeholder="Email">
+                            </div>
+                            <div class="row g-3">
+                                <input type="password" name="password" class="form-control mb-2" id="password"
+                                    placeholder="Password">
+                            </div>
+                            <div class="row g-3">
+                                <button type="submit" class="btn btn-dark mb-2" style="width: 100%">Masuk</button>
+                            </div>
+
+                        </form>
+                        <div class="d-flex justify-content-center px-2">
+                            <button class="d-flex justify-content-center btn btn-light border border-dark"
+                                style="width: 100%;" onclick="window.location.href='{{ '/auth/redirect' }}'">
+                                <img style="display: block; height: 20px; padding-top: 4px;" class="me-2"
+                                    src="{{ asset('assets/img/google.png') }}" alt="google">
+                                Masuk dengan Google
+                            </button>
+                        </div>
+                        <div class="row">
+                            <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?
+                                <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
+                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar >></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{-- Modal Daftar --}}
     <div class="modal fade" id="daftar" tabindex="-1" aria-hidden="true">

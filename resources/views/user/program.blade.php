@@ -15,6 +15,7 @@
                         </a>
                         <ul class="dropdown-menu" style="padding: 0; border-radius: 5px;">
                             <li class="btn-urut">
+                                {{-- @dd($title) --}}
                                 @if ($title == 'Kesehatan')
                                     @if (substr($_SERVER['REQUEST_URI'], 1, 15) == 'categoriesdesak' ||
                                             substr($_SERVER['REQUEST_URI'], 1, 12) == 'urutmendesak')
@@ -247,6 +248,7 @@
                                         </small>
                                     @endif
                                 @elseif ($title == 'Semua Program')
+                                    {{-- @dd(substr($_SERVER['REQUEST_URI'],1,12)) --}}
                                     @if (substr($_SERVER['REQUEST_URI'],1,15) == 'categoriesdesak' || substr($_SERVER['REQUEST_URI'],1,12) == 'urutmendesak')
                                         <small class="dropdown-item border-0"
                                             onclick="window.location.href='{{ url('/urutterbaru') }}'">Terbaru
