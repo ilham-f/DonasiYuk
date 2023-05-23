@@ -3,9 +3,9 @@
 @section('content')
     <div class="page-heading">
         <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Daftar Program</h3>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-md-6 order-md-1 order-last mb-2 text-center">
+                    <h3>Data Program</h3>
                 </div>
             </div>
         </div>

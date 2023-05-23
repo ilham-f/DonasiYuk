@@ -5,9 +5,9 @@
         <div class="container py-5 h-100 bg-transparent">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-6">
-                    @if (session('message'))
+                    @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show">
-                            {{ session('message') }}
+                            {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -22,8 +23,10 @@ class RegisterController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
 
-        User::create($validated);
-        return redirect('/')->with('alert', 'Pendaftaran berhasil. Silahkan masuk!');
+        $user = User::create($validated);
+        event(new Registered($user));
+        auth()->login($user);
 
+        return redirect()->route('verification.notice')->with('alert', 'Pendaftaran berhasil. Mohon verifikasi akun anda terlebih dahulu');
     }
 }

@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    {{-- <script src="{{ asset('js/jquery.number.js') }}"></script> --}}
+
 </head>
 
 <body>
@@ -36,25 +40,32 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item {{ ($title === 'Dashboard') ? 'active' : '' }}">
-                            <a href="" class='sidebar-link'>
+                            <a href="/admin" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span class="pt-1">Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ ($title === 'Program') ? 'active' : '' }}">
-                            <a href="/tblprogram" class='sidebar-link'>
-                                <i class="bi bi-capsule"></i>
-                                <span class="pt-1">Program</span>
+                        <li class="sidebar-item {{ ($title === 'Data Program') ? 'active' : '' }}">
+                            <a href="/tbl-program" class='sidebar-link'>
+                                <i class="bi bi-megaphone-fill"></i>
+                                <span class="pt-1">Data Program</span>
                             </a>
                         </li>
 
-                        {{-- <li class="sidebar-item {{ ($title === 'Kategori') ? 'active' : '' }}">
-                            <a href="" class='sidebar-link'>
-                                <i class="bi bi-tags-fill"></i>
-                                <span class="pt-1">Kategori</span>
+                        <li class="sidebar-item {{ ($title === 'Data User') ? 'active' : '' }}">
+                            <a href="/tbl-user" class='sidebar-link'>
+                                <i class="bi bi-people-fill"></i>
+                                <span class="pt-1">Data User</span>
                             </a>
-                        </li> --}}
+                        </li>
+
+                        <li class="sidebar-item {{ ($title === 'Data Transaksi') ? 'active' : '' }}">
+                            <a href="/tbl-transaksi" class='sidebar-link'>
+                                <i class="bi bi-clipboard-data-fill"></i>
+                                <span class="pt-1">Data Transaksi</span>
+                            </a>
+                        </li>
 
                         {{-- <li class="sidebar-item has-sub">
                             <a href="" class='sidebar-link'>

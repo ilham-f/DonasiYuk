@@ -31,5 +31,17 @@ class UserSeeder extends Seeder
             'password' => 'Amel',
             'email' => 'Amel@gmail.com',
         ]);
+
+        User::create([
+            'nama' => 'Hussein',
+            'password' => 'Hussein',
+            'email' => 'Hussein@gmail.com',
+        ]);
+
+        User::create([
+            'nama' => 'Fiki',
+            'password' => 'Fiki',
+            'email' => 'Fiki@gmail.com',
+        ]);
     }
 }

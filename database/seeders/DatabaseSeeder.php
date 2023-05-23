@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             KabarTerbaruSeeder::class,
             ProgramImageSeeder::class,
+            DonasiSeeder::class,
         ]);
 
         // $keluhans = Keluhan::all();

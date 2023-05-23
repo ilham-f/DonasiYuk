@@ -98,6 +98,36 @@
         </div>
     </div>
 
+    {{-- Modal Lupa Password --}}
+    <div class="modal fade" id="lupa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark" id="modalCenterTitle">Lupa Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form input-->
+                    <div class="loginInput">
+                        <form class="px-3 pt-2" action="/forgot-password" method="post">
+                            @csrf
+                            <div class="row g-3">
+                                <small class="mb-2" style="margin-left: -8px">Isi dengan email yang telah terdaftar di akun anda!</small>
+                            </div>
+                            <div class="row g-3">
+                                <input type="text" name="email" class="form-control mb-2"
+                                    placeholder="Email">
+                            </div>
+                            <div class="row g-3">
+                                <button type="submit" class="btn btn-dark mb-2" style="width: 100%">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal Login --}}
     <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -107,16 +137,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- login input-->
+                    <!-- Form input-->
                     <div class="loginInput">
                         <form class="px-3 pt-2" action="/login" method="post">
                             @csrf
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" id="email"
+                                <input type="text" name="email" class="form-control mb-2"
                                     placeholder="Email">
                             </div>
                             <div class="row g-3">
-                                <input type="password" name="password" class="form-control mb-2" id="password"
+                                <input type="password" name="password" class="form-control mb-2"
                                     placeholder="Password">
                             </div>
                             <div class="row g-3">
@@ -132,10 +162,13 @@
                                 Masuk dengan Google
                             </button>
                         </div>
-                        <div class="row">
-                            <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?
+                        <div class="d-flex justify-content-between px-2">
+                            <p class="mt-3" style="font-size: 13px; text-align: center;">
+                                <a data-bs-toggle="modal" data-bs-target="#lupa" class="text-dark" style="font-size: 13px; font-weight: 600; cursor: pointer;">Lupa Password</a>
+                            </p>
+                            <p class="mt-3" style="font-size: 13px; text-align: center;">Belum punya akun?
                                 <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
-                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar >></a>
+                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar</a>
                             </p>
                         </div>
                     </div>
@@ -143,6 +176,7 @@
             </div>
         </div>
     </div>
+
     {{-- Modal Login 2--}}
     <div class="modal fade" id="login2" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -158,16 +192,16 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <!-- login input-->
+                    <!-- Form input-->
                     <div class="loginInput">
                         <form class="px-3 pt-2" action="/login" method="post">
                             @csrf
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" id="email"
+                                <input type="text" name="email" class="form-control mb-2"
                                     placeholder="Email">
                             </div>
                             <div class="row g-3">
-                                <input type="password" name="password" class="form-control mb-2" id="password"
+                                <input type="password" name="password" class="form-control mb-2"
                                     placeholder="Password">
                             </div>
                             <div class="row g-3">
@@ -183,10 +217,13 @@
                                 Masuk dengan Google
                             </button>
                         </div>
-                        <div class="row">
-                            <p class="mt-4" style="font-size: 13px; text-align: center;">Belum punya akun?
+                        <div class="d-flex justify-content-between px-2">
+                            <p class="mt-3" style="font-size: 13px; text-align: center;">
+                                <a data-bs-toggle="modal" data-bs-target="#lupa" class="text-dark" style="font-size: 13px; font-weight: 600; cursor: pointer;">Lupa Password</a>
+                            </p>
+                            <p class="mt-3" style="font-size: 13px; text-align: center;">Belum punya akun?
                                 <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
-                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar >></a>
+                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Daftar</a>
                             </p>
                         </div>
                     </div>
@@ -204,7 +241,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- login input-->
+                    <!-- Form input-->
                     <div class="loginInput">
                         <form class="px-3 pt-2" action="/regis" method="post">
                             @csrf
@@ -213,7 +250,7 @@
                                     placeholder="Nama Lengkap (sesuai KTP)">
                             </div>
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" id="email"
+                                <input type="text" name="email" class="form-control mb-2"
                                     placeholder="Email">
                             </div>
                             <div class="row g-3">

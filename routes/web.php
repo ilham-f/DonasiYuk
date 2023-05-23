@@ -12,6 +12,7 @@ use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,11 @@ use App\Http\Controllers\MidtransController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Reset Password
+// Route::get('/forgot-password', [MailController::class, 'lupaPw'])->name('password.request');
+Route::post('/forgot-password', [MailController::class, 'resetEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [MailController::class, 'resetView'])->name('password.reset');
+Route::post('/reset-password', [MailController::class, 'resetPw'])->name('password.update');
 
 // Customer tanpa login
 Route::get('/', [HomeController::class, 'index']);
@@ -50,20 +56,33 @@ Route::get('/auth/callback', [GoogleController::class, 'handleGoogleCallback']);
 // Middleware cek role
 Route::group(['middleware' => 'auth'], function() {
 
+    // Verifikasi Email
+    Route::get('/email/verify', [MailController::class, 'verify'])->name('verification.notice');
+    Route::get('/email/verification-notification', [MailController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
+    Route::get('/email/verify/{id}/{hash}', [MailController::class, 'handler'])->middleware(['signed'])->name('verification.verify');
+
     // Halaman yang bisa diakses oleh Admin
     Route::group(['middleware' => 'cekrole:admin'], function() {
+        // Dashboard
         Route::get('/admin', [AdminController::class, 'index']);
-        Route::get('/tblprogram', [AdminController::class, 'tabelprogram']);
+
+        // Manajemen Data
+        Route::post('/ubahprogram', [AdminController::class, 'ubahprogram']);
+        Route::get('/tbl-program', [AdminController::class, 'tabelprogram']);
+        Route::get('/tbl-user', [AdminController::class, 'tabeluser']);
+        Route::get('/tbl-transaksi', [AdminController::class, 'tabeltransaksi']);
     });
 
     // Halaman yang bisa diakses oleh Customer
-    Route::group(['middleware' => 'cekrole:pengunjung'], function() {
+    Route::group(['middleware' => 'cekrole:pengunjung','verified'], function() {
+        // Fitur User
         Route::get('/profile', [UserController::class, 'profile']);
         Route::get('/ubahpwd', [UserController::class, 'ubahpw']);
         Route::get('/form-donasi/{program}', [DonasiController::class, 'index']);
         Route::post('/newToken', [MidtransController::class, 'newToken']);
         Route::get('/formprogram', [DonasiController::class, 'galangdana']);
     });
+
 });
 
 // Filter Program Mendesak
@@ -81,9 +100,12 @@ Route::get('/getBaruBencana', [ProgramController::class, 'getBaruBencana']);
 // Progress Bar
 Route::get('/getprogram', [ProgramController::class, 'getprogram']);
 
-// Update User
+// Animate Number
+Route::get('/getTotalDana', [AdminController::class, 'getTotalDana']);
+
+// Update Profil
 Route::put('/profil/{id}', [UserController::class, 'update']);
 // Update Password User
 Route::put('/ubahpw', [UserController::class, 'updatepw']);
-
-
+// Reset Password User
+Route::post('/lupaPw', [MailController::class, 'lupaPw']);

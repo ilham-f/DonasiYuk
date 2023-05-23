@@ -125,8 +125,7 @@
                                 aria-expanded="false"><small>Kategori</small></a>
                             <ul class="dropdown-menu" style="padding: 0; border-radius: 5px;">
                                 <li class="btn-catMendesak">
-                                    <small class="dropdown-item border-0"
-                                        value="4">Semua
+                                    <small class="dropdown-item border-0" value="4">Semua
                                     </small>
                                 </li>
                                 @foreach ($categories as $cat)
@@ -230,7 +229,8 @@
                                                 </a>
                                             </div>
                                             @if (Auth::user())
-                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px" type="submit"
+                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px"
+                                                    type="submit"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </a>
@@ -294,8 +294,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false"><small>Kategori</small></a>
                             <ul class="dropdown-menu" style="padding: 0; border-radius: 5px;">
                                 <li class="btn-cat">
-                                    <small class="dropdown-item border-0"
-                                        value="4">Semua
+                                    <small class="dropdown-item border-0" value="4">Semua
                                     </small>
                                 </li>
                                 @foreach ($categories as $cat)
@@ -371,22 +370,22 @@
                                             @if ($program->category_id == 1)
                                                 <div class="border border-success mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}"
-                                                        class="rounded-pill bg-success" style="height:10px; width:0%;">
+                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-success"
+                                                        style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 2)
                                                 <div class="border border-warning mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}"
-                                                        class="rounded-pill bg-warning" style="height:10px; width:0%;">
+                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-warning"
+                                                        style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 3)
                                                 <div class="border border-info mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}"
-                                                        class="rounded-pill bg-info" style="height:10px; width:0%;">
+                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-info"
+                                                        style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @endif
@@ -398,12 +397,14 @@
                                                 </a>
                                             </div>
                                             @if (Auth::user())
-                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px" type="submit"
+                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px"
+                                                    type="submit"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </a>
                                             @else
-                                                <button style="height: 35px" data-bs-toggle="modal" data-bs-target="#login"
+                                                <button style="height: 35px" data-bs-toggle="modal"
+                                                    data-bs-target="#login"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </button>
@@ -761,12 +762,45 @@
     </script>
 
     <script>
-        let msg = '{{ Session::get('alert') }}';
+        var msg = '{{ Session::get('alert') }}';
 
-        let exist = '{{ Session::has('alert') }}';
+        var exist = '{{ Session::has('alert') }}';
 
         if (exist) {
             alert(msg);
         }
+
+        var statusAlert = '{{ Session::get('status') }}';
+
+        var isStatus = '{{ Session::has('status') }}';
+
+        if (isStatus) {
+            alert(statusAlert);
+        }
+
+        var successAlert = '{{ Session::get('success') }}';
+
+        var isSuccess = '{{ Session::has('success') }}';
+
+        if (isSuccess) {
+            alert(successAlert);
+        }
+
+        var resetedAlert = '{{ Session::get('reseted') }}';
+
+        var isReseted = '{{ Session::has('reseted') }}';
+
+        if (isReseted) {
+            alert(resetedAlert);
+        }
+
+        $(document).ready(function () {
+            var resetAlert = '{{ Session::get('reset') }}';
+            var isReset = '{{ Session::has('reset') }}';
+
+            if (isReset) {
+                $('#lupa').modal('show');
+            }
+        });
     </script>
 @endsection
