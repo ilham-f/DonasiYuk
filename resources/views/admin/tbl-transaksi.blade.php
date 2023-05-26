@@ -24,8 +24,8 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Donasi Ke-</th>
-                                <th scope="col">Jumlah</th>
-                                <th scope="col">Tanggal</th>
+                                <th scope="col" class="text-center">Jumlah</th>
+                                <th scope="col" class="text-center">Tanggal</th>
                                 {{-- <th scope="col" class="text-center">Aksi</th> --}}
                             </tr>
                         </thead>
@@ -35,8 +35,14 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="text-capitalize">{{ $transaksi->nama }}</td>
                                     <td>{{ $transaksi->judul }}</td>
-                                    <td>{{ $transaksi->jml_donasi }}</td>
-                                    <td>{{ $transaksi->created_at }}</td>
+                                    <td class="text-center">{{ $transaksi->jml_donasi }}</td>
+                                    <td class="text-center">
+                                        @php
+                                            $date = Carbon\Carbon::parse($transaksi->created_at);
+                                            $formattedDate = $date->translatedFormat('l, d F Y');
+                                        @endphp
+                                        {{ $formattedDate }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

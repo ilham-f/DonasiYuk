@@ -20,12 +20,12 @@
                             @foreach ($image as $img)
                                 @if ($loop->index == 0)
                                     <div class="carousel-item active">
-                                        <img style="height: 450px" src="{{ asset('assets/img/' . $img->namafile) }}"
+                                        <img style="height: 450px" src="{{ asset('storage/' . $img->namafile) }}"
                                             class="d-block w-100 card-img-top rounded" alt="{{ $img->namafile }}">
                                     </div>
                                 @else
                                     <div class="carousel-item">
-                                        <img style="height: 450px" src="{{ asset('assets/img/' . $img->namafile) }}"
+                                        <img style="height: 450px" src="{{ asset('storage/' . $img->namafile) }}"
                                             class="d-block w-100 card-img-top rounded" alt="{{ $img->namafile }}">
                                     </div>
                                 @endif

@@ -60,12 +60,20 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ ($title === 'Data Artikel') ? 'active' : '' }}">
+                            <a href="/tbl-news" class='sidebar-link'>
+                                <i class="bi bi-card-heading"></i>
+                                <span class="pt-1">Data Artikel</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item {{ ($title === 'Data Transaksi') ? 'active' : '' }}">
                             <a href="/tbl-transaksi" class='sidebar-link'>
                                 <i class="bi bi-clipboard-data-fill"></i>
                                 <span class="pt-1">Data Transaksi</span>
                             </a>
                         </li>
+
 
                         {{-- <li class="sidebar-item has-sub">
                             <a href="" class='sidebar-link'>

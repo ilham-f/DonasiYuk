@@ -92,14 +92,14 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col text-center">
                             <div class="fw-bold text-primary text-uppercase mb-1">
-                                jumlah Total dana terkumpul
+                                Total dana terkumpul
                             </div>
                             <div class="text-gray-800 mb-3 mt-5 text-center">
                                 {{-- @dd($totalDana->nominal) --}}
                                 <div class="d-flex justify-content-center" style="font-size: 40px">
                                     <span class="fw-bold">Rp</span>
                                     <span id="number-display"
-                                        class="fw-bold">{{ number_format($totalDana, 0, ',', '.') }}
+                                        class="fw-bold">{{ $totalDana }}
                                     </span>
                                 </div>
                             </div>

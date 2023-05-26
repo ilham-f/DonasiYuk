@@ -23,7 +23,7 @@ class ProgramController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1');
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1');
         return view('user.program', [
             'programs' => $program->paginate(12),
             'title' => "Semua Program",
@@ -33,7 +33,7 @@ class ProgramController extends Controller
     public function hasilCari()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1');
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1');
         return view('user.hasilpencarian', [
             'programs' => $program->filter(request(['search']))->paginate(12)->withQueryString(),
         ]);
@@ -43,7 +43,7 @@ class ProgramController extends Controller
     public function getDesakSemua()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->get();
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->get();
 
         $programArr = array();
 
@@ -71,8 +71,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -91,19 +91,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -117,8 +117,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -137,19 +137,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -163,8 +163,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -183,19 +183,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -211,8 +211,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -231,19 +231,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -257,8 +257,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -277,19 +277,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -303,8 +303,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -323,19 +323,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -351,8 +351,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -371,19 +371,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -397,8 +397,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -417,19 +417,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -443,8 +443,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -463,19 +463,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -493,7 +493,7 @@ class ProgramController extends Controller
     public function getDesakSehat()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.category_id','=',1)->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->get();
+        $program = Program::where('category_id','=',1)->where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->get();
 
         $programArr = array();
 
@@ -520,8 +520,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -540,19 +540,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -566,8 +566,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -586,19 +586,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -612,8 +612,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -632,19 +632,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -660,7 +660,7 @@ class ProgramController extends Controller
     public function getDesakPendidikan()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.category_id','=',2)->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->get();
+        $program = Program::where('category_id','=',2)->where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->get();
 
         $programArr = array();
 
@@ -687,8 +687,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -707,19 +707,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -733,8 +733,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -753,19 +753,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -779,8 +779,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -799,19 +799,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -827,7 +827,7 @@ class ProgramController extends Controller
     public function getDesakBencana()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.category_id','=',3)->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->get();
+        $program = Program::where('category_id','=',3)->where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->get();
 
         $programArr = array();
 
@@ -854,8 +854,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -874,19 +874,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -900,8 +900,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -920,19 +920,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -946,8 +946,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -966,19 +966,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -996,7 +996,7 @@ class ProgramController extends Controller
     public function getBaruSemua()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->get();
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('id', 'desc')->get();
 
         $programArr = array();
 
@@ -1024,8 +1024,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1044,19 +1044,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1070,8 +1070,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1090,19 +1090,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1116,8 +1116,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1136,19 +1136,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1164,8 +1164,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1184,19 +1184,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1210,8 +1210,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1230,19 +1230,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1256,8 +1256,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1276,19 +1276,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1304,8 +1304,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1324,19 +1324,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1350,8 +1350,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1370,19 +1370,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1396,8 +1396,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1416,19 +1416,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1446,7 +1446,7 @@ class ProgramController extends Controller
     public function getBaruSehat()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.category_id','=',1)->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->get();
+        $program = Program::where('category_id','=',1)->where('batastanggal','>=',$now)->where('status','=','1')->orderBy('id', 'desc')->get();
 
         $programArr = array();
 
@@ -1473,8 +1473,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1493,19 +1493,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1519,8 +1519,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1539,19 +1539,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1565,8 +1565,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1585,19 +1585,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-success mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-success" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1613,7 +1613,7 @@ class ProgramController extends Controller
     public function getBaruPendidikan()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.category_id','=',2)->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->get();
+        $program = Program::where('category_id','=',2)->where('batastanggal','>=',$now)->where('status','=','1')->orderBy('id', 'desc')->get();
 
         $programArr = array();
 
@@ -1640,8 +1640,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1660,19 +1660,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1686,8 +1686,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1706,19 +1706,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1732,8 +1732,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1752,19 +1752,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-warning mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-warning" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1780,7 +1780,7 @@ class ProgramController extends Controller
     public function getBaruBencana()
     {
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.category_id','=',3)->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->get();
+        $program = Program::where('category_id','=',3)->where('batastanggal','>=',$now)->where('status','=','1')->orderBy('id', 'desc')->get();
 
         $programArr = array();
 
@@ -1807,8 +1807,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1827,19 +1827,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1853,8 +1853,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1873,19 +1873,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1899,8 +1899,8 @@ class ProgramController extends Controller
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
                             <img class="card-img-top" style="display: block; height: 150px"
-                                src="assets/img/'.$p->namafile.'"
-                                alt="'. $p->namafile.'" />
+                                src="storage/'.$p->image.'"
+                                alt="'. $p->image.'" />
                             <!-- Detail Program -->
                             <div class="card-body p-4 pt-3 pb-0">
                                 <div class="judul"
@@ -1919,19 +1919,19 @@ class ProgramController extends Controller
 
                                 <div class="border border-info mt-2 rounded-pill"
                                     style="overflow: hidden">
-                                    <div id="'. $p->program_id.'"
+                                    <div id="'. $p->id.'"
                                         class="rounded-pill bg-info" style="height:10px; width:'.$persen.'%;">
                                     </div>
                                 </div>
 
                                 <div class="text-center">
                                     <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                        style="height: 35px" href="programs/'. $p->program_id.'">
+                                        style="height: 35px" href="programs/'. $p->id.'">
                                         <small>Detail</small>
                                     </a>
                                 </div>
 
-                                <a href="/form-donasi/'. $p->program_id.'" style="height: 35px" type="submit"
+                                <a href="/form-donasi/'. $p->id.'" style="height: 35px" type="submit"
                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                     <small>Donasi Sekarang</small>
                                 </a>
@@ -1966,7 +1966,7 @@ class ProgramController extends Controller
 
     public function urutMendesak(){
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->paginate(12);
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->paginate(12);
         return view('user.program',[
             'categories' => Category::all(),
             'programs' => $program,
@@ -1977,7 +1977,7 @@ class ProgramController extends Controller
 
     public function urutTerbaru(){
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->paginate(12);
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('programs.id', 'desc')->paginate(12);
         return view('user.program',[
             'categories' => Category::all(),
             'programs' => $program,
@@ -1985,14 +1985,37 @@ class ProgramController extends Controller
         ]);
     }
 
+    public function galangdana()
+    {
+        return view('user.form-program');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => ['required'],
+            'category_id' => ['required'],
+            'judul' => ['required'],
+            'deskripsi' => ['required'],
+            'image' => ['required', 'image', 'file']
+        ]);
+
+        if ($request->file('image')) {
+            $validated['image'] = $request->file('image')->store('programs');
+        }
+
+        $created = Program::create($validated);
+        if ($created) {
+            return redirect('/programku')->with('alert', 'Program anda berhasil dibuat! Mohon menunggu verifikasi dari admin');
+        } else {
+            return back()->with('alert', 'Error, Program gagal dibuat');
+        }
+
     }
 
     /**
@@ -2014,11 +2037,9 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        $image = ProgramImage::where('id','=',$program->id)->get();
         // dd($image);
         return view('user.detail-program', [
             'program' => $program,
-            'image' => $image
         ]);
     }
 
@@ -2043,15 +2064,19 @@ class ProgramController extends Controller
     public function update(Request $request, $programid)
     {
         $userid = Auth::user()->id;
-        $program = Program::where('id','=',$programid);
+        $program = Program::find($programid);
         // dd($program);
         $data = $request->validate([
             'judul' => ['required'],
             'deskripsi' => ['required']
         ]);
         // dd($data);
-        $program->update($data);
-        return back();
+        $updated = $program->update($data);
+        if ($updated) {
+            return back()->with('alert','Berhasil Update');
+        }
+
+        return back()->with('gagal','Gagal Update');
     }
 
     /**

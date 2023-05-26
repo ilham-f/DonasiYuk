@@ -287,8 +287,8 @@
                                     <div class="card h-100 shadow-sm">
                                         <!-- Program image-->
                                         <img class="card-img-top" style="display: block; height: 150px"
-                                            src="{{ asset('assets/img/' . $program->namafile) }}"
-                                            alt="{{ $program->namafile }}" />
+                                            src="{{ asset('storage/' . $program->image) }}"
+                                            alt="{{ $program->image }}" />
                                         <!-- Program details-->
                                         <div class="card-body p-4 pt-3 pb-0">
                                             <div class="judul"
@@ -374,7 +374,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-center">Tidak ada</p>
+                            <p class="text-center">Belum ada program galang dana</p>
                         @endif
                     </div>
                     <div class="d-flex justify-content-center">

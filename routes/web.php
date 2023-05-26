@@ -45,7 +45,7 @@ Route::get('/categoriesbaru/{category}', [CategoryController::class, 'showterbar
 Route::post('/regis', [RegisterController::class, 'store']);
 
 // Login-Logout
-Route::get('/login', [LoginController::class, 'index']);
+// Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/tbl-program', [AdminController::class, 'tabelprogram']);
         Route::get('/tbl-user', [AdminController::class, 'tabeluser']);
         Route::get('/tbl-transaksi', [AdminController::class, 'tabeltransaksi']);
+        Route::get('/tbl-news', [AdminController::class, 'tabelnews']);
     });
 
     // Halaman yang bisa diakses oleh Customer
@@ -78,9 +79,15 @@ Route::group(['middleware' => 'auth'], function() {
         // Fitur User
         Route::get('/profile', [UserController::class, 'profile']);
         Route::get('/ubahpwd', [UserController::class, 'ubahpw']);
-        Route::get('/form-donasi/{program}', [DonasiController::class, 'index']);
+        Route::get('/programku', [UserController::class, 'programku']);
+        Route::post('/rwytdonasi', [UserController::class, 'rwytdonasi']);
+        Route::get('/form-donasi/{id}', [DonasiController::class, 'index']);
         Route::post('/newToken', [MidtransController::class, 'newToken']);
-        Route::get('/formprogram', [DonasiController::class, 'galangdana']);
+        Route::get('/form-program', [ProgramController::class, 'galangdana']);
+        Route::post('/upProgram', [ProgramController::class, 'create']);
+        Route::put('/programku/{id}', [ProgramController::class, 'update']);
+        Route::post('/ubahAnonim', [UserController::class, 'ubahAnonim']);
+        Route::get('/totalDonasi', [UserController::class, 'totalDonasi']);
     });
 
 });

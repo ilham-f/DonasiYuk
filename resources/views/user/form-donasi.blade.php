@@ -19,6 +19,70 @@
             width: 0%;
             transition: 0.3s;
         }
+
+        /* The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 23px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .3s;
+            transition: .3s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 15px;
+            width: 15px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .3s;
+            transition: .3s;
+        }
+
+        input:checked+.slider {
+            background-color: #000;
+        }
+
+        /* input:focus + .slider {
+            box-shadow: 0 0 1px #000;
+            } */
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(17px);
+            -ms-transform: translateX(17px);
+            transform: translateX(17px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
     </style>
     <!-- MultiStep Form -->
     <section style="height: 84.5vh">
@@ -34,7 +98,7 @@
                         </div>
                     @endif
                     <div class="card-body d-flex justify-content-center">
-                        <form action="/donasi/{{ $id }}" method="POST" class="form">
+                        <form action="/donasi/{{ $program->id }}" method="POST" class="form">
                             @csrf
                             <div class="text-center">
                                 <h2 class="text-cursive fw-bold pb-2 mt-0">Donasi Sekarang</h2>
@@ -71,28 +135,38 @@
                                 <div class="row">
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                     <input type="hidden" name="program_id" value="{{ $program->id }}">
-                                    <a id="donasiBtn" class="btn btn-dark btn-next">Donasi</a>
+                                    <a class="btn btn-dark btn-next">Lanjutkan</a>
                                 </div>
                             </div>
 
 
                             <!-- Detail Donasi -->
-                            {{-- <div class="pt-4 form-step">
-                                <div class="row">
-                                    <input type="text" name="" class="form-control mb-2"
-                                        placeholder="Sembunyikan nama anda">
+                            <div class="pt-4 form-step">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label for="namaAnonim">Sembunyikan nama anda ketika berdonasi :</label>
+                                    <div class="d-flex align-items-center">
+                                        <small id="namaAnonim" class="text-muted">{{ Auth::user()->nama }}</small>
+                                        <label class="switch ms-2">
+                                            @if (Auth::user()->anonim == 1)
+                                                <input id="anonim" name="anonim" type="checkbox" value="1" checked>
+                                            @else
+                                                <input id="anonim" name="anonim" type="checkbox" value="0">
+                                            @endif
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <a class="btn btn-dark btn-next">Lanjutkan</a>
+                                    <input type="text" name="doa" class="form-control mb-2"
+                                        placeholder="Berikan doa atau harapan">
                                 </div>
-                            </div> --}}
+                                <div class="row">
+                                    <a id="donasiBtn" class="btn btn-dark btn-next">Lanjutkan</a>
+                                </div>
+                            </div>
 
                             <!-- Pilih Pembayaran -->
                             <div class="pt-4 form-step">
-                                <div class="row">
-                                    <input type="text" name="" class="form-control mb-2"
-                                        placeholder="Pilih Pembayaran">
-                                </div>
                                 <div class="row">
                                     <a id="pay-button" class="btn btn-dark">Pilih Pembayaran</a>
                                 </div>
@@ -128,13 +202,53 @@
                 var data = [];
                 var jml_donasi = $('#nominal').val();
                 var user_id = $('input[name="user_id"]').val();
-                // console.log(user_id);
                 var program_id = $('input[name="program_id"]').val();
+                var anonim = $('input[name="anonim"]').val();
+                var doa = $('input[name="doa"]').val();
+
+                var namaAnonim = $('#namaAnonim');
+                var userNama = $('#namaAnonim').html();
+                var isAnonim = $('#anonim');
+
+                if (isAnonim.val() == 1) {
+                    namaAnonim.html('#OrangBaik');
+                } else {
+                        namaAnonim.html(userNama);
+                }
+
+                isAnonim.change(function() {
+                    if (isAnonim.val() == 0) {
+                        isAnonim.val(1);
+                        // console.log(isAnonim.val());
+                        namaAnonim.html('#OrangBaik');
+                    } else {
+                        isAnonim.val(0)
+                        // console.log(isAnonim.val());
+                        namaAnonim.html(userNama);
+                    }
+
+                    var anonim = isAnonim.val();
+                    // console.log(data);
+                    $.ajax({
+                        type: "post",
+                        url: "/ubahAnonim",
+                        data: {
+                            isAnonim: data
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                });
 
                 data.push(jml_donasi);
                 data.push(user_id);
                 data.push(program_id);
+                data.push(anonim);
+                data.push(doa);
                 // console.log(data);
+                console.log(data);
 
                 $.ajax({
                     type: "POST",
@@ -144,10 +258,10 @@
                         console.log("RESPON : " + response);
                         var payButton = document.getElementById('pay-button');
                         payButton.addEventListener('click', function () {
-                        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-                        //   console.log('{{ $snaptoken }}');
-                        window.snap.pay(response);
-                        // customer will be redirected after completing payment pop-up
+                            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+                            //   console.log('');
+                            window.snap.pay(response);
+                            // customer will be redirected after completing payment pop-up
                         });
                     }
                 });

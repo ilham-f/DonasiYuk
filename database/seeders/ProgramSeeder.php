@@ -26,7 +26,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 50000,
             'tglmulai' => '2023-05-01',
             'batastanggal' => '2023-06-15',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 2
         Program::create([
@@ -38,7 +39,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 60000,
             'tglmulai' => '2023-05-01',
             'batastanggal' => '2023-06-16',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 3
         Program::create([
@@ -50,7 +52,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 70000,
             'tglmulai' => '2023-05-01',
             'batastanggal' => '2023-06-17',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 4
         Program::create([
@@ -62,7 +65,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 80000,
             'tglmulai' => '2023-05-04',
             'batastanggal' => '2023-06-18',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 5
         Program::create([
@@ -74,7 +78,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 90000,
             'tglmulai' => '2023-05-05',
             'batastanggal' => '2023-06-19',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 6
         Program::create([
@@ -86,7 +91,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 100000,
             'tglmulai' => '2023-05-06',
             'batastanggal' => '2023-06-20',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 7
         Program::create([
@@ -98,7 +104,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 110000,
             'tglmulai' => '2023-05-07',
             'batastanggal' => '2023-06-21',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
         // 8
         Program::create([
@@ -110,7 +117,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 120000,
             'tglmulai' => '2023-05-08',
             'batastanggal' => '2023-06-22',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Budi.png',
         ]);
 
         // pendidikan
@@ -124,7 +132,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 50000,
             'tglmulai' => '2023-05-09',
             'batastanggal' => '2023-07-01',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 10
         Program::create([
@@ -136,7 +145,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 60000,
             'tglmulai' => '2023-05-10',
             'batastanggal' => '2023-07-02',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 11
         Program::create([
@@ -148,7 +158,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 70000,
             'tglmulai' => '2023-05-10',
             'batastanggal' => '2023-07-03',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 12
         Program::create([
@@ -160,7 +171,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 80000,
             'tglmulai' => '2023-05-12',
             'batastanggal' => '2023-07-04',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 13
         Program::create([
@@ -172,7 +184,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 90000,
             'tglmulai' => '2023-05-13',
             'batastanggal' => '2023-07-05',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 14
         Program::create([
@@ -184,7 +197,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 100000,
             'tglmulai' => '2023-05-14',
             'batastanggal' => '2023-07-06',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 15
         Program::create([
@@ -196,7 +210,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 110000,
             'tglmulai' => '2023-05-15',
             'batastanggal' => '2023-07-07',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
         // 16
         Program::create([
@@ -208,7 +223,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 120000,
             'tglmulai' => '2023-05-16',
             'batastanggal' => '2023-07-08',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Adi.png',
         ]);
 
         // bencana alam
@@ -222,7 +238,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 50000,
             'tglmulai' => '2023-05-17',
             'batastanggal' => '2023-08-09',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 18
         Program::create([
@@ -234,7 +251,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 60000,
             'tglmulai' => '2023-05-18',
             'batastanggal' => '2023-08-10',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 19
         Program::create([
@@ -246,7 +264,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 70000,
             'tglmulai' => '2023-05-19',
             'batastanggal' => '2023-08-11',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 20
         Program::create([
@@ -258,7 +277,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 80000,
             'tglmulai' => '2023-05-20',
             'batastanggal' => '2023-08-12',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 21
         Program::create([
@@ -270,7 +290,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 90000,
             'tglmulai' => '2023-05-21',
             'batastanggal' => '2023-08-13',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 22
         Program::create([
@@ -282,7 +303,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 100000,
             'tglmulai' => '2023-05-22',
             'batastanggal' => '2023-08-14',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 23
         Program::create([
@@ -294,7 +316,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 110000,
             'tglmulai' => '2023-05-23',
             'batastanggal' => '2023-08-15',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
         // 24
         Program::create([
@@ -306,7 +329,8 @@ class ProgramSeeder extends Seeder
             'danaterkumpul' => 120000,
             'tglmulai' => '2023-05-24',
             'batastanggal' => '2023-08-16',
-            'status' => '1'
+            'status' => '1',
+            'image' => 'programs/Andi.png',
         ]);
     }
 }

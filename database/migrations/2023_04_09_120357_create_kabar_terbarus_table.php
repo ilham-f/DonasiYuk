@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('judulKabar');
             $table->string('detailKabar');
+            $table->string('image')->nullable();
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
             $table->timestamps();
         });

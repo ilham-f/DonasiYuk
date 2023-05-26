@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Donasi;
 use App\Models\Program;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -15,20 +16,33 @@ class UserController extends Controller
 {
     public function programku(){
         $userid = Auth::user()->id;
-        $myprogram = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.user_id','=',$userid)->get();
+        $myprogram = Program::where('user_id','=',$userid)->paginate(5);
         // $image = ProgramImage::where('mainImage','=','1');
-        dd($myprogram);
+        // dd($myprogram);
         return view('user.myprogram', [
             'myprogram' => $myprogram,
-            'users' => User::all(),
+            // 'users' => User::all(),
         ]);
     }
 
+    public function totalDonasi(){
+        $userid = Auth::user()->id;
+        $donasi = Donasi::selectRaw('SUM(jml_donasi) AS totalDonasi')->where('user_id','=',$userid)->first();
+        // dd($donasi);
+        if ($donasi->totalDonasi) {
+            return $donasi->totalDonasi;
+        } else {
+            return 0;
+        }
+    }
     public function profile(){
         $userid = Auth::user()->id;
         $user = User::find($userid);
+        $donasi = Donasi::selectRaw('SUM(jml_donasi) AS totalDonasi')->where('user_id','=',$userid)->first();
+        // dd($donasi);
         return view('user.profile-page', [
             'user' => $user,
+            'donasi' => $donasi
         ]);
     }
 
@@ -37,19 +51,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function rwytdonasi()
     {
-        //
+        $mydonasi = Donasi::where('user_id','=',Auth::user()->id)->paginate(5);
+        return view('user.rwytdonasi', [
+            'mydonasi' => $mydonasi,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function ubahAnonim(Request $request)
     {
-        //
+        $isAnonim = [
+            'anonim' => $request->isAnonim
+        ];
+
+        $user = User::find(Auth::user()->id);
+        $user->update($isAnonim);
     }
 
     /**
@@ -107,14 +124,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::find($id);
-        $user->nama = $request->input('nama');
-        $user->email = $request->input('email');
-        $user->notelp = $request->input('notelp');
-        $user->alamat = $request->input('alamat');
-        $user->jk = $request->input('jk');
+        $user = User::find(Auth::user()->id);
+        $user->nama = $request->nama;
+        $user->email = $request->email;
+        $user->notelp = $request->notelp;
+        $user->alamat = $request->alamat;
         $user->update();
 
         return redirect('/profile')->with('status', 'Data akun Anda berhasil diubah');

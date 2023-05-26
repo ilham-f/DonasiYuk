@@ -23,7 +23,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/swipper.css') }}" />
 
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/lightslider.js') }}"></script>
+    {{-- <script src="{{ asset('js/lightslider.js') }}"></script> --}}
 
     <script type="text/javascript"
       src="https://app.sandbox.midtrans.com/snap/snap.js"

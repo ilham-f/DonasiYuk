@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Midtrans\Snap;
 use App\Models\User;
 use App\Models\Program;
+use App\Models\Donasi;
 use Midtrans\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

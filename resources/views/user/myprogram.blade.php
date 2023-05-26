@@ -2,10 +2,22 @@
 
 @section('body')
     @if (session('status'))
-    <div class="alert alert-success alert-dismissible fade show">
-        {{ session('status') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('status') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('alert'))
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('alert') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('gagal'))
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('gagal') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
     <h4>Program Saya</h4>
     <hr class="mt-0 mb-3">
@@ -59,6 +71,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {{ $myprogram->links() }}
+            </div>
         @else
             <span>Anda belum memiliki program</span>
         @endif
@@ -98,34 +113,3 @@
         </div>
     @endforeach
 @endsection
-
-{{-- Sisa Hari --}}
-{{-- <td class="text-center">
-            @php
-                $diff = strtotime($program->batastanggal) - time();
-
-                $day = $diff / 86400;
-                // days
-                $days = floor($day);
-                // hours
-                $hours = floor($day * 24);
-                // minutes
-                $minutes = floor($day * 1440);
-                // seconds
-                $seconds = floor($diff);
-            @endphp
-
-            @if ($program->status == 1)
-                <small>
-                    @if ($days <= 0 && $hours <= 0 && $minutes != 0)
-                        {{ $minutes }} menit lagi
-                    @elseif ($days <= 0 && $hours != 0)
-                        {{ $hours }} jam lagi
-                    @elseif ($days != 0)
-                        {{ $days }} hari lagi
-                    @endif
-                </small>
-            @else
-                <small>-</small>
-            @endif
-        </td> --}}

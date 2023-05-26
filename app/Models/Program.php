@@ -23,11 +23,6 @@ class Program extends Model
         return $this->belongsToMany(User::class, 'donasi')->withPivot('jml_donasi', 'doa');
     }
 
-    public function news()
-    {
-        return $this->hasMany(News::class);
-    }
-
     public function kabar_terbarus()
     {
         return $this->hasMany(KabarTerbaru::class);
@@ -36,11 +31,6 @@ class Program extends Model
     public function categories()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function program_images()
-    {
-        return $this->hasMany(ProgramImage::class);
     }
 
     public function pencairan_danas()

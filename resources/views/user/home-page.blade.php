@@ -22,23 +22,23 @@
                         @foreach ($news as $key => $n)
                             @if ($key == 0)
                                 <div class="carousel-item active">
-                                    <img style="height: 450px" src="{{ asset('assets/img/' . $n->image) }}"
+                                    <img style="height: 450px" src="{{ asset('storage/' . $n->image) }}"
                                         class="d-block w-100 card-img-top rounded" alt="{{ $n->image }}">
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="programs/{{ $n->program_id }}" class="btn btn-outline-light my-1"
+                                        <a href="programs/{{ $n->id }}" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
                             @else
                                 <div class="carousel-item">
-                                    <img style="height: 450px" src="{{ asset('assets/img/' . $n->image) }}"
+                                    <img style="height: 450px" src="{{ asset('storage/' . $n->image) }}"
                                         class="d-block w-100 card-img-top rounded" alt="{{ $n->image }}">
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="programs/{{ $n->program_id }}" class="btn btn-outline-light my-1"
+                                        <a href="programs/{{ $n->id }}" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
@@ -154,8 +154,8 @@
                                     <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                                         <!-- Gambar Program -->
                                         <img class="card-img-top" style="display: block; height: 150px"
-                                            src="{{ asset('assets/img/' . $program->namafile) }}"
-                                            alt="{{ $program->namafile }}" />
+                                            src="{{ asset('storage/' . $program->image) }}"
+                                            alt="{{ $program->image }}" />
                                         <!-- Detail Program -->
                                         <div class="card-body p-4 pt-3 pb-0">
                                             <div class="judul"
@@ -202,21 +202,21 @@
                                             @if ($program->category_id == 1)
                                                 <div class="border border-success mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="mendesak{{ $program->program_id }}"
+                                                    <div id="mendesak{{ $program->id }}"
                                                         class="rounded-pill bg-success" style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 2)
                                                 <div class="border border-warning mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="mendesak{{ $program->program_id }}"
+                                                    <div id="mendesak{{ $program->id }}"
                                                         class="rounded-pill bg-warning" style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 3)
                                                 <div class="border border-info mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="mendesak{{ $program->program_id }}"
+                                                    <div id="mendesak{{ $program->id }}"
                                                         class="rounded-pill bg-info" style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
@@ -224,13 +224,12 @@
 
                                             <div class="text-center">
                                                 <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                                    style="height: 35px" href="programs/{{ $program->program_id }}">
+                                                    style="height: 35px" href="programs/{{ $program->id }}">
                                                     <small>Detail</small>
                                                 </a>
                                             </div>
                                             @if (Auth::user())
-                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px"
-                                                    type="submit"
+                                                <a href="/form-donasi/{{ $program->id }}" style="height: 35px"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>
                                                 </a>
@@ -322,8 +321,8 @@
                                     <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                                         <!-- Gambar Program -->
                                         <img class="card-img-top" style="display: block; height: 150px"
-                                            src="{{ asset('assets/img/' . $program->namafile) }}"
-                                            alt="{{ $program->namafile }}" />
+                                            src="{{ asset('storage/' . $program->image) }}"
+                                            alt="{{ $program->image }}" />
                                         <!-- Detail Program -->
                                         <div class="card-body p-4 pt-3 pb-0">
                                             <div class="judul"
@@ -370,21 +369,21 @@
                                             @if ($program->category_id == 1)
                                                 <div class="border border-success mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-success"
+                                                    <div id="{{ $program->id }}" class="rounded-pill bg-success"
                                                         style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 2)
                                                 <div class="border border-warning mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-warning"
+                                                    <div id="{{ $program->id }}" class="rounded-pill bg-warning"
                                                         style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 3)
                                                 <div class="border border-info mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-info"
+                                                    <div id="{{ $program->id }}" class="rounded-pill bg-info"
                                                         style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
@@ -392,12 +391,12 @@
 
                                             <div class="text-center">
                                                 <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
-                                                    style="height: 35px" href="programs/{{ $program->program_id }}">
+                                                    style="height: 35px" href="programs/{{ $program->id }}">
                                                     <small>Detail</small>
                                                 </a>
                                             </div>
                                             @if (Auth::user())
-                                                <a href="/form-donasi/{{ $program->program_id }}" style="height: 35px"
+                                                <a href="/form-donasi/{{ $program->id }}" style="height: 35px"
                                                     type="submit"
                                                     class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
                                                     <small>Donasi Sekarang</small>

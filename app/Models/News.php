@@ -16,8 +16,8 @@ class News extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function programs()
+    public function categories()
     {
-        return $this->belongsTo(Program::class);
+        return $this->belongsTo(Category::class);
     }
 }

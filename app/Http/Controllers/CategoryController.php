@@ -59,7 +59,7 @@ class CategoryController extends Controller
     {
         // dd($category->programs());
         $now = Carbon::now();
-        $programs = $category->programs()->join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->paginate(12);
+        $programs = $category->programs()->where('batastanggal','>=',$now)->where('programs.status','=','1')->paginate(12);
         // dd($programs);
         return view('user.program', [
             'programs' => $programs,
@@ -71,7 +71,7 @@ class CategoryController extends Controller
     {
         // dd($category->programs());
         $now = Carbon::now();
-        $programs = $category->programs()->join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('batastanggal', 'asc')->paginate(12);
+        $programs = $category->programs()->where('batastanggal','>=',$now)->where('programs.status','=','1')->orderBy('batastanggal', 'asc')->paginate(12);
         // dd($programs);
         return view('user.program', [
             'programs' => $programs,
@@ -83,7 +83,7 @@ class CategoryController extends Controller
     {
         // dd($category->programs());
         $now = Carbon::now();
-        $programs = $category->programs()->join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('tglmulai', 'desc')->paginate(12);
+        $programs = $category->programs()->where('batastanggal','>=',$now)->where('programs.status','=','1')->orderBy('tglmulai', 'desc')->paginate(12);
         // dd($programs);
         return view('user.program', [
             'programs' => $programs,

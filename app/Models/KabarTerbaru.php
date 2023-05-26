@@ -15,9 +15,4 @@ class KabarTerbaru extends Model
     {
         return $this->belongsTo(Program::class);
     }
-
-    public function program_images()
-    {
-        return $this->hasMany(ProgramImage::class);
-    }
 }

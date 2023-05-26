@@ -17,16 +17,12 @@ class DonasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Program $program)
+    public function index(Request $request, $id)
     {
+        $program = Program::find($id);
         return view('user.form-donasi',[
             'program' => $program,
         ]);
-    }
-
-    public function galangdana()
-    {
-        return view('user.form-program');
     }
 
     /**

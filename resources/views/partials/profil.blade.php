@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="mt-5 pt-5 d-flex justify-content-center align-items-center">
-        <div class="card" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; width: 1200px; height: 600px">
+    <div class="mt-5 d-flex justify-content-center align-items-center">
+        <div class="card" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; height: 93.7vh">
             <div class="card-body d-flex justify-content-evenly py-4 overflow-hidden">
                 <div id="profilBtn" class="col-md-4 text-center mt-3"
                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; width: 20%">
@@ -28,7 +28,7 @@
                         <small>Riwayat Donasi</small>
                     </button>
 
-                    <button class="donasiKu btn btn-outline-dark mb-2" data-bs-toggle="modal" data-bs-target="#ajukan"
+                    <button class="donasiKu btn btn-outline-dark mb-2" onclick="location.href='/form-program'"
                         type="button">
                         <small>Buat Program!</small>
                     </button>
@@ -43,7 +43,7 @@
     </div>
 
     {{-- Modal buat program --}}
-    <div class="modal fade" id="ajukan" tabindex="-1" aria-hidden="true">
+    {{-- <div class="modal fade" id="ajukan" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -106,62 +106,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal Ubah Profil-->
-    @foreach ($users as $user)
-        <div class="modal fade" id="profil-{{ $user->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ubah Profil</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form class="row d-flex flex-column" action="/profil/{{ $user->id }}" method="post">
-                            @method('put')
-                            @csrf
-                            <div class="col mb-3">
-                                <label for="nama" class="form-label">Nama</label>
-                                <input type="text" name="nama" class="form-control" value="{{ $user->nama }}" />
-                            </div>
-                            <div class="col mb-3">
-                                <label for="jk">Jenis Kelamin</label>
-                                <br>
-                                <select class="form-select border-1 rounded mt-2" name="jk">
-                                    @if (!$user->jk)
-                                        <option value="1">Laki-laki</option>
-                                        <option value="0">Perempuan</option>
-                                    @elseif ($user->jk == 1)
-                                        <option selected value="{{ $user->jk }}">Laki-laki</option>
-                                        <option value="0">Perempuan</option>
-                                    @elseif ($user->jk == 0)
-                                        <option selected value="{{ $user->jk }}">Perempuan</option>
-                                        <option value="1">Laki-laki</option>
-                                    @endif
-                                </select>
-                            </div>
-                            <div class="col mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" name="email" class="form-control" value="{{ $user->email }}" />
-                            </div>
-                            <div class="col mb-3">
-                                <label for="notelp" class="form-label">No. Telepon</label>
-                                <input type="text" name="notelp" class="form-control" value="{{ $user->notelp }}" />
-                            </div>
-                            <div class="col mb-3">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <input type="text" name="alamat" class="form-control" value="{{ $user->alamat }}" />
-                            </div>
-                            <button type="submit" class="btn btn-info ms-3 text-light" style="width: 150px">Simpan</button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
+    </div> --}}
 
     {{-- Modal Ubah Pw --}}
     <div class="modal fade" id="ubahpw" tabindex="-1" aria-hidden="true">

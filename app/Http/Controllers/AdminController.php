@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Program;
 use App\Models\PencairanDana;
 use App\Models\Donasi;
+use App\Models\News;
 
 class AdminController extends Controller
 {
@@ -86,6 +87,14 @@ class AdminController extends Controller
         return view('admin.tbl-transaksi', [
             'transaksis' => Donasi::join('users', 'users.id','=','donasis.user_id')->join('programs','programs.id','=','donasis.program_id')->select('users.nama','programs.judul','donasis.jml_donasi','donasis.created_at')->orderBy('donasis.id','desc')->paginate(10),
             'title' => 'Data Transaksi'
+        ]);
+    }
+
+    public function tabelnews(){
+
+        return view('admin.tbl-news', [
+            'news' => User::join('news', 'news.user_id','=','users.id')->join('categories', 'categories.id','=','news.category_id')->select('users.nama as penulis','categories.nama as kategori','news.id','news.image','news.judul','news.konten','news.created_at')->orderBy('news.id','desc')->paginate(10),
+            'title' => 'Data Artikel'
         ]);
     }
 

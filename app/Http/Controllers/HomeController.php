@@ -14,8 +14,8 @@ class HomeController extends Controller
 {
     public function index(){
         $now = Carbon::now();
-        $program = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.batastanggal', 'asc')->get();
-        $newest = Program::join('program_images', 'programs.id', '=', 'program_images.program_id')->select('programs.*', 'program_images.*')->where('programs.batastanggal','>=',$now)->where('programs.status','=','1')->where('program_images.mainImage','=','1')->orderBy('programs.id', 'desc')->get();
+        $program = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->get();
+        $newest = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('id', 'desc')->get();
         $news = News::all();
         // dd($program);
         return view('user.home-page',[

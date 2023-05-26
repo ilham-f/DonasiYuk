@@ -13,7 +13,7 @@ class LoginController extends Controller
             if(Auth::user()->role == 'admin'){
                 return redirect()->intended('/admin');
             }
-            else if(Auth::user()->role == 'customer'){
+            else if(Auth::user()->role == 'pengunjung'){
                 return redirect()->intended('/');
             }
         }

@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->hasMany(Program::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

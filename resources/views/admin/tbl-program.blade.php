@@ -23,7 +23,7 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Judul</th>
-                                <th scope="col">Status</th>
+                                <th scope="col" class="text-center">Status</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -31,8 +31,12 @@
                             @foreach ($programs as $program)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td class="d-flex justify-content-center align-items-center">
+                                        <img style="display: block; height: 81px; width: 150px"
+                                            src="{{ asset('assets/img/'.$n->image) }}" alt="{{ $n->image }}" />
+                                    </td>
                                     <td>{{ $program->judul }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @if ($program->status == 1)
                                             <div class="py-2 rounded text-center" style="background-color: #d1e7dd">
                                                 <small class="text-success fst-italic">Sedang Berjalan</small>
@@ -43,10 +47,10 @@
                                             </div>
                                         @endif
                                     </td>
-                                    <td class="d-flex justify-content-center align-items-center">
+                                    <td class="text-center">
                                         {{-- <button style="height: 50%;" class="btn btn-info text-light" data-bs-toggle="modal"
                                             data-bs-target="#info-{{ $program->id }}">Info</button> --}}
-                                        <button style="height: 50%;" class="btn btn-warning text-light me-2"
+                                        <button style="height: 50%;" class="btn btn-warning text-light"
                                             data-bs-toggle="modal" data-bs-target="#ubah-{{ $program->id }}">Ubah</button>
                                     </td>
                                 </tr>
