@@ -33,7 +33,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="d-flex justify-content-center align-items-center">
                                         <img style="display: block; height: 81px; width: 150px"
-                                            src="{{ asset('assets/img/'.$n->image) }}" alt="{{ $n->image }}" />
+                                            src="{{ asset('storage/'.$program->image) }}" alt="{{ $program->image }}" />
                                     </td>
                                     <td>{{ $program->judul }}</td>
                                     <td class="text-center">

@@ -10,7 +10,7 @@
             aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
             @if (Auth::user())
-                <form id="search" class="d-flex" role="search" action='/produk'>
+                <form id="search" class="d-flex" role="search" action='/hasilpencarian'>
                     <input class="form-control " type="search" name="search" placeholder="Cari Program"
                         aria-label="Search" value="{{ request('search') }}" style="border-radius: 5px 0 0 5px;">
                     <button class="btn btn-dark" type="submit" style="border-radius: 0 5px 5px 0;">
@@ -34,7 +34,7 @@
                 </div> --}}
                 <form class="d-flex">
                     <div id="riwayat" class="text-center ms-2">
-                        <a class="btn btn-outline-dark mt-auto" href="/keranjang">
+                        <a class="btn btn-outline-dark mt-auto" href="/rwytdonasi">
                             <i class="bi-clock-history me-1"></i>
                             Riwayat Donasi
                             <span class="badge bg-dark text-white ms-1 rounded-pill"></span>

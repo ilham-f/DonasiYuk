@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function rwytdonasi()
     {
-        $mydonasi = Donasi::where('user_id','=',Auth::user()->id)->paginate(5);
+        $mydonasi = Donasi::join('programs','programs.id','=','donasis.program_id')->where('donasis.user_id','=',Auth::user()->id)->paginate(5);
         return view('user.rwytdonasi', [
             'mydonasi' => $mydonasi,
         ]);

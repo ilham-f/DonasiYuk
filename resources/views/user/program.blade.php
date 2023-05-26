@@ -337,21 +337,21 @@
                                             @if ($program->category_id == 1)
                                                 <div class="border border-success mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-success"
+                                                    <div id="{{ $program->id }}" class="rounded-pill bg-success"
                                                         style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 2)
                                                 <div class="border border-warning mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-warning"
+                                                    <div id="{{ $program->id }}" class="rounded-pill bg-warning"
                                                         style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
                                             @elseif ($program->category_id == 3)
                                                 <div class="border border-info mt-2 rounded-pill"
                                                     style="overflow: hidden">
-                                                    <div id="{{ $program->program_id }}" class="rounded-pill bg-info"
+                                                    <div id="{{ $program->id }}" class="rounded-pill bg-info"
                                                         style="height:10px; width:0%;">
                                                     </div>
                                                 </div>
@@ -360,7 +360,7 @@
                                             <div class="text-center">
                                                 <a class="d-flex justify-content-center btn btn-outline-dark mt-3 w-100"
                                                     style="height: 35px"
-                                                    href="{{ url('programs/' . $program->program_id) }}">
+                                                    href="{{ url('programs/' . $program->id) }}">
                                                     <small>Detail</small>
                                                 </a>
                                             </div>
@@ -394,18 +394,7 @@
                     var target = value.target;
                     var persen = (dana / target) * 100;
 
-                    if (persen >= 100 && value.category_id == 1) {
-                        $('#' + value.id).css('width', persen + '%');
-                        $('#' + value.id).css('background-color', '#157347');
-                    } else if (persen >= 100 && value.category_id == 2) {
-                        $('#' + value.id).css('width', persen + '%');
-                        $('#' + value.id).css('background-color', '#e6b626');
-                    } else if (persen >= 100 && value.category_id == 3) {
-                        $('#' + value.id).css('width', persen + '%');
-                        $('#' + value.id).css('background-color', '#2fbdd9');
-                    } else {
-                        $('#' + value.id).css('width', persen + '%');
-                    }
+                    $('#' + value.id).css('width', persen + '%');
                 });
             });
         });

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
             $table->integer('jml_donasi')->nullable();
+            $table->integer('status')->default(0);
             $table->string('doa')->nullable();
             $table->timestamps();
         });

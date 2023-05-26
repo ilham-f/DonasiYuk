@@ -27,7 +27,7 @@
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="programs/{{ $n->id }}" class="btn btn-outline-light my-1"
+                                        <a href="" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="programs/{{ $n->id }}" class="btn btn-outline-light my-1"
+                                        <a href="" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>

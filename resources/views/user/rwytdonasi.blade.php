@@ -27,12 +27,12 @@
                             {{-- Judul --}}
                             <td style="max-width: 200px;text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{ $program->judul }}</td>
                             {{-- jml_donasi --}}
-                            <td class="text-center">{{ $donasi->jml_donasi }}</td>
+                            <td class="text-center">{{ $program->jml_donasi }}</td>
                         </tr>
                     @endforeach
                 </tbody>
                 <div class="d-flex justify-content-center">
-                    {{ $programs->links() }}
+                    {{ $mydonasi->links() }}
                 </div>
             </table>
         @else

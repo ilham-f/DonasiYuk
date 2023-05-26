@@ -65,8 +65,8 @@
         }
 
         /* input:focus + .slider {
-            box-shadow: 0 0 1px #000;
-            } */
+                    box-shadow: 0 0 1px #000;
+                    } */
 
         input:checked+.slider:before {
             -webkit-transform: translateX(17px);
@@ -82,7 +82,6 @@
         .slider.round:before {
             border-radius: 50%;
         }
-
     </style>
     <!-- MultiStep Form -->
     <section style="height: 84.5vh">
@@ -105,17 +104,17 @@
                                 {{-- <small class="fst-italic">"{{ $program->judul }}"</small> --}}
                             </div>
                             <!-- Progress bar -->
-                            {{-- <div class="progressbar">
+                            <div class="progressbar">
                                 <div class="progress" id="progress"></div>
 
                                 <div class="progress-step progress-step-active fw-bold" data-title="Nominal"
                                     style="z-index: 2"></div>
                                 <div class="progress-step" data-title="Detail Donasi" style="z-index: 2">
                                 </div>
-                                <div class="progress-step" data-title="Pilih Pembayaran" style="z-index: 2">
+                                <div class="progress-step" data-title="Pembayaran" style="z-index: 2">
                                 </div>
-                                <div class="progress-step" data-title="Status" style="z-index: 2"></div>
-                            </div> --}}
+                                {{-- <div class="progress-step" data-title="Status" style="z-index: 2"></div> --}}
+                            </div>
 
                             <!-- Nominal -->
                             <div id="step1" class="pt-4 form-step form-step-active">
@@ -128,7 +127,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <label for="nominal" class="bg-transparent fw-bold"
-                                        style="position: absolute; bottom: 26.3%; width: 50px">Rp</label for="nominal">
+                                        style="position: absolute; bottom: 20.3%; width: 50px">Rp</label for="nominal">
                                     <input id="nominal" type="number" name="jml_donasi"
                                         class="form-control text-end nominal" placeholder="Jumlah Donasi">
                                 </div>
@@ -145,15 +144,20 @@
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <label for="namaAnonim">Sembunyikan nama anda ketika berdonasi :</label>
                                     <div class="d-flex align-items-center">
-                                        <small id="namaAnonim" class="text-muted">{{ Auth::user()->nama }}</small>
-                                        <label class="switch ms-2">
-                                            @if (Auth::user()->anonim == 1)
+                                        <small id="userNama" class="d-none">{{ Auth::user()->nama }}</small>
+                                        @if (Auth::user()->anonim == 1)
+                                            <small id="namaAnonim" class="text-muted">#OrangBaik</small>
+                                            <label class="switch ms-2">
                                                 <input id="anonim" name="anonim" type="checkbox" value="1" checked>
-                                            @else
+                                                <span class="slider round"></span>
+                                            </label>
+                                        @else
+                                            <small id="namaAnonim" class="text-muted">{{ Auth::user()->nama }}</small>
+                                            <label class="switch ms-2">
                                                 <input id="anonim" name="anonim" type="checkbox" value="0">
-                                            @endif
-                                            <span class="slider round"></span>
-                                        </label>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row">
@@ -196,8 +200,44 @@
             }
         });
 
-        $(document).ready(function () {
-            $('#donasiBtn').click(function (e) {
+        $(document).ready(function() {
+            var namaAnonim = $('#namaAnonim');
+            var userNama = $('#userNama').html();
+            var isAnonim = $('#anonim');
+
+            // if (isAnonim.val() == 1) {
+            //     namaAnonim.html('#OrangBaik');
+            // } else {
+            //     namaAnonim.html(userNama);
+            // }
+
+            isAnonim.change(function() {
+                if (isAnonim.val() == 0) {
+                    isAnonim.val(1);
+                    // console.log(isAnonim.val());
+                    namaAnonim.html('#OrangBaik');
+                } else {
+                    isAnonim.val(0)
+                    // console.log(isAnonim.val());
+                    namaAnonim.html(userNama);
+                }
+
+                var anonimVal = isAnonim.val();
+                // console.log(data);
+                $.ajax({
+                    type: "post",
+                    url: "/ubahAnonim",
+                    data: {
+                        isAnonim: anonimVal
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            });
+
+            $('#donasiBtn').click(function(e) {
                 e.preventDefault();
                 var data = [];
                 var jml_donasi = $('#nominal').val();
@@ -205,42 +245,6 @@
                 var program_id = $('input[name="program_id"]').val();
                 var anonim = $('input[name="anonim"]').val();
                 var doa = $('input[name="doa"]').val();
-
-                var namaAnonim = $('#namaAnonim');
-                var userNama = $('#namaAnonim').html();
-                var isAnonim = $('#anonim');
-
-                if (isAnonim.val() == 1) {
-                    namaAnonim.html('#OrangBaik');
-                } else {
-                        namaAnonim.html(userNama);
-                }
-
-                isAnonim.change(function() {
-                    if (isAnonim.val() == 0) {
-                        isAnonim.val(1);
-                        // console.log(isAnonim.val());
-                        namaAnonim.html('#OrangBaik');
-                    } else {
-                        isAnonim.val(0)
-                        // console.log(isAnonim.val());
-                        namaAnonim.html(userNama);
-                    }
-
-                    var anonim = isAnonim.val();
-                    // console.log(data);
-                    $.ajax({
-                        type: "post",
-                        url: "/ubahAnonim",
-                        data: {
-                            isAnonim: data
-                        },
-                        dataType: "json",
-                        success: function(response) {
-                            console.log(response);
-                        }
-                    });
-                });
 
                 data.push(jml_donasi);
                 data.push(user_id);
@@ -254,10 +258,10 @@
                     type: "POST",
                     url: "/newToken",
                     data: JSON.stringify(data),
-                    success: function (response) {
+                    success: function(response) {
                         console.log("RESPON : " + response);
                         var payButton = document.getElementById('pay-button');
-                        payButton.addEventListener('click', function () {
+                        payButton.addEventListener('click', function() {
                             // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
                             //   console.log('');
                             window.snap.pay(response);

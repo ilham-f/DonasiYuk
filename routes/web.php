@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/profile', [UserController::class, 'profile']);
         Route::get('/ubahpwd', [UserController::class, 'ubahpw']);
         Route::get('/programku', [UserController::class, 'programku']);
-        Route::post('/rwytdonasi', [UserController::class, 'rwytdonasi']);
+        Route::get('/rwytdonasi', [UserController::class, 'rwytdonasi']);
         Route::get('/form-donasi/{id}', [DonasiController::class, 'index']);
         Route::post('/newToken', [MidtransController::class, 'newToken']);
         Route::get('/form-program', [ProgramController::class, 'galangdana']);

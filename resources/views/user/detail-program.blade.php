@@ -8,28 +8,16 @@
                 <div class="card-body pt-4 px-0">
                     <!-- Program image-->
                     <div id="carouselExampleCaptions" class="carousel slide">
-                        <div class="carousel-indicators">
-                            @foreach ($image as $img)
-                                <button type="button" data-bs-target="#carouselExampleCaptions"
-                                    data-bs-slide-to="{{ $loop->index }}" class="active" aria-current="true"
-                                    aria-label="Slide {{ $loop->iteration }}"></button>
-                            @endforeach
-                        </div>
+                        {{-- <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                        </div> --}}
 
                         <div class="carousel-inner">
-                            @foreach ($image as $img)
-                                @if ($loop->index == 0)
-                                    <div class="carousel-item active">
-                                        <img style="height: 450px" src="{{ asset('storage/' . $img->namafile) }}"
-                                            class="d-block w-100 card-img-top rounded" alt="{{ $img->namafile }}">
-                                    </div>
-                                @else
-                                    <div class="carousel-item">
-                                        <img style="height: 450px" src="{{ asset('storage/' . $img->namafile) }}"
-                                            class="d-block w-100 card-img-top rounded" alt="{{ $img->namafile }}">
-                                    </div>
-                                @endif
-                            @endforeach
+                            <div class="carousel-item active">
+                                <img style="height: 450px" src="{{ asset('storage/' . $program->image) }}"
+                                    class="d-block w-100 card-img-top rounded" alt="{{ $program->image }}">
+                            </div>
                         </div>
 
                         <div class="carousel-caption rounded d-inline-block mx-auto" style="max-width: 30%;">
@@ -68,7 +56,7 @@
                                 style="font-size: 14px; width: 180px">Donasi Sekarang</a>
                         </div>
 
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
@@ -77,7 +65,7 @@
                             data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
-                        </button>
+                        </button> --}}
                     </div>
                     {{-- <div class="image-conatiner" style="position:relative; display:inline-block; width:100%">
                         <img class="card-img-top rounded" style="display: block; height: 450px; max-width: 100%"
@@ -128,146 +116,202 @@
                     </div>
                     <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
                         <div class="accordion-item">
-                          <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                              Deskripsi
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                              {{ $program->deskripsi }}
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapseOne">
+                                    Deskripsi
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    {{ $program->deskripsi }}
+                                </div>
                             </div>
-                          </div>
                         </div>
                         <div class="accordion-item">
-                          <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                              Kabar Terbaru
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="d-flex align-items-center me-3">
-                                            <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar" class="img-fluid me-2" style="width: 35px;"/>
-                                            <h5 class="pt-2 fw-bolder">@$owner->nama</h6>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapseTwo">
+                                    Kabar Terbaru
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">@$owner->nama</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Operasi Jantung</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
                                         </span>
-                                        <small>1 jam lalu</small>
+                                        <hr>
                                     </div>
-                                    <strong class="mb-1">Operasi Jantung</strong>
-                                    <span>
-                                      It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </span>
-                                    <hr>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="d-flex align-items-center me-3">
-                                            <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar" class="img-fluid me-2" style="width: 35px;"/>
-                                            <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Operasi Lambung</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
                                         </span>
-                                        <small>1 jam lalu</small>
+                                        <hr>
                                     </div>
-                                    <strong class="mb-1">Operasi Lambung</strong>
-                                    <span>
-                                      It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </span>
-                                    <hr>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="d-flex align-items-center me-3">
-                                            <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar" class="img-fluid me-2" style="width: 35px;"/>
-                                            <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Operasi Usus</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
                                         </span>
-                                        <small>1 jam lalu</small>
+                                        <hr>
                                     </div>
-                                    <strong class="mb-1">Operasi Usus</strong>
-                                    <span>
-                                      It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </span>
-                                    <hr>
                                 </div>
                             </div>
-                          </div>
                         </div>
                         <div class="accordion-item">
-                          <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                              Pancairan Dana
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="d-flex align-items-center me-3">
-                                            <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar" class="img-fluid me-2" style="width: 35px;"/>
-                                            <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseThree">
+                                    Pancairan Dana
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Pencairan Dana 10.000</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
                                         </span>
-                                        <small>1 jam lalu</small>
+                                        <hr>
                                     </div>
-                                    <strong class="mb-1">Pencairan Dana 10.000</strong>
-                                    <span>
-                                      It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </span>
-                                    <hr>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="d-flex align-items-center me-3">
-                                            <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar" class="img-fluid me-2" style="width: 35px;"/>
-                                            <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Pencairan Dana 10.000</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
                                         </span>
-                                        <small>1 jam lalu</small>
+                                        <hr>
                                     </div>
-                                    <strong class="mb-1">Pencairan Dana 10.000</strong>
-                                    <span>
-                                      It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </span>
-                                    <hr>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="d-flex align-items-center me-3">
-                                            <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar" class="img-fluid me-2" style="width: 35px;"/>
-                                            <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Pencairan Dana 10.000</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
                                         </span>
-                                        <small>1 jam lalu</small>
+                                        <hr>
                                     </div>
-                                    <strong class="mb-1">Pencairan Dana 10.000</strong>
-                                    <span>
-                                      It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </span>
-                                    <hr>
                                 </div>
                             </div>
-                          </div>
                         </div>
                         <div class="accordion-item">
-                          <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                              Donasi
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseFour">
+                                    Donasi
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until
+                                    the collapse plugin adds the appropriate classes that we use to style each element.
+                                    These classes control the overall appearance, as well as the showing and hiding via CSS
+                                    transitions. You can modify any of this with custom CSS or overriding our default
+                                    variables. It's also worth noting that just about any HTML can go within the
+                                    <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
                             </div>
-                          </div>
                         </div>
                         <div class="accordion-item">
-                          <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-                              Doa
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseFive">
+                                    Doa
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until
+                                    the collapse plugin adds the appropriate classes that we use to style each element.
+                                    These classes control the overall appearance, as well as the showing and hiding via CSS
+                                    transitions. You can modify any of this with custom CSS or overriding our default
+                                    variables. It's also worth noting that just about any HTML can go within the
+                                    <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
                             </div>
-                          </div>
                         </div>
                     </div>
                 </div>
