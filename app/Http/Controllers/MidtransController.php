@@ -23,6 +23,7 @@ class MidtransController extends Controller
         $data = json_decode($request->getContent(), true);
         $program = Program::find($data[2]);
         $user = User::find($data[1]);
+        $doa = $data[3];
         $userNama = $user->nama;
         $userEmail = $user->email;
         $userTelp = $user->notelp;
@@ -48,6 +49,14 @@ class MidtransController extends Controller
             ),
         );
 
+        Donasi::create([
+            'user_id' => $user->id,
+            'program_id' => $program->id,
+            'id_pembayaran' => $params['transaction_details']['order_id'],
+            'jml_donasi' => $params['transaction_details']['gross_amount'],
+            'doa' => $doa,
+        ]);
+
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         return $snapToken;
@@ -58,9 +67,35 @@ class MidtransController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function updateDana(Request $request)
     {
-        //
+        $dana = $request->dana;
+        $bank = $request->bank;
+        $va = $request->va;
+        $id_bayar = $request->id_bayar;
+
+        $getProgram = Program::join('donasis','donasis.program_id','=','programs.id')->select('donasis.program_id')->where('donasis.id_pembayaran','=',$id_bayar)->first();
+        $getDonasi = Donasi::where('id_pembayaran','=',$id_bayar)->first();
+
+        $program_id =  $getProgram->program_id;
+        $donasi_id =  $getDonasi->id;
+
+        $program = Program::find($program_id);
+        $donasi = Donasi::find($donasi_id);
+
+        $danaterkumpul = $program->danaterkumpul + $dana;
+        $program->update([
+            'danaterkumpul' => $danaterkumpul
+        ]);
+
+        $donasi->update([
+            'bank' => $bank,
+            'va' => $va,
+            'status' => 1,
+        ]);
+
+        return 'Update berhasil!';
+        // return $donasi_id;
     }
 
     /**

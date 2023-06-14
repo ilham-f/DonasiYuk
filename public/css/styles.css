@@ -160,6 +160,10 @@ body {
     animation: animate 0.5s;
 }
 
+.doa {
+    animation: animate 0.5s;
+}
+
 .form-step-active {
     display: block;
 }
@@ -391,6 +395,7 @@ sup {
 a {
   color: #212529;
   text-decoration: none;
+  cursor: pointer;
 }
 a:hover {
   color: #2f2f2f;
@@ -4976,6 +4981,7 @@ textarea.form-control-lg {
 }
 
 .page-link {
+  cursor: pointer;
   position: relative;
   display: block;
   color: #000;

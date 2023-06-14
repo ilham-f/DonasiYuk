@@ -92,11 +92,20 @@
                                                     <small>Detail</small>
                                                 </a>
                                             </div>
-                                            {{-- @if (Auth::user()) --}}
-                                            <button style="height: 35px" type="submit"
-                                                class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
-                                                <small>Donasi Sekarang</small>
-                                            </button>
+                                            @if (Auth::user())
+                                                <a href="/form-donasi/{{ $program->id }}" style="height: 35px"
+                                                    class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
+                                                    <small>Donasi Sekarang</small>
+                                                </a>
+                                            @else
+                                                <a style="height: 35px" data-bs-toggle="modal" data-bs-target="#login2"
+                                                    class="d-flex justify-content-center btn btn-outline-dark mt-2 w-100">
+                                                    <small>Donasi Sekarang</small>
+                                                </a>
+                                                @php
+                                                    session(['logindulu' => 'Terima kasih atas niat baik anda untuk berdonasi. Masuk ke akun anda untuk melanjutkan donasi!']);
+                                                @endphp
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

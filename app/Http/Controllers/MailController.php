@@ -55,7 +55,7 @@ class MailController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
+                    ? back()->with(['status' => 'Kami telah mengirimkan link Reset Password ke email anda!'])
                     : back()->withErrors(['email' => __($status)]);
     }
 

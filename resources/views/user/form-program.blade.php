@@ -38,11 +38,10 @@
 
                                 <div class="progress-step progress-step-active fw-bold" data-title="Kategori"
                                     style="z-index: 2"></div>
-                                <div class="progress-step" data-title="Foto Program" style="z-index: 2">
+                                <div class="progress-step text-center" data-title="Foto Program" style="z-index: 2">
                                 </div>
-                                <div class="progress-step" data-title="Detail Program" style="z-index: 2">
+                                <div class="progress-step text-center" data-title="Detail Program" style="z-index: 2">
                                 </div>
-                                <div class="progress-step" data-title="Status" style="z-index: 2"></div>
                             </div>
 
                             <!-- Pilih Kategori -->
@@ -87,11 +86,22 @@
                             <!-- Detail Program -->
                             <div class="pt-4 form-step">
                                 <div class="row">
-                                    <input id="judul" type="text" name="judul" class="form-control mb-2"
+                                    <input id="judul" type="text" name="judul" class="form-control mb-3"
                                         placeholder="Judul Program" required>
                                 </div>
                                 <div class="row">
-                                    <textarea id="deskripsi" name="deskripsi" placeholder="Deskripsi Program" required></textarea>
+                                    <textarea id="deskripsi" name="deskripsi" class="mb-3" placeholder="Deskripsi Program" required></textarea>
+                                </div>
+                                <div class="row">
+                                    <input type="number" name="target" class="form-control mb-3"
+                                        placeholder="Target Dana" required>
+                                </div>
+                                <div class="row">
+                                    <div class="p-0 mb-2 d-flex flex-column">
+                                        <label for="batastanggal" class="ms-1">Batas Tanggal</label>
+                                        <input type="date" name="batastanggal" class="form-control mb-2"
+                                            placeholder="Batas Tanggal" required>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -114,6 +124,23 @@
             </div>
         </div>
     </section>
+
+
+    <script>
+        // Get the input element
+        var inputDate = document.getElementsByName('batastanggal')[0];
+
+        // Get the current date
+        var currentDate = new Date();
+
+        // Calculate the next five days
+        var nextFourDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 5);
+        // Get the current date
+        var startDate = nextFourDays.toISOString().split('T')[0];
+
+        // Set the min attribute of the input element to the current date
+        inputDate.min = startDate;
+    </script>
 
     <script>
         $(document).ready(function() {

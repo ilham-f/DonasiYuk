@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('target')->nullable();
-            $table->integer('danaterkumpul')->nullable();
+            $table->integer('danaterkumpul')->default(0);
             $table->dateTime('batastanggal')->nullable();
             $table->string('image')->nullable();
             $table->string('status')->default(0);

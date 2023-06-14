@@ -7,6 +7,9 @@ use App\Models\Program;
 use App\Models\User;
 use App\Models\ProgramImage;
 use App\Models\Category;
+use App\Models\Donasi;
+use App\Models\KabarTerbaru;
+use App\Models\PencairanDana;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProgramRequest;
@@ -37,6 +40,27 @@ class ProgramController extends Controller
         return view('user.hasilpencarian', [
             'programs' => $program->filter(request(['search']))->paginate(12)->withQueryString(),
         ]);
+    }
+
+    function editFotoProgram(Request $request, $programid) {
+        $validated = $request->validate([
+            'image' => ['required', 'image', 'file']
+        ]);
+
+        if ($request->file('image')) {
+            $validated['image'] = $request->file('image')->store('programs');
+        }
+
+        $program = Program::find($programid);
+        $created = $program->update([
+            'image' => $validated['image']
+        ]);
+
+        if ($created) {
+            return back()->with('alert', 'Foto Program berhasil diubah!');
+        } else {
+            return back()->with('alert', 'Error, gagal mengubah foto program');
+        }
     }
 
     // Filter Program Mendesak
@@ -70,7 +94,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -116,7 +140,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -162,7 +186,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -210,7 +234,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -256,7 +280,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -302,7 +326,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -350,7 +374,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -396,7 +420,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -442,7 +466,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -519,7 +543,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -565,7 +589,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -611,7 +635,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -686,7 +710,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -732,7 +756,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -778,7 +802,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -853,7 +877,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -899,7 +923,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -945,7 +969,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide desak'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1023,7 +1047,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1069,7 +1093,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1115,7 +1139,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1163,7 +1187,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1209,7 +1233,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1255,7 +1279,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1303,7 +1327,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1349,7 +1373,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1395,7 +1419,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1472,7 +1496,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1518,7 +1542,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1564,7 +1588,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1639,7 +1663,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px;width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1685,7 +1709,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1731,7 +1755,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1806,7 +1830,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1852,7 +1876,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -1898,7 +1922,7 @@ class ProgramController extends Controller
                     $result = '<div class="swiper-slide baru'. $p->category_id.' p col-lg mb-2 mt-4">
                         <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                             <!-- Gambar Program -->
-                            <img class="card-img-top" style="display: block; height: 150px"
+                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
                                 src="storage/'.$p->image.'"
                                 alt="'. $p->image.'" />
                             <!-- Detail Program -->
@@ -2002,6 +2026,8 @@ class ProgramController extends Controller
             'category_id' => ['required'],
             'judul' => ['required'],
             'deskripsi' => ['required'],
+            'target' => ['required'],
+            'batastanggal' => ['required'],
             'image' => ['required', 'image', 'file']
         ]);
 
@@ -2024,9 +2050,9 @@ class ProgramController extends Controller
      * @param  \App\Http\Requests\StoreProgramRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProgramRequest $request)
+    public function edit(Request $request)
     {
-        //
+
     }
 
     /**
@@ -2037,21 +2063,14 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        // dd($image);
+        // dd(Donasi::join('users','users.id','=','donasis.user_id')->select('donasis.*', 'users.nama', 'donasis.program_id')->where('program_id','=',$program->id)->paginate(3));
         return view('user.detail-program', [
             'program' => $program,
+            'owner' => User::find(Auth::user()->id),
+            'kabars' => KabarTerbaru::where('program_id','=',$program->id)->get(),
+            'pencairans' => PencairanDana::where('program_id','=',$program->id)->get(),
+            'donasis' => Donasi::join('users','users.id','=','donasis.user_id')->select('donasis.*', 'users.nama','users.anonim', 'donasis.program_id')->where('program_id','=',$program->id)->paginate(3)
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Program  $program
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Program $program)
-    {
-        //
     }
 
     /**
@@ -2063,20 +2082,28 @@ class ProgramController extends Controller
      */
     public function update(Request $request, $programid)
     {
+        // dd($request);
         $userid = Auth::user()->id;
         $program = Program::find($programid);
         // dd($program);
-        $data = $request->validate([
-            'judul' => ['required'],
-            'deskripsi' => ['required']
-        ]);
+        if (!$request->judul) {
+            $data = $request->validate([
+                'deskripsi' => ['required']
+            ]);
+        }
+        else {
+            $data = $request->validate([
+                'judul' => ['required']
+            ]);
+        }
+
         // dd($data);
         $updated = $program->update($data);
         if ($updated) {
-            return back()->with('alert','Berhasil Update');
+            return back()->with('isUpdated','Berhasil Update');
         }
 
-        return back()->with('gagal','Gagal Update');
+        return back()->with('isUpdated','Gagal Update');
     }
 
     /**

@@ -47,7 +47,10 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+        return view('user.news', [
+            'news' => News::find($news->id),
+        ]);
+
     }
 
     /**

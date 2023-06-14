@@ -13,6 +13,9 @@ use Carbon\Carbon;
 class HomeController extends Controller
 {
     public function index(){
+        if (Auth::check() && Auth::user()->email_verified_at == '') {
+            return redirect('/email/verify');
+        }
         $now = Carbon::now();
         $program = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('batastanggal', 'asc')->get();
         $newest = Program::where('batastanggal','>=',$now)->where('status','=','1')->orderBy('id', 'desc')->get();

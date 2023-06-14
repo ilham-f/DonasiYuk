@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
+            $table->string('id_pembayaran')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('va_number')->nullable();
             $table->integer('jml_donasi')->nullable();
             $table->integer('status')->default(0);
             $table->string('doa')->nullable();
