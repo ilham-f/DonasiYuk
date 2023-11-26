@@ -62,20 +62,30 @@ class UserController extends Controller
         $donasi = Donasi::selectRaw('SUM(jml_donasi) AS totalDonasi')->where('user_id','=',$userid)->first();
         $program = Program::where('user_id','=',$userid)->get();
         // dd($program);
-        foreach ($program as $p => $value) {
-            // dd($value);
-            $arrIdProgram[] = $value->id;
+
+        if (count($program)) {
+            foreach ($program as $p => $value) {
+                // dd($value);
+                $arrIdProgram[] = $value->id;
+            }
+
+            # code...
+            $danaSaya = Donasi::selectRaw('SUM(jml_donasi) AS totaldanaSaya')->whereIn('program_id', $arrIdProgram)->get();
+            return view('user.profile-page', [
+                'user' => $user,
+                'donasi' => $donasi,
+                'danaSaya' => $danaSaya->first(),
+                'programSaya' => $program
+            ]);
         }
 
-        $danaSaya = Donasi::selectRaw('SUM(jml_donasi) AS totaldanaSaya')->whereIn('program_id',$arrIdProgram)->get();
-
-        // dd($danaSaya);
         return view('user.profile-page', [
             'user' => $user,
             'donasi' => $donasi,
-            'danaSaya' => $danaSaya->first(),
             'programSaya' => $program
         ]);
+
+        // dd($danaSaya);
     }
 
     /**

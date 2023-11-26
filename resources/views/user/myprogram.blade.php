@@ -53,7 +53,11 @@
                                     </div>
                                 @elseif ($program->status == 0)
                                     <div class="py-2 rounded" style="background-color: #fff3cd">
-                                        <small class="text-warning fst-italic">Proses Verifikasi</small>
+                                        <small class="text-warning fst-italic">Proses verifikasi</small>
+                                    </div>
+                                @else
+                                    <div class="py-2 rounded" style="background-color: #fff3cd">
+                                        <small class="text-danger fst-italic">Telah berakhir</small>
                                     </div>
                                 @endif
                             </td>

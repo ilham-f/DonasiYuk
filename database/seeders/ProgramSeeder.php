@@ -23,7 +23,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-15',
+            'batastanggal' => '2024-06-15',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -34,7 +34,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-16',
+            'batastanggal' => '2024-06-16',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -45,7 +45,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-17',
+            'batastanggal' => '2024-06-17',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -56,7 +56,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-18',
+            'batastanggal' => '2024-06-18',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -67,7 +67,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-19',
+            'batastanggal' => '2024-06-19',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -78,7 +78,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-20',
+            'batastanggal' => '2024-06-20',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -89,7 +89,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-21',
+            'batastanggal' => '2024-06-21',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -100,7 +100,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 1,
             'user_id' => 1,
             'target' => 100000,
-            'batastanggal' => '2023-06-22',
+            'batastanggal' => '2024-06-22',
             'status' => '1',
             'image' => 'programs/Budi.png',
         ]);
@@ -113,7 +113,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-01',
+            'batastanggal' => '2024-07-01',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -124,7 +124,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-02',
+            'batastanggal' => '2024-07-02',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -135,7 +135,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-03',
+            'batastanggal' => '2024-07-03',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -146,7 +146,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-04',
+            'batastanggal' => '2024-07-04',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -157,7 +157,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-05',
+            'batastanggal' => '2024-07-05',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -168,7 +168,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-06',
+            'batastanggal' => '2024-07-06',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -179,7 +179,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-07',
+            'batastanggal' => '2024-07-07',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -190,7 +190,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 2,
             'user_id' => 2,
             'target' => 150000,
-            'batastanggal' => '2023-07-08',
+            'batastanggal' => '2024-07-08',
             'status' => '1',
             'image' => 'programs/Adi.png',
         ]);
@@ -203,7 +203,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-09',
+            'batastanggal' => '2024-08-09',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -214,7 +214,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-10',
+            'batastanggal' => '2024-08-10',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -225,7 +225,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-11',
+            'batastanggal' => '2024-08-11',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -236,7 +236,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-12',
+            'batastanggal' => '2024-08-12',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -247,7 +247,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-13',
+            'batastanggal' => '2024-08-13',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -258,7 +258,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-14',
+            'batastanggal' => '2024-08-14',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -269,7 +269,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-15',
+            'batastanggal' => '2024-08-15',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);
@@ -280,7 +280,7 @@ class ProgramSeeder extends Seeder
             'category_id' => 3,
             'user_id' => 3,
             'target' => 250000,
-            'batastanggal' => '2023-08-16',
+            'batastanggal' => '2024-08-16',
             'status' => '1',
             'image' => 'programs/Andi.png',
         ]);

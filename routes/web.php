@@ -33,7 +33,7 @@ Route::get('/reset-password/{token}', [MailController::class, 'resetView'])->nam
 Route::post('/reset-password', [MailController::class, 'resetPw'])->name('password.update');
 
 // Customer tanpa login
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::get('/hasilpencarian', [ProgramController::class, 'hasilCari']);
 Route::get('/semuaprogram', [ProgramController::class, 'index']);
 Route::get('/urutmendesak', [ProgramController::class, 'urutMendesak']);
