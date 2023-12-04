@@ -101,77 +101,16 @@
                             @csrf
                             <div class="text-center">
                                 <h2 class="text-cursive fw-bold pb-2 mt-0">Donasi Sekarang</h2>
-                                {{-- <small class="fst-italic">"{{ $program->judul }}"</small> --}}
                             </div>
                             <!-- Progress bar -->
-                            <div class="progressbar">
-                                <div class="progress" id="progress"></div>
-
-                                <div class="progress-step progress-step-active fw-bold" data-title="Nominal"
-                                    style="z-index: 2"></div>
-                                <div class="progress-step" data-title="Detail Donasi" style="z-index: 2">
+                            <!-- Pilih Pembayaran -->
+                            <div class="pt-4">
+                                <div class="row">
+                                    <a id="pay-button" class="btn btn-dark">Pilih Pembayaran</a>
                                 </div>
                             </div>
-
-                            <!-- Nominal -->
-                            <div id="step1" class="pt-4 form-step form-step-active">
-                                <span class="me-0 fw-bold" style="margin-left: -10px">Pilih Otomatis :</span>
-                                <div class="mb-4 row">
-                                    <a class="btn btn-outline-dark col g-1 me-2">Rp10.000</a>
-                                    <a class="btn btn-outline-dark col g-1 me-2">Rp25.000</a>
-                                    <a class="btn btn-outline-dark col g-1 me-2">Rp50.000</a>
-                                    <a class="btn btn-outline-dark col g-1">Rp100.000</a>
-                                </div>
-                                <div class="row mb-2">
-                                    <label for="nominal" class="bg-transparent fw-bold"
-                                        style="position: absolute; bottom: 20.3%; width: 50px">Rp</label for="nominal">
-                                    <input id="nominal" type="number" name="jml_donasi"
-                                        class="form-control text-end nominal" placeholder="Jumlah Donasi">
-                                </div>
-                                <div class="row">
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                    <input type="hidden" name="program_id" value="{{ $program->id }}">
-                                    <a class="btn btn-dark btn-next">Lanjutkan</a>
-                                </div>
-                            </div>
-
-
-                            <!-- Detail Donasi -->
-                            <div class="pt-4 form-step">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <label for="namaAnonim">Sembunyikan nama anda ketika berdonasi :</label>
-                                    <div class="d-flex align-items-center">
-                                        <small id="userNama" class="d-none">{{ Auth::user()->nama }}</small>
-                                        @if (Auth::user()->anonim == 1)
-                                            <small id="namaAnonim" class="text-muted">#OrangBaik</small>
-                                            <label class="switch ms-2">
-                                                <input id="anonim" name="anonim" type="checkbox" value="1" checked>
-                                                <span class="slider round"></span>
-                                            </label>
-                                        @else
-                                            <small id="namaAnonim" class="text-muted">{{ Auth::user()->nama }}</small>
-                                            <label class="switch ms-2">
-                                                <input id="anonim" name="anonim" type="checkbox" value="0">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <input type="text" name="doa" class="form-control mb-2"
-                                        placeholder="Berikan doa atau harapan">
-                                </div>
-                                <div class="row">
-                                    <a id="donasiBtn" class="btn btn-dark btn-next">Lanjutkan</a>
-                                </div>
-                            </div>
-                        </form>
-                        <form action="/newToken" id="pembayaran" method="post">
-                            @csrf
-                            <input type="hidden" name="jmldonasi" id="jmldonasi">
-                            <input type="hidden" name="userid" id="userid">
-                            <input type="hidden" name="programid" id="programid">
-                            <input type="hidden" name="doa" id="doa">
+                            {{-- @dd($snapToken) --}}
+                            <div class="d-none" id="snapToken">{{ $snapToken }}</div>
                         </form>
                     </div>
                 </div>
@@ -187,51 +126,49 @@
         });
 
         $(document).ready(function() {
-            var namaAnonim = $('#namaAnonim');
-            var userNama = $('#userNama').html();
-            var isAnonim = $('#anonim');
+            var payButton = document.getElementById('pay-button');
+            var snapToken = $('#snapToken').html();
+            console.log(snapToken);
+            payButton.addEventListener('click', function() {
+                window.snap.pay(snapToken, {
+                    onSuccess: function(result){
+                        /* You may add your own implementation here */
+                        alert("Pembayaran berhasil");
+                        var id_bayar = result.order_id;
+                        var dana = result.gross_amount;
+                        var bank = result.va_numbers[0].bank;
+                        var va = result.va_numbers[0].va_number;
 
-            isAnonim.change(function() {
-                if (isAnonim.val() == 0) {
-                    isAnonim.val(1);
-                    // console.log(isAnonim.val());
-                    namaAnonim.html('#OrangBaik');
-                } else {
-                    isAnonim.val(0)
-                    // console.log(isAnonim.val());
-                    namaAnonim.html(userNama);
-                }
-
-                var anonimVal = isAnonim.val();
-                // console.log(data);
-                $.ajax({
-                    type: "post",
-                    url: "/ubahAnonim",
-                    data: {
-                        isAnonim: anonimVal
+                        $.ajax({
+                            type: "post",
+                            url: "/updateDana",
+                            data: {
+                                'bank': bank,
+                                'va': va,
+                                'dana': dana,
+                                'id_bayar': id_bayar,
+                            },
+                            success: function (response) {
+                                console.log(response);
+                                window.location.href = "{{ url('rwytdonasi') }}";
+                            }
+                        });
+                        // checkout(result,result.transaction_status);
                     },
-                    dataType: "json",
-                    success: function(response) {
-                        console.log(response);
+                    onPending: function(result){
+                        /* You may add your own implementation here */
+                        alert("Menunggu pembayaran anda!");
+                        console.log(result.transaction_status);
+                    },
+                    onError: function(result){
+                        /* You may add your own implementation here */
+                        alert("Pembayaran anda gagal");
+                    },
+                    onClose: function(){
+                        /* You may add your own implementation here */
+                        alert('Apakah anda yakin untuk menutup halaman pembayaran?');
                     }
                 });
-            });
-
-            $('#donasiBtn').click(function(e) {
-                e.preventDefault();
-                var data = [];
-                var jml_donasi = $('#nominal').val();
-                var user_id = $('input[name="user_id"]').val();
-                var program_id = $('input[name="program_id"]').val();
-                var anonim = $('input[name="anonim"]').val();
-                var doa = $('input[name="doa"]').val();
-
-                $('#jmldonasi').val(jml_donasi);
-                $('#userid').val(user_id);
-                $('#programid').val(program_id);
-                $('#doa').val(doa);
-
-                $('#pembayaran').submit();
             });
         });
     </script>
@@ -282,6 +219,9 @@
         prevBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
                 formStepsNum--;
+                if (formStepsNum <= 0) {
+                    $('#prev').hide();
+                }
                 updateFormSteps();
                 updateProgressbar();
             });

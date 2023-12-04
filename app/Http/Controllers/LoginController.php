@@ -17,7 +17,7 @@ class LoginController extends Controller
                 return redirect()->intended('/');
             }
         }
-        return view('/');
+        return redirect()->intended('/');
     }
 
     public function authenticate(Request $request)

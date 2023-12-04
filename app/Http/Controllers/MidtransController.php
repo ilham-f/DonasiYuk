@@ -19,10 +19,10 @@ class MidtransController extends Controller
      */
     public function newToken(Request $request)
     {
-        // dd($id);
-        $data = json_decode($request->getContent(), true);
-        $program = Program::find($data[2]);
-        $user = User::find($data[1]);
+        // dd($request);
+        $program = Program::find($request->programid);
+        $user = User::find($request->userid);
+        $doa = $request->doa;
         $userNama = $user->nama;
         $userEmail = $user->email;
         $userTelp = $user->notelp;
@@ -38,7 +38,7 @@ class MidtransController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => rand(),
-                'gross_amount' => $data[0],
+                'gross_amount' => $request->jmldonasi,
             ),
             'customer_details' => array(
                 'judul' => $programJudul,
@@ -49,8 +49,11 @@ class MidtransController extends Controller
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-        return $snapToken;
+        // dd($program);
+        return view('user.pembayaran',[
+            'program' => $program,
+            'snapToken' => $snapToken
+        ]);
     }
 
     /**
@@ -60,7 +63,32 @@ class MidtransController extends Controller
      */
     public function create()
     {
-        //
+        $dana = $request->dana;
+        $bank = $request->bank;
+        $va = $request->va;
+        $id_bayar = $request->id_bayar;
+
+        $getProgram = Program::join('donasis','donasis.program_id','=','programs.id')->select('donasis.program_id')->where('donasis.id_pembayaran','=',$id_bayar)->first();
+        $getDonasi = Donasi::where('id_pembayaran','=',$id_bayar)->first();
+
+        $program_id =  $getProgram->program_id;
+        $donasi_id =  $getDonasi->id;
+
+        $program = Program::find($program_id);
+        $donasi = Donasi::find($donasi_id);
+
+        $danaterkumpul = $program->danaterkumpul + $dana;
+        $program->update([
+            'danaterkumpul' => $danaterkumpul
+        ]);
+
+        $donasi->update([
+            'bank' => $bank,
+            'va' => $va,
+            'status' => 1,
+        ]);
+
+        return 'Update berhasil!';
     }
 
     /**

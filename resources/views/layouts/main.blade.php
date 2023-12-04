@@ -25,10 +25,7 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     {{-- <script src="{{ asset('js/lightslider.js') }}"></script> --}}
 
-    <script type="text/javascript"
-      src="https://app.sandbox.midtrans.com/snap/snap.js"
-      data-client-key="SB-Mid-client-3sVsCf9Xw8UBQcSB">
-    </script>
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key='{{ env('MIDTRANS_CLIENT_KEY') }}'></script>
 
     <style>
         .text-cursive {
