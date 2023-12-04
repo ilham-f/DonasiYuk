@@ -125,13 +125,13 @@
                                     <a class="btn btn-outline-dark col g-1 me-2">Rp50.000</a>
                                     <a class="btn btn-outline-dark col g-1">Rp100.000</a>
                                 </div>
-                                <div class="row" style="position: relative">
-                                    <label for="nominal" class="translate-middle-y bg-transparent fw-bold"
-                                        style="position: absolute; top:50%; width: 50px">Rp</label for="nominal">
+                                <div class="row mb-2">
+                                    <label for="nominal" class="bg-transparent fw-bold"
+                                        style="position: absolute; bottom: 20.3%; width: 50px">Rp</label for="nominal">
                                     <input id="nominal" type="number" name="jml_donasi"
                                         class="form-control text-end nominal" placeholder="Jumlah Donasi">
                                 </div>
-                                <div class="row mt-2">
+                                <div class="row">
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                     <input type="hidden" name="program_id" value="{{ $program->id }}">
                                     <a class="btn btn-dark btn-next">Lanjutkan</a>
@@ -187,12 +187,6 @@
                                 </div>
                             </div> --}}
                         </form>
-                        {{-- <form action="{{ route('proses-bayar') }}" id="checkoutform" method="post">
-                            @csrf
-                            <input type="hidden" value="" id="status" name="status">
-                            <input type="hidden" value="{{ $galangDana->slug }}" name="slug">
-                            <input type="hidden" id="jsoninfo" value="" name="jsoninfo">
-                        </form> --}}
                     </div>
                 </div>
             </div>
@@ -249,11 +243,13 @@
                 var jml_donasi = $('#nominal').val();
                 var user_id = $('input[name="user_id"]').val();
                 var program_id = $('input[name="program_id"]').val();
+                var anonim = $('input[name="anonim"]').val();
                 var doa = $('input[name="doa"]').val();
 
                 data.push(jml_donasi);
                 data.push(user_id);
                 data.push(program_id);
+                data.push(anonim);
                 data.push(doa);
                 // console.log(data);
                 console.log(data);
@@ -268,48 +264,8 @@
                         payButton.addEventListener('click', function() {
                             // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
                             //   console.log('');
-                            window.snap.pay(response, {
-                                onSuccess: function(result){
-                                    /* You may add your own implementation here */
-                                    alert("Pembayaran berhasil");
-                                    // console.log(result);
-                                    // console.log(result.va_numbers[0]);
-                                    var id_bayar = result.order_id;
-                                    var dana = result.gross_amount;
-                                    var bank = result.va_numbers[0].bank;
-                                    var va = result.va_numbers[0].va_number;
-
-                                    $.ajax({
-                                        type: "post",
-                                        url: "/updateDana",
-                                        data: {
-                                            'bank': bank,
-                                            'va': va,
-                                            'dana': dana,
-                                            'id_bayar': id_bayar,
-                                        },
-                                        success: function (response) {
-                                            console.log(response);
-                                            window.location.href = "{{ url('rwytdonasi') }}";
-                                        }
-                                    });
-                                    // checkout(result,result.transaction_status);
-                                },
-                                onPending: function(result){
-                                    /* You may add your own implementation here */
-                                    alert("Menunggu pembayaran anda!");
-                                    console.log(result.transaction_status);
-                                    // checkout(result,result.transaction_status);
-                                },
-                                onError: function(result){
-                                    /* You may add your own implementation here */
-                                    alert("Pembayaran anda gagal");
-                                },
-                                onClose: function(){
-                                    /* You may add your own implementation here */
-                                    alert('Apakah anda yakin untuk menutup halaman pembayaran?');
-                                }
-                            });
+                            window.snap.pay(response);
+                            // customer will be redirected after completing payment pop-up
                         });
                     }
                 });
@@ -363,9 +319,6 @@
         prevBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
                 formStepsNum--;
-                if (formStepsNum <= 0) {
-                    $('#prev').hide();
-                }
                 updateFormSteps();
                 updateProgressbar();
             });

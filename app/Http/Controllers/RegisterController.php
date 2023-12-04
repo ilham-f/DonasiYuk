@@ -17,6 +17,7 @@ class RegisterController extends Controller
             'email' => ['required', 'email:rfc,dns', 'unique:users'],
             'password' => ['required', 'max:45'],
             'password_confirmation' => ['required', 'same:password']
+
         ]);
         // dd($validated);
 

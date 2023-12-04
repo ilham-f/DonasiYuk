@@ -25,19 +25,6 @@ class DonasiController extends Controller
         ]);
     }
 
-    public function showMore(Request $request) {
-        // Retrieve the starting index for the doa
-        $start = $request->start;
-        $program_id = $request->program_id;
-
-        $donasis = Donasi::join('users','users.id','=','donasis.user_id')->select('donasis.*', 'users.nama',)->where('program_id','=',$program_id)->get();
-        // Retrieve the next batch of doa from the database or any other data source
-        $doa = $donasis->slice($start)->take(3);
-        $arr = [(count($donasis)-$start), $doa];
-
-        // Return the doa as a response
-        return $arr;
-    }
     /**
      * Show the form for creating a new resource.
      *

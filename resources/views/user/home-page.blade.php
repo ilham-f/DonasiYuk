@@ -1,14 +1,6 @@
 @extends('layouts.main')
 
 @section('container')
-
-    <style>
-        .card-img-container {
-            position: relative;
-            height: 150px;
-            overflow: hidden;
-        }
-    </style>
     <!-- Section-->
     <section class="container px-4" style="margin-top: 75px;">
         {{-- NEWS --}}
@@ -35,7 +27,7 @@
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="news/{{ $n->id }}" class="btn btn-outline-light my-1"
+                                        <a href="" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
@@ -46,7 +38,7 @@
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="news/{{ $n->id }}" class="btn btn-outline-light my-1"
+                                        <a href="" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
@@ -161,11 +153,9 @@
                                 <div class="swiper-slide mendesak{{ $program->category_id }} program col-lg mb-2 mt-4">
                                     <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                                         <!-- Gambar Program -->
-                                        <div class="card-img-container">
-                                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
-                                                src="{{ asset('storage/' . $program->image) }}"
-                                                alt="{{ $program->image }}" />
-                                        </div>
+                                        <img class="card-img-top" style="display: block; height: 150px"
+                                            src="{{ asset('storage/' . $program->image) }}"
+                                            alt="{{ $program->image }}" />
                                         <!-- Detail Program -->
                                         <div class="card-body p-4 pt-3 pb-0">
                                             <div class="judul"
@@ -328,13 +318,11 @@
                             <!-- Slides -->
                             @foreach ($newest as $program)
                                 <div class="swiper-slide baru{{ $program->category_id }} program col-lg mb-2 mt-4">
-                                    <div class="card h-100 w-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
+                                    <div class="card h-100" style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
                                         <!-- Gambar Program -->
-                                        <div class="card-img-container">
-                                            <img class="card-img-top" style="display: block; height: 150px; width: 265px; object-fit: fill;"
-                                                src="{{ asset('storage/' . $program->image) }}"
-                                                alt="{{ $program->image }}" />
-                                        </div>
+                                        <img class="card-img-top" style="display: block; height: 150px"
+                                            src="{{ asset('storage/' . $program->image) }}"
+                                            alt="{{ $program->image }}" />
                                         <!-- Detail Program -->
                                         <div class="card-body p-4 pt-3 pb-0">
                                             <div class="judul"

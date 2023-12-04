@@ -63,9 +63,12 @@
                             </td>
                             {{-- Aksi --}}
                             <td class="text-center">
-                                <button class="btn btn-info" onclick="window.location.href='programku/{{ $program->id }}'">
-                                    <i class="bi bi-gear"></i>
-                                    <span class="ms-2">Atur Program</span>
+                                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#info-{{ $program->id }}">
+                                    <i class="bi bi-info-square"></i>
+                                </button>
+                                <button class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#ubah-{{ $program->id }}">
+                                    <i class="bi bi-pencil-square"></i>
                                 </button>
                             </td>
                         </tr>

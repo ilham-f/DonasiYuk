@@ -67,10 +67,7 @@
     </style>
 
     @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('status') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        <div class="alert alert-success">{{ session('status') }}</div>
     @endif
     <h4>Akun Saya</h4>
     <hr class="mt-0 mb-3">
@@ -82,12 +79,16 @@
         <div class="col-6 mb-3">
             <h6>Jenis Kelamin</h6>
             <select id="jkUser" style="color: #7d7a87" class="form-select border-1 rounded" name="jk" disabled>
-                @if (Auth::user()->jk == '')
+                @if (!Auth::user()->jk)
                     <option selected>Jenis Kelamin</option>
+                    <option value="1">Laki-laki</option>
+                    <option value="0">Perempuan</option>
                 @elseif (Auth::user()->jk == 1)
-                    <option selected>Laki-laki</option>
+                    <option selected value="1">Laki-laki</option>
+                    <option value="0">Perempuan</option>
                 @elseif (Auth::user()->jk == 0)
-                    <option selected>Perempuan</option>
+                    <option selected value="0">Perempuan</option>
+                    <option value="1">Laki-laki</option>
                 @endif
             </select>
             {{-- <h6>Jenis Kelamin</h6>
@@ -135,16 +136,6 @@
             </span>
         </div>
     </div>
-    @if ($programSaya)
-        <div class="text-center mt-4 p-3 border border-secondary rounded" style="background-color: #e9ecef">
-            <h5 class="text-uppercase">Total Dana Terkumpul Program Anda</h5>
-            <div class="d-flex justify-content-center mt-3" style="font-size: 30px">
-                <span class="fw-bold text-muted">Rp</span>
-                <span id="danaSaya-display" class="fw-bold text-muted">{{ $danaSaya->totaldanaSaya ?? '0' }}
-                </span>
-            </div>
-        </div>
-    @endif
 
     <!-- Modal Ubah Profil-->
     <div class="modal fade" id="profil-{{ $user->id }}" tabindex="-1" aria-hidden="true">
@@ -167,7 +158,7 @@
                             <label for="jk">Jenis Kelamin</label>
                             <br>
                             <select class="form-select border-1 rounded mt-2" name="jk">
-                                @if ($user->jk == '')
+                                @if (!$user->jk)
                                     <option selected>-- Pilih --</option>
                                     <option value="1">Laki-laki</option>
                                     <option value="0">Perempuan</option>
@@ -179,6 +170,10 @@
                                     <option value="1">Laki-laki</option>
                                 @endif
                             </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" name="email" class="form-control" value="{{ $user->email }}" />
                         </div>
                         <div class="col mb-3">
                             <label for="notelp" class="form-label">No. Telepon</label>
@@ -335,58 +330,6 @@
 
             // Call the fetchData function every 5 seconds to get the updated data
             setInterval(fetchData, 5000);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            // Function to perform the number animation
-            function animateNumberSaya(totalDonasi, duration) {
-                var startNumber = parseInt($('#danaSaya-display').text());
-
-                // Calculate the number of steps
-                var steps = Math.ceil(duration / 50);
-
-                // Calculate the increment for each step
-                var increment = Math.ceil((totalDonasi - startNumber) / steps);
-
-                // Define the interval for each step
-                var interval = duration / steps;
-
-                // Start the animation
-                var currentNumber = startNumber;
-                var counter = setInterval(function() {
-                    currentNumber += increment;
-
-                    // Check if the animation has reached or exceeded the target number
-                    if (currentNumber >= totalDonasi) {
-                        clearInterval(counter);
-                        currentNumber = totalDonasi;
-                    }
-
-                    // Update the displayed number
-                    $('#danaSaya-display').text(currentNumber);
-                }, interval);
-            }
-
-            // Function to fetch the updated data from the API
-            function fetchDataSaya() {
-                $.ajax({
-                    url: '/totaldanaSaya',
-                    method: 'GET',
-                    success: function(response) {
-                        var totaldanaSaya = parseInt(response); // Extract the updated number from the API response
-                        console.log(totaldanaSaya);
-                        animateNumberSaya(totaldanaSaya, 3000); // Animate to the updated number in 3 seconds
-                    },
-                    error: function() {
-                        console.log('Failed to fetch data from the API.');
-                    }
-                });
-            }
-
-            // Call the fetchData function every 5 seconds to get the updated data
-            setInterval(fetchDataSaya, 5000);
         });
     </script>
 @endsection

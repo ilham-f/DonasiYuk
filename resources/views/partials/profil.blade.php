@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="mt-5 d-flex justify-content-center align-items-center">
-        <div class="card" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; height: 93.7vh; width: 100%">
+        <div class="card" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; height: 93.7vh">
             <div class="card-body d-flex justify-content-evenly py-4 overflow-hidden">
                 <div id="profilBtn" class="col-md-4 text-center mt-3"
                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; width: 20%">
@@ -42,6 +42,72 @@
         </div>
     </div>
 
+    {{-- Modal buat program --}}
+    {{-- <div class="modal fade" id="ajukan" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Ajukan Program</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="row d-flex flex-column" action="/programbaru" method="post" enctype="multipart/form-data">
+                        @method('put')
+                        @csrf
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Kategori</label>
+                            <br>
+                            <select class="form-select border-1 rounded" name="category_id">
+                                <option selected>Pilih Kategori</option>
+                                @foreach ($category as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Judul</label>
+                            <input type="text" name="judul" class="form-control" />
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Deskripsi</label>
+                            <textarea style="overflow:hidden;" type="text" name="deskripsi" class="form-control"
+                            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Target</label>
+                            <input type="number" name="target" class="form-control" />
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Batas Tanggal</label>
+                            <input type="date" name="batastanggal" class="form-control" />
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Gambar</label>
+                            <input type="file" name="image" class="form-control" />
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Hubungan dengan Penerima Manfaat</label>
+                            <br>
+                            <select class="form-select border-1 rounded" name="category_id">
+                                <option selected>Pilih Hubungan</option>
+                                @foreach ($category as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="program" class="form-label">Bukti Hubungan dengan Penerima Manfaat</label>
+                            <input type="file" name="bukti" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-info ms-3 text-light" style="width: 150px">Simpan</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
     {{-- Modal Ubah Pw --}}
     <div class="modal fade" id="ubahpw" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -75,4 +141,23 @@
         </div>
     </div>
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

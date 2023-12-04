@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Donasi;
 use App\Models\Program;
-use App\Models\KabarTerbaru;
-use App\Models\PencairanDana;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 
 
 
@@ -28,23 +25,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function totaldanaSaya(){
-        $userid = Auth::user()->id;
-        $program = Program::where('user_id','=',$userid)->get();
-        for ($i=0; $i < count($program); $i++) {
-            $arrIdProgram[] = $program->id;
-        }
-
-        $danaSaya = Donasi::selectRaw('SUM(jml_donasi) AS totaldanaSaya')->whereIn('program_id','=',$arrIdProgram)->get();
-
-        // dd($donasi);
-        if ($danaSaya->first()) {
-            return $danaSaya->first();
-        } else {
-            return 0;
-        }
-    }
-
     public function totalDonasi(){
         $userid = Auth::user()->id;
         $donasi = Donasi::selectRaw('SUM(jml_donasi) AS totalDonasi')->where('user_id','=',$userid)->first();
@@ -55,7 +35,6 @@ class UserController extends Controller
             return 0;
         }
     }
-
     public function profile(){
         $userid = Auth::user()->id;
         $user = User::find($userid);
@@ -95,7 +74,7 @@ class UserController extends Controller
      */
     public function rwytdonasi()
     {
-        $mydonasi = Donasi::join('programs','programs.id','=','donasis.program_id')->where('donasis.user_id','=',Auth::user()->id)->orderBy('donasis.id','desc')->paginate(5);
+        $mydonasi = Donasi::join('programs','programs.id','=','donasis.program_id')->where('donasis.user_id','=',Auth::user()->id)->paginate(5);
         return view('user.rwytdonasi', [
             'mydonasi' => $mydonasi,
         ]);
@@ -111,19 +90,6 @@ class UserController extends Controller
         $user->update($isAnonim);
     }
 
-    public function show(Program $program)
-    {
-        // dd($image);
-        // dd(KabarTerbaru::where('program_id','=',$program->id)->get());
-        return view('user.detail-programku', [
-            'program' => $program,
-            'owner' => User::find(Auth::user()->id),
-            'kabars' => KabarTerbaru::where('program_id','=',$program->id)->get(),
-            'pencairans' => PencairanDana::where('program_id','=',$program->id)->get(),
-            'donasis' => Donasi::join('users','users.id','=','donasis.user_id')->select('donasis.*','users.anonim' ,'users.nama', 'donasis.program_id')->where('program_id','=',$program->id)->paginate(3)
-        ]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -131,6 +97,17 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
     {
         //
     }
@@ -153,7 +130,7 @@ class UserController extends Controller
 
         if (Hash::check($request->password_lama, $user->password)){
             $user->update(['password' => Hash::make($request->password)]);
-            return back()->with('message', 'Password Anda berhasil diubah, silahkan logout!');
+            return back()->with('message', 'Password Anda berhasil diubah');
         }
 
         throw ValidationException::withMessages([
@@ -172,12 +149,10 @@ class UserController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $user->nama = $request->nama;
-        $user->jk = $request->jk;
+        $user->email = $request->email;
         $user->notelp = $request->notelp;
         $user->alamat = $request->alamat;
         $user->update();
-        // dd($user->update());
-
 
         return redirect('/profile')->with('status', 'Data akun Anda berhasil diubah');
     }

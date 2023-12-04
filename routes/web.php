@@ -13,8 +13,6 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\KabarTerbaruController;
-use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +37,6 @@ Route::get('/semuaprogram', [ProgramController::class, 'index']);
 Route::get('/urutmendesak', [ProgramController::class, 'urutMendesak']);
 Route::get('/urutterbaru', [ProgramController::class, 'urutTerbaru']);
 Route::get('programs/{program:id}', [ProgramController::class, 'show']);
-Route::get('news/{news:id}', [NewsController::class, 'show']);
 Route::get('/categories/{category}', [CategoryController::class, 'show']);
 Route::get('/categoriesdesak/{category}', [CategoryController::class, 'showmendesak']);
 Route::get('/categoriesbaru/{category}', [CategoryController::class, 'showterbaru']);
@@ -74,46 +71,22 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/tbl-program', [AdminController::class, 'tabelprogram']);
         Route::get('/tbl-user', [AdminController::class, 'tabeluser']);
         Route::get('/tbl-transaksi', [AdminController::class, 'tabeltransaksi']);
-
         Route::get('/tbl-news', [AdminController::class, 'tabelnews']);
-        Route::post('/tambahnews', [AdminController::class, 'create']);
-        Route::post('/updatenews', [AdminController::class, 'update']);
-        Route::post('/deletenews', [AdminController::class, 'delete']);
-
-        // Animate Number
-        Route::get('/getTotalDana', [AdminController::class, 'getTotalDana']);
     });
 
     // Halaman yang bisa diakses oleh Customer
-    Route::group(['middleware' => ['cekrole:pengunjung', 'verified']], function() {
+    Route::group(['middleware' => 'cekrole:pengunjung','verified'], function() {
         // Fitur User
         Route::get('/profile', [UserController::class, 'profile']);
-        // Update Profil
-        Route::put('/profil/{id}', [UserController::class, 'update']);
-        // Update Password User
-        Route::put('/ubahpw', [UserController::class, 'updatepw']);
-        // Reset Password User
-        Route::post('/lupaPw', [MailController::class, 'lupaPw']);
-
+        Route::get('/ubahpwd', [UserController::class, 'ubahpw']);
         Route::get('/programku', [UserController::class, 'programku']);
-        Route::get('programku/{program:id}', [UserController::class, 'show']);
-        Route::post('/programku/{id}', [ProgramController::class, 'update']);
-        Route::post('/editFotoProgram/{id}', [ProgramController::class, 'editFotoProgram']);
-
-        // Edit Kabar Terbaru
-        Route::post('editkabar/{id}', [KabarTerbaruController::class, 'update']);
-        Route::post('/tambahkabar', [KabarTerbaruController::class, 'create']);
-        Route::post('/deletekabar', [KabarTerbaruController::class, 'delete']);
-
         Route::get('/rwytdonasi', [UserController::class, 'rwytdonasi']);
         Route::get('/form-donasi/{id}', [DonasiController::class, 'index']);
         Route::post('/newToken', [MidtransController::class, 'newToken']);
         Route::get('/form-program', [ProgramController::class, 'galangdana']);
         Route::post('/upProgram', [ProgramController::class, 'create']);
+        Route::put('/programku/{id}', [ProgramController::class, 'update']);
         Route::post('/ubahAnonim', [UserController::class, 'ubahAnonim']);
-
-        // Animate Number
-        Route::get('/totaldanaSaya', [UserController::class, 'totaldanaSaya']);
         Route::get('/totalDonasi', [UserController::class, 'totalDonasi']);
     });
 
@@ -134,10 +107,12 @@ Route::get('/getBaruBencana', [ProgramController::class, 'getBaruBencana']);
 // Progress Bar
 Route::get('/getprogram', [ProgramController::class, 'getprogram']);
 
-// Show More
-Route::get('/show-more', [Controller::class, 'getprogram']);
+// Animate Number
+Route::get('/getTotalDana', [AdminController::class, 'getTotalDana']);
 
-// Update Dana Terkumpul
-Route::any('/updateDana', [MidtransController::class, 'updateDana']);
-
-Route::any('/showMore', [DonasiController::class, 'showMore']);
+// Update Profil
+Route::put('/profil/{id}', [UserController::class, 'update']);
+// Update Password User
+Route::put('/ubahpw', [UserController::class, 'updatepw']);
+// Reset Password User
+Route::post('/lupaPw', [MailController::class, 'lupaPw']);

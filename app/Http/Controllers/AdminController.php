@@ -8,7 +8,6 @@ use App\Models\Program;
 use App\Models\PencairanDana;
 use App\Models\Donasi;
 use App\Models\News;
-use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -95,8 +94,7 @@ class AdminController extends Controller
 
         return view('admin.tbl-news', [
             'news' => User::join('news', 'news.user_id','=','users.id')->join('categories', 'categories.id','=','news.category_id')->select('users.nama as penulis','categories.nama as kategori','news.id','news.image','news.judul','news.konten','news.created_at')->orderBy('news.id','desc')->paginate(10),
-            'title' => 'Data Artikel',
-            'categories' => Category::all()
+            'title' => 'Data Artikel'
         ]);
     }
 
@@ -108,68 +106,7 @@ class AdminController extends Controller
         $program = Program::find($request->program_id);
         $program->update($validated);
 
-        return redirect('/tbl-program')->with('status', 'Status program berhasil diubah');
-    }
-
-    public function create(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => ['required'],
-            'category_id' => ['required'],
-            'judul' => ['required'],
-            'konten' => ['required'],
-            'image' => ['required', 'image', 'file']
-        ]);
-
-        if ($request->file('image')) {
-            $validated['image'] = $request->file('image')->store('news');
-        }
-
-        $created = News::create($validated);
-        if ($created) {
-            return redirect('/tbl-news')->with('alert', 'Artikel anda berhasil dibuat!');
-        } else {
-            return back()->with('alert', 'Error, Artikel gagal dibuat');
-        }
-
-    }
-    public function update(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => ['required'],
-            'category_id' => ['required'],
-            'judul' => ['required'],
-            'konten' => ['required'],
-            'image' => ['image', 'file'],
-        ]);
-
-        if ($request->file('image')) {
-            $validated['image'] = $request->file('image')->store('news');
-        }
-
-        $news = News::find($request->id);
-        $updated = $news->update($validated);
-        if ($updated) {
-            return redirect('/tbl-news')->with('alert', 'Artikel anda berhasil diubah!');
-        } else {
-            return back()->with('alert', 'Error, Artikel gagal diubah');
-        }
-
-    }
-    public function delete(Request $request)
-    {
-        $validated = $request->validate([
-            'id' => ['required']
-        ]);
-
-        $news = News::find($request->id);
-        $deleted = $news->delete();
-        if ($deleted) {
-            return redirect('/tbl-news')->with('alert', 'Artikel anda berhasil dihapus!');
-        } else {
-            return back()->with('alert', 'Error, Artikel gagal dihapus');
-        }
-
+        return redirect('/tblprogram')->with('status', 'Status program berhasil diubah');
     }
 
 }

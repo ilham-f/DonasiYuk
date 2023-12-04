@@ -18,7 +18,6 @@
         <section class="section">
             <div class="card">
                 <div class="card-body">
-                    <h5>Total User: {{ count($users) }}</h5>
                     <table class="table table-hover">
                         <thead>
                             <tr>

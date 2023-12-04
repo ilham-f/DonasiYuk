@@ -125,41 +125,80 @@
                             </h2>
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    <p>{{ $program->deskripsi }}</p>
+                                    {{ $program->deskripsi }}
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
-                                aria-controls="panelsStayOpen-collapseTwo">
-                                Kabar Terbaru
-                            </button>
+                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapseTwo">
+                                    Kabar Terbaru
+                                </button>
                             </h2>
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    @if (count($kabars))
-                                        @foreach ($kabars as $kabar)
-                                            <div class="d-flex flex-column">
-                                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                                    <span class="d-flex align-items-center me-3">
-                                                        <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar"
-                                                            class="rounded-circle img-fluid me-2" style="width: 35px;" />
-                                                        <small class="bolder">{{ $owner->nama }}</small>
-                                                    </span>
-                                                    <small>{{ Carbon\Carbon::parse($kabar->updated_at)->diffForHumans() }}</small>
-                                                </div>
-                                                <strong class="mb-1">{{ $kabar->judulKabar }}</strong>
-                                                <span>
-                                                    {{ $kabar->detailKabar }}
-                                                </span>
-                                                <hr>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <span>Pemilik program belum memperbarui kabar terbaru</span>
-                                    @endif
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">@$owner->nama</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Operasi Jantung</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
+                                        </span>
+                                        <hr>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Operasi Lambung</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
+                                        </span>
+                                        <hr>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Operasi Usus</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
+                                        </span>
+                                        <hr>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -173,31 +212,66 @@
                             </h2>
                             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    @if (count($pencairans))
-                                        @foreach ($pencairans as $pencairan)
-                                            <div class="d-flex flex-column">
-                                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                                    <span class="d-flex align-items-center me-3">
-                                                        <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar"
-                                                            class="rounded-circle img-fluid me-2" style="width: 35px;" />
-                                                        <small class="bolder">{{ $owner->nama }}</small>
-                                                    </span>
-                                                    <small>{{ Carbon\Carbon::parse($pencairan->updated_at)->diffForHumans() }}</small>
-                                                </div>
-                                                <strong class="mb-2">Pencairan Dana {{ $pencairan->jumlah }}</strong>
-                                                <span class="mb-2">
-                                                    {{ $pencairan->tujuan }}
-                                                </span>
-                                                @if ($pencairan->bukti != '')
-                                                    <img style="height: 150px; width: 200px" src="{{ asset('storage/' . $pencairan->bukti) }}"
-                                                        class="d-block card-img-top rounded" alt="{{ $pencairan->bukti }}">
-                                                @endif
-                                                <hr>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <span>Pemilik program belum pernah melakukan pencairan dana</span>
-                                    @endif
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Pencairan Dana 10.000</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
+                                        </span>
+                                        <hr>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Pencairan Dana 10.000</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
+                                        </span>
+                                        <hr>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="d-flex align-items-center me-3">
+                                                <img src="{{ asset('assets/img/male.jpg') }}" alt="Avatar"
+                                                    class="img-fluid me-2" style="width: 35px;" />
+                                                <h5 class="pt-2 fw-bolder">{{ @$owner->nama }}</h6>
+                                            </span>
+                                            <small>1 jam lalu</small>
+                                        </div>
+                                        <strong class="mb-1">Pencairan Dana 10.000</strong>
+                                        <span>
+                                            It is hidden by default, until the collapse plugin adds the appropriate classes
+                                            that we use to style each element. These classes control the overall appearance,
+                                            as well as the showing and hiding via CSS transitions. You can modify any of
+                                            this with custom CSS or overriding our default variables. It's also worth noting
+                                            that just about any HTML can go within the <code>.accordion-body</code>, though
+                                            the transition does limit overflow.
+                                        </span>
+                                        <hr>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -206,49 +280,36 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
                                     aria-controls="panelsStayOpen-collapseFour">
-                                    Donasi & Doa
+                                    Donasi
                                 </button>
                             </h2>
                             <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
                                 <div class="accordion-body">
-                                    <div id="content">
-                                        {{-- @dd($donasis) --}}
-                                        @if (count($donasis))
-                                            @foreach ($donasis as $donasi)
-                                                <div class="d-flex flex-column">
-                                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                                        <span class="d-flex align-items-center me-3">
-                                                            <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar"
-                                                                class="rounded-circle img-fluid me-2" style="width: 35px;" />
-                                                            <small class="bolder">
-                                                                @if ($donasi->anonim != '' && $donasi->anonim != 0)
-                                                                    #OrangBaik
-                                                                @else
-                                                                    {{ $donasi->nama }}
-                                                                @endif
-                                                            </small>
-                                                        </span>
-                                                        <small>{{ Carbon\Carbon::parse($donasi->updated_at)->diffForHumans() }}</small>
-                                                    </div>
-                                                    <strong class="mb-2">{{ $donasi->jml_donasi }}</strong>
-                                                    <span class="mb-2">
-                                                        {{ $donasi->doa }}
-                                                    </span>
-                                                    <hr>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <span>Program ini belum menerima donasi</span>
-                                        @endif
-                                    </div>
-                                    @if ($donasis != '')
-                                        <div class="d-none" id="programid">{{ $donasi->program_id }}</div>
-                                    @endif
-                                    @if (count($donasis) >= 3)
-                                        <button id="show-more" class="btn btn-dark w-100 py-2 border-0">
-                                            <small>----&nbsp;&nbsp; Tampilkan lebih banyak &nbsp;&nbsp;----</small>
-                                        </button>
-                                    @endif
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until
+                                    the collapse plugin adds the appropriate classes that we use to style each element.
+                                    These classes control the overall appearance, as well as the showing and hiding via CSS
+                                    transitions. You can modify any of this with custom CSS or overriding our default
+                                    variables. It's also worth noting that just about any HTML can go within the
+                                    <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseFive">
+                                    Doa
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until
+                                    the collapse plugin adds the appropriate classes that we use to style each element.
+                                    These classes control the overall appearance, as well as the showing and hiding via CSS
+                                    transitions. You can modify any of this with custom CSS or overriding our default
+                                    variables. It's also worth noting that just about any HTML can go within the
+                                    <code>.accordion-body</code>, though the transition does limit overflow.
                                 </div>
                             </div>
                         </div>
@@ -257,64 +318,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        moment.locale('id');
-        // Function to load more items via AJAX
-        function loadMoreItems() {
-            // Define a variable to keep track of the number of items shown
-            let itemsShown = 3;
-            var programid = $('#programid').html();
-            // Make an AJAX request to retrieve more items from the server
-            // Adjust the URL and data based on your server-side implementation
-            $.ajax({
-                url: '/showMore',
-                type: 'GET',
-                data: { start: itemsShown,
-                        program_id: programid },
-                success: function(response) {
-                    console.log(response);
-                    console.log(response[1]);
-                    console.log(response[0]);
-                    donasiLength = response[0];
-                    donasis = response[1];
-                    //Check if there are more items
-                    if (donasiLength > 0) {
-                        $.each(donasis, function (index, value) {
-                            var html = '<div class="d-flex flex-column doa">'+
-                                            '<div class="d-flex align-items-center justify-content-between mb-2">'+
-                                                '<span class="d-flex align-items-center me-3">'+
-                                                    '<img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar"'+
-                                                        'class="rounded-circle img-fluid me-2" style="width: 35px;" />'+
-                                                    '<small class="bolder">'+ value.nama +'</small>'+
-                                                '</span>'+
-                                                '<small>'+ moment(value.created_at).fromNow() +'</small>'+
-                                            '</div>'+
-                                            '<strong class="mb-2">'+ value.jml_donasi +'</strong>'+
-                                            '<span class="mb-2">'+ value.doa +'</span>'+
-                                            '<hr>'+
-                                        '</div>';
-                            $('#content').append(html);
-                        });
-                        // Increment the counter
-                        itemsShown += donasiLength;
-                    }
-                    if (donasiLength <= 3) {
-                        $('#show-more').hide();
-                    }
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-
-        // Event listener for the load more button
-        $('#show-more').click(function() {
-            console.log('tes');
-            loadMoreItems();
-        });
-    </script>
 
     <script>
         $(document).ready(function() {

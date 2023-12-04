@@ -23,13 +23,12 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/swipper.css') }}" />
 
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js"></script>
-
     {{-- <script src="{{ asset('js/lightslider.js') }}"></script> --}}
 
-    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key='{{ env('MIDTRANS_CLIENT_KEY') }}'></script>
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-3sVsCf9Xw8UBQcSB">
+    </script>
 
     <style>
         .text-cursive {
@@ -56,8 +55,7 @@
     </footer> --}}
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -114,11 +112,11 @@
                         <form class="px-3 pt-2" action="/forgot-password" method="post">
                             @csrf
                             <div class="row g-3">
-                                <small class="mb-2" style="margin-left: -8px">Isi dengan email yang telah terdaftar di
-                                    akun anda!</small>
+                                <small class="mb-2" style="margin-left: -8px">Isi dengan email yang telah terdaftar di akun anda!</small>
                             </div>
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" placeholder="Email">
+                                <input type="text" name="email" class="form-control mb-2"
+                                    placeholder="Email">
                             </div>
                             <div class="row g-3">
                                 <button type="submit" class="btn btn-dark mb-2" style="width: 100%">Submit</button>
@@ -144,7 +142,8 @@
                         <form class="px-3 pt-2" action="/login" method="post">
                             @csrf
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" placeholder="Email">
+                                <input type="text" name="email" class="form-control mb-2"
+                                    placeholder="Email">
                             </div>
                             <div class="row g-3">
                                 <input type="password" name="password" class="form-control mb-2"
@@ -165,8 +164,7 @@
                         </div>
                         <div class="d-flex justify-content-between px-2">
                             <p class="mt-3" style="font-size: 13px; text-align: center;">
-                                <a data-bs-toggle="modal" data-bs-target="#lupa" class="text-dark"
-                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Lupa Password</a>
+                                <a data-bs-toggle="modal" data-bs-target="#lupa" class="text-dark" style="font-size: 13px; font-weight: 600; cursor: pointer;">Lupa Password</a>
                             </p>
                             <p class="mt-3" style="font-size: 13px; text-align: center;">Belum punya akun?
                                 <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
@@ -179,7 +177,7 @@
         </div>
     </div>
 
-    {{-- Modal Login 2 --}}
+    {{-- Modal Login 2--}}
     <div class="modal fade" id="login2" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -191,8 +189,7 @@
                     @if (session('logindulu'))
                         <div class="alert alert-warning alert-dismissible fade show">
                             {{ session('logindulu') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
                     <!-- Form input-->
@@ -200,7 +197,8 @@
                         <form class="px-3 pt-2" action="/login" method="post">
                             @csrf
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" placeholder="Email">
+                                <input type="text" name="email" class="form-control mb-2"
+                                    placeholder="Email">
                             </div>
                             <div class="row g-3">
                                 <input type="password" name="password" class="form-control mb-2"
@@ -221,8 +219,7 @@
                         </div>
                         <div class="d-flex justify-content-between px-2">
                             <p class="mt-3" style="font-size: 13px; text-align: center;">
-                                <a data-bs-toggle="modal" data-bs-target="#lupa" class="text-dark"
-                                    style="font-size: 13px; font-weight: 600; cursor: pointer;">Lupa Password</a>
+                                <a data-bs-toggle="modal" data-bs-target="#lupa" class="text-dark" style="font-size: 13px; font-weight: 600; cursor: pointer;">Lupa Password</a>
                             </p>
                             <p class="mt-3" style="font-size: 13px; text-align: center;">Belum punya akun?
                                 <a data-bs-toggle="modal" data-bs-target="#daftar" class="text-dark"
@@ -245,7 +242,6 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form input-->
-
                     <div class="loginInput">
                         <form class="px-3 pt-2" action="/regis" method="post">
                             @csrf
@@ -254,7 +250,8 @@
                                     placeholder="Nama Lengkap (sesuai KTP)">
                             </div>
                             <div class="row g-3">
-                                <input type="text" name="email" class="form-control mb-2" placeholder="Email">
+                                <input type="text" name="email" class="form-control mb-2"
+                                    placeholder="Email">
                             </div>
                             <div class="row g-3">
                                 <input type="password" name="password" class="form-control mb-2" id="password1"
@@ -288,14 +285,6 @@
         </div>
     </div>
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <script>
-                alert('{{ $error }}')
-            </script>
-        @endforeach
-    @endif
-
     <script src="{{ asset('js/swipper.js') }}"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -314,5 +303,4 @@
         }
     </script>
 </body>
-
 </html>
