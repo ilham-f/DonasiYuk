@@ -83,17 +83,12 @@
                                 <label>Status</label>
                                 <select class="form-select w-50 border-1 rounded" name="status">
                                     {{-- <option>Pilih Status</option> --}}
-                                    {{-- @dd($program->created_at) --}}
-                                    @if ($program->status == 1 && Carbon\Carbon::parse($program->created_at) < time())
+                                    @if ($program->status == 1)
                                         <option selected value="1">Sedang Berjalan</option>
                                         <option value="0">Proses Verifikasi</option>
-                                    @elseif ($program->status == 0 && Carbon\Carbon::parse($program->created_at) < time())
+                                    @else
                                         <option selected value="0">Proses Verifikasi</option>
                                         <option value="1">Sedang Berjalan</option>
-                                    @else
-                                        <div class="py-2 rounded" style="background-color: #fff3cd">
-                                            <small class="text-danger fst-italic">Telah berakhir</small>
-                                        </div>
                                     @endif
                                 </select>
                             </div>
