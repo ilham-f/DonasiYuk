@@ -13,7 +13,7 @@
                     <button class="btn btn-outline-dark mb-2"
                         onclick="location.href='/profile'"><small>Profil Saya</small>
                     </button>
-                    <button class="ubahProfil btn btn-outline-dark mb-2" data-bs-toggle="modal"
+                    <button type="button" class="ubahProfil btn btn-outline-dark mb-2" data-bs-toggle="modal"
                         data-bs-target="#profil-{{ Auth::user()->id }}"><small>Ubah Profil</small>
                     </button>
                     <button class="ubahPw btn btn-outline-dark mb-2" data-bs-toggle="modal"

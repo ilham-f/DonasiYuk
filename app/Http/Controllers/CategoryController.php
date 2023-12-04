@@ -83,7 +83,7 @@ class CategoryController extends Controller
     {
         // dd($category->programs());
         $now = Carbon::now();
-        $programs = $category->programs()->where('batastanggal','>=',$now)->where('programs.status','=','1')->orderBy('tglmulai', 'desc')->paginate(12);
+        $programs = $category->programs()->where('batastanggal','>=',$now)->where('programs.status','=','1')->orderBy('created_at', 'desc')->paginate(12);
         // dd($programs);
         return view('user.program', [
             'programs' => $programs,

@@ -172,10 +172,6 @@
                             </select>
                         </div>
                         <div class="col mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" name="email" class="form-control" value="{{ $user->email }}" />
-                        </div>
-                        <div class="col mb-3">
                             <label for="notelp" class="form-label">No. Telepon</label>
                             <input type="text" name="notelp" class="form-control" value="{{ $user->notelp }}"
                                 placeholder="No. Telepon" />
@@ -187,7 +183,6 @@
                         </div>
                         <button type="submit" class="btn btn-info ms-3 text-light" style="width: 150px">Simpan</button>
                     </form>
-
                 </div>
             </div>
         </div>

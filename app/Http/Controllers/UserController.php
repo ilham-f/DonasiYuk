@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Donasi;
 use App\Models\Program;
 use App\Models\Category;
+use App\Models\KabarTerbaru;
+use App\Models\PencairanDana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +19,6 @@ class UserController extends Controller
     public function programku(){
         $userid = Auth::user()->id;
         $myprogram = Program::where('user_id','=',$userid)->paginate(5);
-        // $image = ProgramImage::where('mainImage','=','1');
-        // dd($myprogram);
         return view('user.myprogram', [
             'myprogram' => $myprogram,
             // 'users' => User::all(),
@@ -107,9 +107,17 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Program $program)
     {
-        //
+        // dd($image);
+        // dd(KabarTerbaru::where('program_id','=',$program->id)->get());
+        return view('user.detail-programku', [
+            'program' => $program,
+            'owner' => User::find(Auth::user()->id),
+            'kabars' => KabarTerbaru::where('program_id','=',$program->id)->get(),
+            'pencairans' => PencairanDana::where('program_id','=',$program->id)->get(),
+            'donasis' => Donasi::join('users','users.id','=','donasis.user_id')->select('donasis.*','users.anonim' ,'users.nama', 'donasis.program_id')->where('program_id','=',$program->id)->paginate(3)
+        ]);
     }
 
     /**

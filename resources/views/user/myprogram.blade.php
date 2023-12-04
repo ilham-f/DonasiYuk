@@ -63,12 +63,9 @@
                             </td>
                             {{-- Aksi --}}
                             <td class="text-center">
-                                <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#info-{{ $program->id }}">
-                                    <i class="bi bi-info-square"></i>
-                                </button>
-                                <button class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#ubah-{{ $program->id }}">
-                                    <i class="bi bi-pencil-square"></i>
+                                <button class="btn btn-info" onclick="window.location.href='programku/{{ $program->id }}'">
+                                    <i class="bi bi-gear"></i>
+                                    <span class="ms-2">Atur Program</span>
                                 </button>
                             </td>
                         </tr>
@@ -82,38 +79,4 @@
             <span>Anda belum memiliki program</span>
         @endif
     </div>
-
-    <!-- Modal Ubah-->
-    @foreach ($myprogram as $program)
-        <div class="modal fade" id="ubah-{{ $program->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">Ubah Program</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form class="row d-flex flex-column" action="/programku/{{ $program->id }}" method="post">
-                            @method('put')
-                            @csrf
-                            <div class="col mb-3">
-                                <label for="program" class="form-label">Judul</label>
-                                <input type="text" name="judul" class="form-control"
-                                    value="{{ $program->judul }}" />
-                            </div>
-                            <div class="col mb-3">
-                                <label for="program" class="form-label">Deskripsi</label>
-                                <textarea type="text" name="deskripsi" class="form-control"
-                                    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' value="{{ $program->deskripsi }}">{{ $program->deskripsi }}</textarea>
-                            </div>
-                            <button type="submit" class="btn btn-info ms-3 text-light"
-                                style="width: 150px">Simpan</button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
 @endsection

@@ -27,7 +27,7 @@
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="" class="btn btn-outline-light my-1"
+                                        <a href="news/{{ $n->id }}" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                     <div class="carousel-caption rounded d-inline-block" style="max-width: 100%;">
                                         <h5 class="fw-bolder">{{ $n->judul }}</h5>
                                         <p class="text-truncate">{{ $n->deskripsi }}</p>
-                                        <a href="" class="btn btn-outline-light my-1"
+                                        <a href="news/{{ $n->id }}" class="btn btn-outline-light my-1"
                                             style="font-size: 14px">Selengkapnya >></a>
                                     </div>
                                 </div>
@@ -195,7 +195,11 @@
                                                 @endif
                                             </small>
                                             {{-- Terkumpul --}}
-                                            <p class="mb-0 fw-bolder">Rp{{ $program->danaterkumpul }}</p>
+                                            @if ($program->danaterkumpul)
+                                                <p class="mb-0 fw-bolder">Rp{{ $program->danaterkumpul }}</p>
+                                            @else
+                                                <p class="mb-0 fw-bolder">Rp0</p>
+                                            @endif
                                             {{-- Target --}}
                                             <small>Terkumpul dari Rp{{ $program->target }}</small>
 
@@ -362,7 +366,11 @@
                                                 @endif
                                             </small>
                                             {{-- Terkumpul --}}
-                                            <p class="mb-0 fw-bolder">Rp{{ $program->danaterkumpul }}</p>
+                                            @if ($program->danaterkumpul)
+                                                <p class="mb-0 fw-bolder">Rp{{ $program->danaterkumpul }}</p>
+                                            @else
+                                                <p class="mb-0 fw-bolder">Rp0</p>
+                                            @endif
                                             {{-- Target --}}
                                             <small>Terkumpul dari Rp{{ $program->target }}</small>
 

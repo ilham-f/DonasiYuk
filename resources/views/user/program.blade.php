@@ -330,7 +330,11 @@
                                                 @endif
                                             </small>
                                             {{-- Terkumpul --}}
-                                            <p class="mb-0 fw-bolder">Rp{{ $program->danaterkumpul }}</p>
+                                            @if ($program->danaterkumpul)
+                                                <p class="mb-0 fw-bolder">Rp{{ $program->danaterkumpul }}</p>
+                                            @else
+                                                <p class="mb-0 fw-bolder">Rp0</p>
+                                            @endif
                                             {{-- Target --}}
                                             <small>Terkumpul dari Rp{{ $program->target }}</small>
 

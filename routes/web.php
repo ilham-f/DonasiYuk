@@ -13,6 +13,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\KabarTerbaruController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/tbl-user', [AdminController::class, 'tabeluser']);
         Route::get('/tbl-transaksi', [AdminController::class, 'tabeltransaksi']);
         Route::get('/tbl-news', [AdminController::class, 'tabelnews']);
+        Route::post('/tambahnews', [AdminController::class, 'create']);
+        Route::post('/updatenews', [AdminController::class, 'update']);
+        Route::post('/deletenews', [AdminController::class, 'delete']);
     });
 
     // Halaman yang bisa diakses oleh Customer
@@ -85,9 +89,16 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/newToken', [MidtransController::class, 'newToken']);
         Route::get('/form-program', [ProgramController::class, 'galangdana']);
         Route::post('/upProgram', [ProgramController::class, 'create']);
-        Route::put('/programku/{id}', [ProgramController::class, 'update']);
+        Route::get('programku/{program:id}', [UserController::class, 'show']);
+        Route::post('/programku/{id}', [ProgramController::class, 'update']);
         Route::post('/ubahAnonim', [UserController::class, 'ubahAnonim']);
         Route::get('/totalDonasi', [UserController::class, 'totalDonasi']);
+        Route::post('/editFotoProgram/{id}', [ProgramController::class, 'editFotoProgram']);
+
+        // Edit Kabar Terbaru
+        Route::post('editkabar/{id}', [KabarTerbaruController::class, 'update']);
+        Route::post('/tambahkabar', [KabarTerbaruController::class, 'create']);
+        Route::post('/deletekabar', [KabarTerbaruController::class, 'delete']);
     });
 
 });
